@@ -12,8 +12,8 @@ const commentSchema = new Schema(
 		},
 		post: {
 			type: mongoose.Types.ObjectId,
-			ref: "post",
-		},
+			ref: "post"
+		}
 	},
 	{ timestamps: true },
 );
