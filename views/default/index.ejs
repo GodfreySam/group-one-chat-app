@@ -40,11 +40,11 @@
 		<div class="d-flex justify-content-between mt-4">
 			<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
 			<div class="d-flex">
-				<form action="">
-					<input type="text" name="like" style="display: none" />
-					<a class="mr-2" type="submit" href="#" role="button">
-						<i class="fa fa-heart" aria-hidden="true"></i>
-					</a>
+				<form action="/like/user-like" method="POST">
+					<input type="text" name="like" value="like" style="display: none" />
+					<button class="like-btn" type="submit">
+						<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
+					</button>
 				</form>
 				<p>20 likes</p>
 			</div>
@@ -77,12 +77,13 @@
 		</div>
 		<div class="collapse" id="writeComment">
 			<div class="card card-body">
-				<form action="" method="post">
+				<form action="/comment/user-comment" method="post">
 					<div class="form-group">
-						<label for="exampleFormControlTextarea1">Example textarea</label>
+						<label for="comment">Example textarea</label>
 						<textarea
 							class="form-control"
-							id="exampleFormControlTextarea1"
+							id="comment"
+							name="comment"
 							rows="3"
 							placeholder="Write a public comment"
 						></textarea>
