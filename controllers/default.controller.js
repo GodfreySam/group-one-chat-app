@@ -3,12 +3,14 @@ const Post = require("../models/Post.model");
 const User = require("../models/User.model");
 
 module.exports = {
-	home: (req, res) => {
-		let pageTitle = "Home page";
-		let user = await User.find({ user: req.user }).populate(
-			"comments post",
-		);
-		res.render("default/index", { pageTitle });
+	home: async (req, res) => {
+		try {
+			let pageTitle = "Home page";
+			let user = await User.find({ user: req.user }).populate("comments post");
+			res.render("default/index", { pageTitle });
+		} catch (err) {
+			console.log(err);
+		}
 	},
 
 	postComment: async (req, res) => {
