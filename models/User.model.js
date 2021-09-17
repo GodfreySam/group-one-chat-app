@@ -10,16 +10,13 @@ const userSchema = new Schema(
 		lastName: {
 			type: String,
 		},
-		username: {
-			type: String,
-		},
 		email: {
 			type: String,
 		},
 		password: {
 			type: String,
 		},
-		post: [
+		posts: [
 			{
 				type: mongoose.Types.ObjectId,
 				ref: "post",
