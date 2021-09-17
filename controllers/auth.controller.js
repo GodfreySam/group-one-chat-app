@@ -1,8 +1,28 @@
 const User = require("../models/User.model");
 const passport = require("passport");
+const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
-// const verifyEmail = require("../../utils/verifyEmail");
+const verifyEmail = require("../../utils/verifyEmail");
+
+
+passport.use(new LocalStrategy({usernameField: 'email', passReqToCallback: true}, async(req, email, password, done) =>{
+	await User.findOne({email})
+	.then(async(user)=>{
+		if (!user) {
+			return done(null, false, req.flash('error-message', 'User not found. Please try again'))
+		};
+		bcrypt.compare(password, user.password, (err, passwordMatch) =>{
+			if (err) {
+				return err;
+			}
+			if (!passwordMatch) {
+				return done(null, false, req.flash('error-message', 'Password Incorrect'))
+			}
+			return done(null, user, req.flash('success-message', 'Login successful'))
+		});
+	});
+}))
 
 module.exports = {
 	register: async (req, res) => {
@@ -15,9 +35,30 @@ module.exports = {
 		res.render("auth/login", { pageTitle });
 	},
 
+	verify: async (req, res) => {
+		let pageTitle = "Token Verification";
+		res.render("auth/verify", { pageTitle });
+	},
+
+	postVerify: async (req, res) => {
+		let {inputToken} = req.body;
+
+		console.log(req.body);
+		let user = await User.findOne({ secretToken: inputToken });
+
+		if (!user) {
+			req.flash('error-message', 'Wrong token. Please copy the token appropriately');
+			return res.redirect('back')
+		}
+
+		user.verified = true;
+		user.save();
+		res.redirect("auth/login", { pageTitle });
+	},
+
 	postRegister: async (req, res) => {
 		try {
-			let { username, email, password, confirmPassword } = req.body;
+			let { firstName, lastName , email, password, confirmPassword } = req.body;
 
 			// console.log(req.body);
 
@@ -26,13 +67,7 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			let userExists = await User.findOne({ username });
 			let emailExists = await User.findOne({ email });
-
-			if (userExists) {
-				req.flash("error-message", "Username aleady exist!");
-				return res.redirect("back");
-			}
 
 			if (emailExists) {
 				req.flash("error-message", "Email aleady exist!");
@@ -49,15 +84,15 @@ module.exports = {
 			const secretToken = randomstring.generate();
 
 			const newUser = new User({
-				username,
+				firstName, 
+				lastName , 
 				email,
-				secretToken,
 				password: hashedPassword,
 			});
 
 			await newUser.save();
 
-			await verifyEmail(req, username, email, secretToken);
+			await verifyEmail(req, email, email, secretToken);
 
 			if (!newUser) {
 				req.flash("error-message", "An error occurred while registering user");

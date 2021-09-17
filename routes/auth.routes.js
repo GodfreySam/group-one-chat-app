@@ -4,6 +4,8 @@ const {
 	register,
 	login,
 	postLogin,
+	verify,
+	postVerify,
 	postRegister,
 	forgotPassword,
 	postForgotPassword,
@@ -12,6 +14,8 @@ const {
 router.route("/register").get(register).post(postRegister);
 
 router.route("/login").get(login).post(postLogin);
+
+router.route("/verify").get(verify).post(postVerify);
 
 router.route("/forgot-password").get(forgotPassword).post(postForgotPassword);
 
