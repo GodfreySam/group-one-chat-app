@@ -10,7 +10,7 @@ const ejs = require("ejs");
 const flash = require("connect-flash");
 const dotenv = require("dotenv")
 // Load config
-dotenv.config({ path: "./config/config.env" });
+dotenv.config();
 
 // Global Variables
 const { globalVariables } = require("./middlewares/configurations");
@@ -20,7 +20,7 @@ require("./config/passport.config")(passport);
 
 //  Database connection
 mongoose
-	.connect("mongodb://localhost/waawsocial")
+	.connect(process.env.DATABASE)
 	.then((connected) => console.log("Database connected successfully"))
 	.catch((err) => console.log("Error connecting to DB", err));
 
@@ -40,9 +40,9 @@ app.use(
 		resave: true,
 		cookie: { maxAge: Date.now() + 3600 * 24 * 60 * 60 },
 		store: mongoStore.create({
-			mongoUrl: "mongodb://localhost/waawsocial",
+			mongoUrl: process.env.DATABASE,
 			ttl: 3600 * 24 * 60 * 60,
-		}),
+		})
 	}),
 );
 
@@ -53,6 +53,8 @@ app.use(flash());
 app.use(globalVariables);
 
 app.set("views", path.join(__dirname, "views"));
+app.use(express.static(path.join(__dirname, 'public')));
+
 app.set("view engine", "ejs");
 
 // Routes (Routes grouping)

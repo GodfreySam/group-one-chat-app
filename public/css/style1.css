@@ -1,0 +1,47 @@
+
+.img{
+    
+    background: url('/images/Group.svg'), #407BFF;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+}
+.first-col{
+    background-color: #407BFF;
+    opacity: 0.8;
+}
+.third-col{
+    background-color: #407BFF;
+    opacity: 0.8;
+}
+.form{
+    margin-top: 90px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+    width: 500px;
+    height: 400px;
+    background-color: #f3f3f3;
+}
+.regform{
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 500px;
+    height: 520px;
+    background-color: #f3f3f3;
+}
+#form{
+    width: 400px;
+    height: 50%;
+    margin-top: 50px;
+    
+}
+#form p{
+    font-size: 25px;
+    font-weight: 600;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
