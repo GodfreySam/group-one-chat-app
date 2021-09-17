@@ -13,7 +13,7 @@ const dotenv = require("dotenv")
 dotenv.config({ path: "./config/config.env" });
 
 // Global Variables
-// const { globalVariables } = require("./config/configuration");
+const { globalVariables } = require("./middlewares/configurations");
 
 // Passport config
 require("./config/passport.config")(passport);

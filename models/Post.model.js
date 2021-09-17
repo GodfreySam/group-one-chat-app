@@ -10,6 +10,12 @@ const postSchema = new Schema(
 			type: mongoose.Types.ObjectId,
 			ref: "user",
 		},
+		users: [
+			{
+				type: mongoose.Types.ObjectId,
+				ref: "post",
+			}
+		],
 		comments: [
 			{
 				type: mongoose.Schema.Types.ObjectId,
