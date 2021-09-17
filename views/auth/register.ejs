@@ -8,8 +8,24 @@
 		</div>
 
 		<form action="/auth/register" method="post">
-			<label for="username">Username</label>
-			<input type="text" name="username" id="" placeholder="e.g. Freyyo" required />
+			<label for="">First Name</label>
+			<input 
+				type="text" 
+				name="firstName" 
+				id="" 
+				placeholder="e.g. Freyyo" 
+				required 
+			/>
+
+			<label for="">Last Name</label>
+			<input 
+				type="text" 
+				name="lastName" 
+				id="" 
+				placeholder="e.g. Freyyo" 
+				required 
+			/>
+
 			<label for="email">Email</label>
 			<input
 				type="email"
@@ -18,6 +34,7 @@
 				placeholder="name@gmail.com"
 				required
 			/>
+
 			<label for="password">Password</label>
 			<input
 				type="password"
@@ -26,6 +43,7 @@
 				placeholder="6+ characters"
 				required
 			/>
+
 			<label for="confirmPassword">Confirm Password</label>
 			<input
 				type="password"

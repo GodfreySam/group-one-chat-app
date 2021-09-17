@@ -1,6 +1,7 @@
 const sendEmail = require('../misc/mailer');
+const { getMaxListeners } = require( '../models/User.model' );
 
-const verifyUserEmail = async (req, username, email, secretToken) => {
+const verifyUserEmail = async (req, firstName, email, secretToken) => {
    const html = `
       Hello ${firstName},
       <br/>
@@ -8,7 +9,7 @@ const verifyUserEmail = async (req, username, email, secretToken) => {
 
       Thank you for registering an account with us at .
       <br/><br/>
-      Please copy  to verify your account:  ${secretToken}
+      Please copy  to verify your account:  <strong>${secretToken}<strong/>
       <br/>
 
       <br/><br/>
@@ -18,8 +19,8 @@ const verifyUserEmail = async (req, username, email, secretToken) => {
    `;
 
    await sendEmail(
-      'godfreysam09@gmail.com',
-      email,
+      'akpologun.winner@gmail.com',
+      'akpologun.winner@gmail.com',
       "Please verify your account",
       html
    )
