@@ -13,7 +13,7 @@ const flash = require("connect-flash");
 dotenv.config({ path: "./config/config.env" });
 
 // Global Variables
-const { globalVariables } = require("./config/configuration");
+const { globalVariables } = require("./middlewares/configurations");
 
 // Passport config
 require("./config/passport.config")(passport);
@@ -56,8 +56,8 @@ app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
 // Routes (Routes grouping)
-const defaultRoutes = require("./routes/default/default.routes");
-const authRoutes = require("./routes/auth/auth.routes");
+const defaultRoutes = require("./routes/default.routes");
+const authRoutes = require("./routes/auth.routes");
 
 app.use("/", defaultRoutes);
 app.use("/auth", authRoutes);

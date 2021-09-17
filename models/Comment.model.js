@@ -3,17 +3,13 @@ const { Schema } = mongoose;
 
 const commentSchema = new Schema(
 	{
-		commentStatement: {
+		statement: {
 			type: String
 		},
 		user: {
 			type: mongoose.Types.ObjectId,
 			ref: "user",
 		},
-		post: {
-			type: mongoose.Types.ObjectId,
-			ref: "post"
-		}
 	},
 	{ timestamps: true },
 );

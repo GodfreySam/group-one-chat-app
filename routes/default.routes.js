@@ -1,7 +1,16 @@
 const express = require("express");
 const router = express.Router();
-const { home } = require("../../controllers/default/default.controller");
+const {
+   home,
+   postComment,
+   postPost,
+   postLike
+} = require("../controllers/default.controller");
 
-router.get("/", home);
+router.route("/")
+   .get(home)
+   .post(postComment)
+   .post(postPost)
+   .post(postLike);
 
 module.exports = router;

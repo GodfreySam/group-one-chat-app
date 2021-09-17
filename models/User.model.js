@@ -19,14 +19,18 @@ const userSchema = new Schema(
 		password: {
 			type: String,
 		},
-		post: {
-			type: mongoose.Types.ObjectId,
-			ref: "post",
-		},
-		comment: {
-			type: mongoose.Types.ObjectId,
-			ref: "comment"
-		}
+		post: [
+			{
+				type: mongoose.Types.ObjectId,
+				ref: "post",
+			},
+		],
+		comments: [
+			{
+				type: mongoose.Types.ObjectId,
+				ref: "comment",
+			},
+		],
 	},
 	{ timestamps: true },
 );
