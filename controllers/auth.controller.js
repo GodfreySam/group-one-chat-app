@@ -3,7 +3,7 @@ const passport = require("passport");
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
-const verifyEmail = require("../../utils/verifyEmail");
+const verifyEmail = require("../utils/verifyEmail");
 
 
 passport.use(new LocalStrategy({usernameField: 'email', passReqToCallback: true}, async(req, email, password, done) =>{
