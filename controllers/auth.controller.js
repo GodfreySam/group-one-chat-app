@@ -32,7 +32,7 @@ module.exports = {
 
 	login: async (req, res) => {
 		let pageTitle = "Login page";
-		res.render("auth/login", { pageTitle });
+		res.render("auth/login", {pageTitle});
 	},
 
 	verify: async (req, res) => {
@@ -53,7 +53,7 @@ module.exports = {
 
 		user.verified = true;
 		user.save();
-		res.redirect("auth/login", { pageTitle });
+		res.redirect("/auth/login");
 	},
 
 	postRegister: async (req, res) => {
@@ -61,6 +61,11 @@ module.exports = {
 			let { firstName, lastName , email, password, confirmPassword } = req.body;
 
 			// console.log(req.body);
+
+			if (password.length < 6) {
+				req.flash("error-message", "Password must be six characters or more");
+				return res.redirect("back");
+			}
 
 			if (password !== confirmPassword) {
 				req.flash("error-message", "Passwords do not match");
@@ -74,25 +79,24 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			if (password.length < 6) {
-				req.flash("error-message", "Password must be six characters or more");
-				return res.redirect("back");
-			}
-
 			const salt = await bcrypt.genSalt();
 			const hashedPassword = await bcrypt.hash(password, salt);
-			const secretToken = randomstring.generate();
+			const secretToken = randomstring.generate({
+				length: 6,
+				charset: 'numeric'
+			});
 
 			const newUser = new User({
 				firstName, 
 				lastName , 
 				email,
+				secretToken,
 				password: hashedPassword,
 			});
 
 			await newUser.save();
 
-			await verifyEmail(req, email, email, secretToken);
+			await verifyEmail(req, firstName, email, secretToken);
 
 			if (!newUser) {
 				req.flash("error-message", "An error occurred while registering user");
@@ -103,7 +107,7 @@ module.exports = {
 				"success-message",
 				"User registration successful, Check your email to verify your account",
 			);
-			return res.redirect("/auth/login");
+			return res.redirect("/auth/verify");
 		} catch (err) {
 			console.log(err);
 		}
