@@ -1,21 +1,40 @@
-<%- include('../partials/head') -%>
+<%- include('../partials/formHeader') -%>
+<div class="height: 100%;">
+	<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,256L80,266.7C160,277,320,299,480,256C640,213,800,107,960,58.7C1120,11,1280,21,1360,26.7L1440,32L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path></svg> -->
+	<div class="row">
+		<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,256L80,234.7C160,213,320,171,480,160C640,149,800,171,960,149.3C1120,128,1280,64,1360,32L1440,0L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path>
+		</svg> -->
+		<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,192L720,96L1440,288L1440,0L720,0L0,0Z"></path></svg> -->
+		<div class="col-2 first-col" style="height: 100vh;" >
+	<!-- <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1440 320"><path fill="#0099ff" fill-opacity="1" d="M0,256L80,266.7C160,277,320,299,480,256C640,213,800,107,960,58.7C1120,11,1280,21,1360,26.7L1440,32L1440,0L1360,0C1280,0,1120,0,960,0C800,0,640,0,480,0C320,0,160,0,80,0L0,0Z"></path></svg> -->
 
-<div class="form-flex">
-	<div class="container-form login-form">
-		<%- include('../partials/messages') -%>
-		<div class="heading">
-			<h1>Login to WAAWTube</h1>
-		</div>
-		<form action="/auth/login" method="post">
-			<label for="value">Email</label>
-			<input type="text" name="email" id="" placeholder="Email" />
-			<label for="email">Password</label>
-			<input type="password" name="password" id="" placeholder="6+ characters" />
-			<input type="submit" value="Login" />
-		</form>
-		<p>Forgot password? &nbsp; <a href="/auth/forgot-password">Reset Password</a></p>
-		<p>Don't have an account? &nbsp; <a href="/auth/register">Signup</a></p>
+		 
+	  </div>
+	  <div class="col-4 img">	
+  </div>
+	  <div class="col-6 third-col">
+		  <div class="form">
+			 
+			  <div id="form">
+				<%- include('../partials/messages') -%>
+					<p class="text-center">Login In</p>
+					<form action="/auth/login" method="POST">
+						<div class="form-group">
+						<label for="exampleInputEmail1">Email address</label>
+						<input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						</div>
+						<div class="form-group">
+						<label for="exampleInputPassword1">Password</label>
+						<input type="password" name="email" class="form-control" id="exampleInputPassword1">
+						</div>
+						<button type="submit" class="btn btn-primary">Submit</button>
+					</form>
+					<p>forgot password? <a href=""></a> </p>
+			  </div>
+		  </div>
+	  </div>
 	</div>
 </div>
+
 
 <%- include('../partials/foot') -%>
