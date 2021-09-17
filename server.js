@@ -8,7 +8,7 @@ const mongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const flash = require("connect-flash");
-
+const dotenv = require("dotenv")
 // Load config
 dotenv.config({ path: "./config/config.env" });
 
@@ -19,10 +19,10 @@ const { globalVariables } = require("./middlewares/configurations");
 require("./config/passport.config")(passport);
 
 //  Database connection
-mongoose
-	.connect("mongodb://localhost/waawsocial")
-	.then((connected) => console.log("Database connected successfully"))
-	.catch((err) => console.log("Error connecting to DB", err));
+// mongoose
+// 	.connect("mongodb://localhost/waawsocial")
+// 	.then((connected) => console.log("Database connected successfully"))
+// 	.catch((err) => console.log("Error connecting to DB", err));
 
 // initialize  express app
 const app = express();
@@ -39,10 +39,10 @@ app.use(
 		saveUninitialized: true,
 		resave: true,
 		cookie: { maxAge: Date.now() + 3600 * 24 * 60 * 60 },
-		store: mongoStore.create({
-			mongoUrl: "mongodb://localhost/waawsocial",
-			ttl: 3600 * 24 * 60 * 60,
-		}),
+		// store: mongoStore.create({
+		// 	mongoUrl: "mongodb://localhost/waawsocial",
+		// 	ttl: 3600 * 24 * 60 * 60,
+		// }),
 	}),
 );
 

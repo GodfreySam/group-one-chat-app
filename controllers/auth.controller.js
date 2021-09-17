@@ -2,7 +2,7 @@ const User = require("../models/User.model");
 const passport = require("passport");
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
-const verifyEmail = require("../../utils/verifyEmail");
+// const verifyEmail = require("../../utils/verifyEmail");
 
 module.exports = {
 	register: async (req, res) => {
