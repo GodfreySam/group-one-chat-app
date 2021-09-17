@@ -2,17 +2,14 @@ const sendEmail = require('../misc/mailer');
 
 const verifyUserEmail = async (req, username, email, secretToken) => {
    const html = `
-      Hello ${username},
+      Hello ${firstName},
       <br/>
       <br/>
 
-      Thank you for registering an account with us at WAAWTube.
+      Thank you for registering an account with us at .
       <br/><br/>
-      Please click the link below or copy to any browser to verify your account:
+      Please copy  to verify your account:  ${secretToken}
       <br/>
-      <a href="http://${req.headers.host}/auth/verify-token/${secretToken}">
-         http://${req.headers.host}/auth/verify-token/${secretToken}
-      </a>
 
       <br/><br/>
       Kind regards,
