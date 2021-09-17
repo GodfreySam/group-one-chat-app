@@ -1,0 +1,17 @@
+<%- include('../partials/head') -%>
+
+<div class="form-flex">
+	<div class="container-form login-form">
+		<%- include('../partials/messages') -%>
+		<div class="heading">
+			<h1>Kindly Input 6-digit Token in the field below</h1>
+		</div>
+		<form action="/auth/verify" method="post">
+			<label for="email">Token</label>
+			<input type="text" name="inputToken" id="" placeholder="6+ characters" />
+			<input type="submit" value="Verify" />
+		</form>
+	</div>
+</div>
+
+<%- include('../partials/foot') -%>

@@ -4,13 +4,14 @@ const { Schema } = mongoose;
 const likeSchema = new Schema(
 	{
 		numberOfLike: {
-			type: Number,
-			default: 0,
+			type: Array,
 		},
-		user: {
-			type: mongoose.Types.ObjectId,
-			ref: "user",
-		},
+		users: [
+			{
+				type: mongoose.Types.ObjectId,
+				ref: "user",
+			},
+		],
 		comments: [
 			{
 				type: mongoose.Types.ObjectId,

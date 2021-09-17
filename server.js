@@ -60,9 +60,11 @@ app.set("view engine", "ejs");
 // Routes (Routes grouping)
 const defaultRoutes = require("./routes/default.routes");
 const authRoutes = require("./routes/auth.routes");
+const userRoutes = require("./routes/user.routes");
 
 app.use("/", defaultRoutes);
 app.use("/auth", authRoutes);
+app.use("/user", userRoutes);
 
 // Catch 404 and forward to error handler
 app.use((req, res, next) => {

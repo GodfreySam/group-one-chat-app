@@ -1,57 +1,98 @@
-<%- include('../partials/head') -%>
-<%- include('../partials/header') -%>
+<%- include('../partials/head') -%> <%- include('../partials/header') -%>
 
-<main class="mainBody" style="margin-top: 80px;">
-	  <div class="jumbotron p-3 p-md-5 text-white rounded bg-secondary">
+<main class="mainBody" style="margin-top: 80px">
+	<div class="jumbotron p-3 p-md-5 text-white rounded bg-secondary">
 		<div class="media">
 			<div class="avatar-circle mr-3">
 				<span class="initials text-secondary">GI</span>
 			</div>
 			<div class="media-body">
-			  <h5 class="mt-0">Media heading</h5>
-			  <p>Standing on the frontline when the bombs start to fall. Heaven is jealous of our love, angels are crying from up above. Can't replace you with a million rings. Boy, when you're with me I'll give you a taste. There’s no going back. Before you met me I was alright but things were kinda heavy. Heavy is the head that wears the crown.</p>
-		  <div class="collapse" id="seeComment">
-			<div class="media mt-3">
-				<div class="avatar-circle mr-3">
-					<span class="initials text-secondary">GI</span>
+				<h5 class="mt-0">Media heading</h5>
+				<p>
+					Standing on the frontline when the bombs start to fall. Heaven is jealous
+					of our love, angels are crying from up above. Can't replace you with a
+					million rings. Boy, when you're with me I'll give you a taste. There’s no
+					going back. Before you met me I was alright but things were kinda heavy.
+					Heavy is the head that wears the crown.
+				</p>
+				<div class="collapse" id="seeComment">
+					<div class="media mt-3">
+						<div class="avatar-circle mr-3">
+							<span class="initials text-secondary">GI</span>
+						</div>
+						<div class="media-body">
+							<h5 class="mt-0">Media heading</h5>
+							<p>
+								Greetings loved ones let's take a journey. Yes, we make angels cry,
+								raining down on earth from up above. Give you something good to
+								celebrate. I used to bite my tongue and hold my breath. I'm ma get your
+								heart racing in my skin-tight jeans. As I march alone to a different
+								beat. Summer after high school when we first met. You're so hypnotizing,
+								could you be the devil? Could you be an angel? It's time to bring out
+								the big balloons. Thought that I was the exception. Bikinis, zucchinis,
+								Martinis, no weenies.
+							</p>
+						</div>
+					</div>
 				</div>
-				<div class="media-body">
-				  <h5 class="mt-0">Media heading</h5>
-				  <p>Greetings loved ones let's take a journey. Yes, we make angels cry, raining down on earth from up above. Give you something good to celebrate. I used to bite my tongue and hold my breath. I'm ma get your heart racing in my skin-tight jeans. As I march alone to a different beat. Summer after high school when we first met. You're so hypnotizing, could you be the devil? Could you be an angel? It's time to bring out the big balloons. Thought that I was the exception. Bikinis, zucchinis, Martinis, no weenies.</p>
-				</div>
-			  </div>
-		  </div>
 			</div>
-		  </div>
-		  <div class="d-flex justify-content-between mt-4" >
+		</div>
+		<div class="d-flex justify-content-between mt-4">
 			<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
-			<i class="fa fa-heart-o" aria-hidden="true"></i>
-			<a class="" data-toggle="collapse" href="#writeComment" role="button" aria-expanded="false" aria-controls="writeComment">
+			<div class="d-flex">
+				<form action="/user/like" method="POST">
+					<input type="text" name="like" value="like" style="display: none" />
+					<button class="like-btn" type="submit">
+						<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
+					</button>
+				</form>
+				<p>20 likes</p>
+			</div>
+			<a
+				class=""
+				data-toggle="collapse"
+				href="#writeComment"
+				role="button"
+				aria-expanded="false"
+				aria-controls="writeComment"
+			>
 				<i class="fa fa-comment" aria-hidden="true"></i>
-			  </a>
-			  <a class="" data-toggle="collapse" href="#seeComment" role="button" aria-expanded="false" aria-controls="seeComment">
+			</a>
+			<a
+				class=""
+				data-toggle="collapse"
+				href="#seeComment"
+				role="button"
+				aria-expanded="false"
+				aria-controls="seeComment"
+			>
 				<i class="fas fa-comments"></i>
-
-			  </a>
+			</a>
 			<!-- <i class="fa-solid fa-comments"></i>
 			<i class="far fa-comments"></i> -->
-		  </div>
-		  <div class="d-flex justify-content-between mt-1">
+		</div>
+		<div class="d-flex justify-content-between mt-1">
 			<p>50 likes</p>
 			<p>300 comments</p>
-				  </div>
-				  <div class="collapse" id="writeComment">
-					<div class="card card-body">
-						<form action="" method="post">
-							<div class="form-group">
-								<label for="exampleFormControlTextarea1">Example textarea</label>
-								<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Write a public comment"></textarea>
-							  </div>
-							  <button class="btn btn-primary" type="submit">Submit Comment</button>
-						</form>
+		</div>
+		<div class="collapse" id="writeComment">
+			<div class="card card-body">
+				<form action="/user/comment" method="post">
+					<div class="form-group">
+						<label for="comment">Example textarea</label>
+						<textarea
+							class="form-control"
+							id="comment"
+							name="comment"
+							rows="3"
+							placeholder="Write a public comment"
+						></textarea>
 					</div>
-				  </div>	  		  
-      </div>
+					<button class="btn btn-primary" type="submit">Submit Comment</button>
+				</form>
+			</div>
+		</div>
+	</div>
 </main>
 
 <%- include('../partials/foot') -%>

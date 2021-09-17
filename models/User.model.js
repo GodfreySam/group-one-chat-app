@@ -10,16 +10,21 @@ const userSchema = new Schema(
 		lastName: {
 			type: String,
 		},
-		username: {
-			type: String,
-		},
 		email: {
 			type: String,
+		},
+		secretToken:{
+			type: String
+		},
+
+		verified:{
+			type: Boolean,
+			default: false
 		},
 		password: {
 			type: String,
 		},
-		post: [
+		posts: [
 			{
 				type: mongoose.Types.ObjectId,
 				ref: "post",
@@ -29,6 +34,12 @@ const userSchema = new Schema(
 			{
 				type: mongoose.Types.ObjectId,
 				ref: "comment",
+			},
+		],
+		likes: [
+			{
+				type: mongoose.Types.ObjectId,
+				ref: "like",
 			},
 		],
 	},

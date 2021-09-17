@@ -160,3 +160,8 @@
     min-height: 100%;
   }
   
+
+  .like-btn {
+    background: none;
+    border: none;
+  }
