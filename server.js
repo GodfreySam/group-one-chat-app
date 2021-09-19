@@ -19,7 +19,7 @@ const { globalVariables } = require("./middlewares/configurations");
 
 //  Database connection
 mongoose
-	.connect(process.env.MONGODB_URL)
+	.connect(process.env.DATABASE)
 	.then((connected) => console.log("Database connected successfully"))
 	.catch((err) => console.log("Error connecting to DB", err));
 
@@ -39,7 +39,7 @@ app.use(
 		resave: true,
 		cookie: { maxAge: Date.now() + 3600 * 24 * 60 * 60 },
 		store: mongoStore.create({
-			mongoUrl: process.env.MONGODB_URL,
+			mongoUrl: process.env.DATABASE,
 			ttl: 3600 * 24 * 60 * 60,
 		})
 	}),

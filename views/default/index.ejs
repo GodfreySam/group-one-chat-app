@@ -9,7 +9,7 @@
 					<div class="form-group">
 						<textarea
 							class="form-control"
-							id="post"
+							id="editor"
 							name="post"
 							rows="3"
 							placeholder="What is on your mind?"
@@ -20,11 +20,11 @@
 			</div>
 		</div>
 	
-<main class="mainBody" style="margin-top: 80px">
-	<div class="jumbotron p-3 p-md-5 text-white rounded bg-secondary">
+<main class="mainBody" style="margin-top: 120px">
+	<div class="jumbotron p-3 p-md-5 text-dark rounded bg-white">
 		<div class="media">
 			<div class="avatar-circle mr-3">
-				<span class="initials text-secondary">GI</span>
+				<span class="initials text-white">GI</span>
 			</div>
 			<div class="media-body">
 				<h5 class="mt-0">Media heading</h5>
@@ -38,7 +38,7 @@
 				<div class="collapse" id="seeComment">
 					<div class="media mt-3">
 						<div class="avatar-circle mr-3">
-							<span class="initials text-secondary">GI</span>
+							<span class="initials text-white">GI</span>
 						</div>
 						<div class="media-body">
 							<h5 class="mt-0">Media heading</h5>
@@ -78,8 +78,9 @@
 			>
 				<i class="fa fa-comment" aria-hidden="true"></i>
 			</a>
-			<a
-				class=""
+			<div class="d-flex">
+				<a
+				class="mr-2"
 				data-toggle="collapse"
 				href="#seeComment"
 				role="button"
@@ -87,13 +88,13 @@
 				aria-controls="seeComment"
 			>
 				<i class="fas fa-comments"></i>
+				
 			</a>
+			<p>300 comments</p>
+			</div>
+			
 			<!-- <i class="fa-solid fa-comments"></i>
 			<i class="far fa-comments"></i> -->
-		</div>
-		<div class="d-flex justify-content-between mt-1">
-			<p>50 likes</p>
-			<p>300 comments</p>
 		</div>
 		<div class="collapse" id="writeComment">
 			<div class="card card-body">
