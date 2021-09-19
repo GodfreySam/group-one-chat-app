@@ -21,12 +21,10 @@ module.exports = {
 
 			console.log(req.body);
 
-			if (article === "") {
-				req.flash("error-message", "Can not post empty field");
+			if (!article || article === "") {
+				req.flash("error-message", "Field can not be empty");
 				return res.redirect("back");
 			}
-
-			let user = await User.findOne({ username });
 
 			if (article.length > 300) {
 				req.flash("error-message", "Post can not be more than 300 characters");
@@ -48,14 +46,19 @@ module.exports = {
 
 	postComment: async (req, res) => {
 		try {
-			// let loggedInUser = req.user;
-
 			let { comment } = req.body;
 
 			console.log(req.body);
 
-			if (comment === "") {
+			if (!comment || comment === "") {
 				req.flash("error-message", "Can not post empty comment");
+				return res.redirect("back");
+			}
+
+			let postExist = await Post.findOne({ _id: req.params.postId });
+
+			if (!postExist) {
+				req.flash("error-message", "Post doesn't exist or has been deleted");
 				return res.redirect("back");
 			}
 
@@ -66,10 +69,22 @@ module.exports = {
 
 			const newComment = new Comment({
 				comment,
-				// user: loggedInUser._id,
 			});
 
-			await newComment.save();
+			await newComment
+				.save()
+				.then((comment) => {
+					postExist.comments.push(comment._id);
+					postExist.save();
+					req.flash("success-message", "Comment posted succesfully");
+					return res.redirect("back");
+				})
+				.catch((error) => {
+					if (error) {
+						req.flash("error-message", error.message);
+						res.redirect("back");
+					}
+				});
 
 			req.flash("success-message", "Your comment was posted successfully");
 			return res.redirect("back");
@@ -83,12 +98,77 @@ module.exports = {
 			let { like } = req.body;
 
 			console.log(req.body);
+
+			let commentExist = await Comment.findOne({ _id: req.params.commentId });
+			let postExist = await Post.findOne({ _id: req.params.postId });
+
 			const newLike = new Like({ like });
 
-			await newLike.save();
+			if (commentExist) {
+				await newLike
+					.save()
+					.then((like) => {
+						commentExist.likes.push(like._id);
+						commentExist.save();
+						req.flash("success-message", "You liked this comment");
+						return res.redirect("back");
+					})
+					.catch((error) => {
+						if (error) {
+							req.flash("error-message", error.message);
+							res.redirect("back");
+						}
+					});
+			}
 
-			req.flash("success-message", "You liked this post");
-			return res.redirect("back");
+			if (postExist) {
+				await newLike
+					.save()
+					.then((like) => {
+						postExist.likes.push(like._id);
+						postExist.save();
+						req.flash("success-message", "You liked this post");
+						return res.redirect("back");
+					})
+					.catch((error) => {
+						if (error) {
+							req.flash("error-message", error.message);
+							res.redirect("back");
+						}
+					});
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	},
+
+	commentDelete: async (req, res) => {
+		try {
+			const { commentId } = req.params;
+			let deletedComment = await Comment.findOneAndDelete({ commentId });
+
+			if (!deletedComment) {
+				req.flash("error-message", "Comment could not be deleted now, please try again");
+				return res.redirect("back");
+			}
+			req.flash("success-message", "Comment deleted successfully");
+			res.redirect("back");
+		} catch (err) {
+			console.log(err);
+		}
+	},
+
+	postDelete: async (req, res) => {
+		try {
+			const { postId } = req.params;
+			let deletedPost = await Post.findOneAndDelete({ postId });
+
+			if (!deletedPost) {
+				req.flash("error-message", "Post could not be deleted now, please try again");
+				return res.redirect("back");
+			}
+			req.flash("success-message", "Post deleted successfully");
+			res.redirect("back");
 		} catch (err) {
 			console.log(err);
 		}
