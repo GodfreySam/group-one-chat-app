@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
@@ -8,9 +9,7 @@ const mongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const flash = require("connect-flash");
-const dotenv = require("dotenv")
 // Load config
-dotenv.config();
 
 // Global Variables
 const { globalVariables } = require("./middlewares/configurations");
@@ -35,7 +34,7 @@ app.use(express.static(path.join(__dirname, "public")));
 app.use(cookieParser());
 app.use(
 	session({
-		secret: "another-secret",
+		secret: process.env.SECRET,
 		saveUninitialized: true,
 		resave: true,
 		cookie: { maxAge: Date.now() + 3600 * 24 * 60 * 60 },
