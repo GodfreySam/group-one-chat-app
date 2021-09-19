@@ -3,21 +3,13 @@ const { Schema } = mongoose;
 
 const likeSchema = new Schema(
 	{
-		numberOfLike: {
-			type: Array,
+		like: {
+			type: String,
 		},
-		users: [
-			{
-				type: mongoose.Types.ObjectId,
-				ref: "user",
-			},
-		],
-		comments: [
-			{
-				type: mongoose.Types.ObjectId,
-				ref: "comment",
-			},
-		],
+		user: {
+			type: mongoose.Types.ObjectId,
+			ref: "user",
+		},
 	},
 	{ timestamps: true },
 );

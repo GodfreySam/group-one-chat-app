@@ -8,19 +8,18 @@ const mongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const flash = require("connect-flash");
-const dotenv = require("dotenv")
+const dotenv = require("dotenv");
+
 // Load config
-dotenv.config();
+// dotenv.config();
+dotenv.config({ path: "./config/config.env" });
 
 // Global Variables
 const { globalVariables } = require("./middlewares/configurations");
 
-// Passport config
-require("./config/passport.config")(passport);
-
 //  Database connection
 mongoose
-	.connect(process.env.DATABASE)
+	.connect(process.env.MONGODB_URL)
 	.then((connected) => console.log("Database connected successfully"))
 	.catch((err) => console.log("Error connecting to DB", err));
 
@@ -40,7 +39,7 @@ app.use(
 		resave: true,
 		cookie: { maxAge: Date.now() + 3600 * 24 * 60 * 60 },
 		store: mongoStore.create({
-			mongoUrl: process.env.DATABASE,
+			mongoUrl: process.env.MONGODB_URL,
 			ttl: 3600 * 24 * 60 * 60,
 		})
 	}),

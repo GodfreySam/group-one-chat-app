@@ -13,16 +13,18 @@ const userSchema = new Schema(
 		email: {
 			type: String,
 		},
-		secretToken:{
-			type: String
-		},
-
-		verified:{
-			type: Boolean,
-			default: false
+		username: {
+			type: String,
 		},
 		password: {
 			type: String,
+		},
+		secretToken: {
+			type: String,
+		},
+		verified: {
+			type: Boolean,
+			default: false,
 		},
 		posts: [
 			{

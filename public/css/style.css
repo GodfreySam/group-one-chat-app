@@ -26,6 +26,11 @@
       font-size: 3rem;
     }
   }
+
+  .navbar-brand img {
+    width: 150px;
+    height: auto;
+  }
   
   .nav-scroller {
     position: relative;
@@ -52,6 +57,10 @@
     padding-top: .75rem;
     padding-bottom: .75rem;
     font-size: .875rem;
+  }
+
+  #writePost {
+    margin-top: 150px;
   }
   
   .card-img-right {
@@ -160,7 +169,6 @@
     min-height: 100%;
   }
   
-
   .like-btn {
     background: none;
     border: none;
