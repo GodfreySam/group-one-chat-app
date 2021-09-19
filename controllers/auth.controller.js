@@ -1,28 +1,12 @@
 const User = require("../models/User.model");
 const passport = require("passport");
-const LocalStrategy = require('passport-local').Strategy;
+// const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
 const verifyEmail = require("../utils/verifyEmail");
 
-
-passport.use(new LocalStrategy({usernameField: 'email', passReqToCallback: true}, async(req, email, password, done) =>{
-	await User.findOne({email})
-	.then(async(user)=>{
-		if (!user) {
-			return done(null, false, req.flash('error-message', 'User not found. Please try again'))
-		};
-		bcrypt.compare(password, user.password, (err, passwordMatch) =>{
-			if (err) {
-				return err;
-			}
-			if (!passwordMatch) {
-				return done(null, false, req.flash('error-message', 'Password Incorrect'))
-			}
-			return done(null, user, req.flash('success-message', 'Login successful'))
-		});
-	});
-}))
+// Passport config
+require("../config/passport.config")(passport);
 
 module.exports = {
 	register: async (req, res) => {

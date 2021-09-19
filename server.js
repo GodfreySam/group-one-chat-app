@@ -1,4 +1,10 @@
+
+// Load config
 require("dotenv").config();
+
+// Global Variables
+const { globalVariables } = require("./middlewares/configurations");
+
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
@@ -9,13 +15,6 @@ const mongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const flash = require("connect-flash");
-// Load config
-
-// Global Variables
-const { globalVariables } = require("./middlewares/configurations");
-
-// Passport config
-require("./config/passport.config")(passport);
 
 //  Database connection
 mongoose
