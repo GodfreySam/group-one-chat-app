@@ -14,6 +14,7 @@ const {
 router.route("/post").get(userHome);
 router.route("/post", isLoggedIn).post(postPost);
 router.route("/comment").get(userHome);
+router.route("/comment", isLoggedIn).post(postComment);
 router.route("/comment/:postId", isLoggedIn).post(postComment);
 router.route("/like").get(userHome);
 router.route("/like", isLoggedIn).post(postLike);
