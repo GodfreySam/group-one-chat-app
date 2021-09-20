@@ -15,13 +15,14 @@ const mongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const flash = require("connect-flash");
+const User = require('./models/User.model');
 
 // Load config
 dotenv.config({ path: "./config/config.env" });
 
 //  Database connection
 mongoose
-	.connect(process.env.DATABASE)
+	.connect(process.env.MONGODB_URL)
 	.then((connected) => console.log("Database connected successfully"))
 	.catch((err) => console.log("Error connecting to DB", err));
 
@@ -41,7 +42,7 @@ app.use(
 		resave: true,
 		cookie: { maxAge: Date.now() + 3600 * 24 * 60 * 60 },
 		store: mongoStore.create({
-			mongoUrl: process.env.DATABASE,
+			mongoUrl: process.env.MONGODB_URL,
 			ttl: 3600 * 24 * 60 * 60,
 		})
 	}),
@@ -49,6 +50,17 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
+
+passport.serializeUser(function(user, done) {
+	done(null, user.id);
+});
+
+passport.deserializeUser(function(id, done) {
+	User.findById(id, function(err, user) {
+		done(err, user);
+	});
+});
+
 app.use(logger("dev"));
 app.use(flash());
 app.use(globalVariables);
