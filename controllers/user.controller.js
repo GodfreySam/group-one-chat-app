@@ -33,7 +33,7 @@ module.exports = {
 
 			console.log(req.body);
 
-			if (!article || article === "") {
+			if (!article) {
 				req.flash("error-message", "Field can not be empty");
 				return res.redirect("back");
 			}
@@ -44,13 +44,14 @@ module.exports = {
 			}
 
 			const newPost = new Post({
-				article,
+				article
 			});
 
+			newPost.user = req.user.id
 			await newPost.save();
 
 			req.flash("success-message", "Your post was posted successfully");
-			return res.redirect("back");
+			return res.redirect("/default/index");
 		} catch (err) {
 			console.log(err);
 		}
