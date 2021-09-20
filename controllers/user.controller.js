@@ -1,6 +1,7 @@
 const Post = require("../models/Post.model");
 const Like = require("../models/Like.model");
 const Comment = require("../models/Comment.model");
+const User = require("../models/User.model");
 
 module.exports = {
 	userHome: async (req, res) => {
@@ -18,7 +19,14 @@ module.exports = {
 			console.log(err);
 		}
 	},
-
+	userHome: async (req, res) => {
+		try {
+			let pageTitle = "Post page";
+			res.render("default/post", { pageTitle });
+		} catch (err) {
+			console.log(err);
+		}
+	},
 	postPost: async (req, res) => {
 		try {
 			let { article } = req.body;

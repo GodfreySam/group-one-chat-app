@@ -129,7 +129,7 @@
   .avatar-circle {
     width: 100px;
     height: 100px;
-    background-color: #fff;
+    background-color: #007bff;
     text-align: center;
     border-radius: 50%;
     -webkit-border-radius: 50%;
@@ -137,6 +137,9 @@
   }
 
   /* initials */
+  body{
+    background-color: #959a9e;
+  }
   .initials {
     position: relative;
     top: 25px; /* 25% of parent */

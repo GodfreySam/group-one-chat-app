@@ -9,7 +9,7 @@
 					<div class="form-group">
 						<textarea
 							class="form-control"
-							id="post"
+							id="editor"
 							name="post"
 							rows="3"
 							placeholder="What is on your mind?"
@@ -20,6 +20,11 @@
 			</div>
 		</div>
 	
+<main class="mainBody" style="margin-top: 120px">
+	<div class="jumbotron p-3 p-md-5 text-dark rounded bg-white">
+		<div class="media">
+			<div class="avatar-circle mr-3">
+				<span class="initials text-white">GI</spa>
 <main class="mainBody" style="margin-top: 80px">
 	<% allPost.forEach((post) => { %>
 
@@ -88,8 +93,9 @@
 			>
 				<i class="fa fa-comment" aria-hidden="true"></i>
 			</a>
-			<a
-				class=""
+			<div class="d-flex">
+				<a
+				class="mr-2"
 				data-toggle="collapse"
 				href="#seeComment"
 				role="button"
@@ -97,7 +103,11 @@
 				aria-controls="seeComment"
 			>
 				<i class="fas fa-comments"></i>
+				
 			</a>
+			<p>300 comments</p>
+			</div>
+			
 			<!-- <i class="fa-solid fa-comments"></i>
 			<i class="far fa-comments"></i> -->
 		</div>

@@ -1,5 +1,5 @@
-<nav class="navbar navbar-expand-lg py-3 navbar-light bg-light fixed-top">
-	<a class="navbar-brand" href="#"> WAAW Social </a>
+<nav class="navbar navbar-expand-lg py-3 navbar-light bg-white fixed-top">
+	<a class="navbar-brand ml-3" href="/"> <img src="/images/lg.jpeg" alt="" srcset=""> </a>
 	<button
 		class="navbar-toggler"
 		type="button"
@@ -13,7 +13,7 @@
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-		<ul class="navbar-nav ml-auto">
+				<ul class="navbar-nav ml-auto nav-pills flex-column flex-sm-row ">
 			<% if(isAuthenticated) { %>
 			<li class="nav-item">
 				<div class="avatar-circle">
@@ -24,13 +24,21 @@
 				<a class="dropdown-item" href="/auth/logout">Logout</a>
 			</li>
 			<% } else { %>
-			<li class="nav-item">
-				<a class="dropdown-item" href="/user/login">Login</a>
-			</li>
+				<li class="nav-item">
+					<a
+						class="text-primary dropdown-item"
+						href="/auth/login"
+						role="button"
+						aria-expanded="false"
+						aria-controls="writeComment"
+					>
+					Login
+					</a>
+				</li>
 			<% } %>
 			<li class="nav-item">
 				<a
-					class="dropdown-item"
+					class="text-primary dropdown-item"
 					data-toggle="collapse"
 					href="#writePost"
 					role="button"
@@ -40,6 +48,17 @@
 				Create Post
 				</a>
 			</li>
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle mx-5" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+					<i class="fas fa-user-circle text-primary" style="font-size: 25px;"></i>
+				</a>
+				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+				  <a class="dropdown-item" href="#">Action</a>
+				  <a class="dropdown-item" href="#">Another action</a>
+				  <div class="dropdown-divider"></div>
+				  <a class="dropdown-item" href="#">Something else here</a>
+				</div>
+			  </li>
 		</ul>
 	</div>
 </nav>
