@@ -1,9 +1,9 @@
 const User = require("../models/User.model");
 const passport = require("passport");
-// const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
-const verifyEmail = require("../utils/verifyEmail");
+const verifyEmail = require("../utils/passwordEmail");
+const passwordEmail = require("../utils/passwordEmail");
 
 // Passport config
 require("../config/passport.config")(passport);
@@ -12,32 +12,6 @@ module.exports = {
 	register: async (req, res) => {
 		let pageTitle = "Register page";
 		res.render("auth/register", { pageTitle });
-	},
-
-	login: async (req, res) => {
-		let pageTitle = "Login page";
-		res.render("auth/login", {pageTitle});
-	},
-
-	verify: async (req, res) => {
-		let pageTitle = "Token Verification";
-		res.render("auth/verify", { pageTitle });
-	},
-
-	postVerify: async (req, res) => {
-		let {inputToken} = req.body;
-
-		console.log(req.body);
-		let user = await User.findOne({ secretToken: inputToken });
-
-		if (!user) {
-			req.flash('error-message', 'Wrong token. Please copy the token appropriately');
-			return res.redirect('back')
-		}
-
-		user.verified = true;
-		user.save();
-		res.redirect("/auth/login");
 	},
 
 	postRegister: async (req, res) => {
@@ -70,12 +44,18 @@ module.exports = {
 				charset: 'numeric'
 			});
 
+			let firstNameInitials = firstName.split("");
+			let lastNameInitials = lastName.split("");
+			let userAvatar = firstNameInitials[0] + lastNameInitials[0];
+			
+
 			const newUser = new User({
 				firstName, 
 				lastName , 
 				email,
 				secretToken,
 				password: hashedPassword,
+				avatar: userAvatar
 			});
 
 			await newUser.save();
@@ -97,6 +77,86 @@ module.exports = {
 		}
 	},
 
+	verify: async (req, res) => {
+		let pageTitle = "Token Verification";
+		res.render("auth/verify", { pageTitle });
+	},
+
+	postVerify: async (req, res) => {
+		let {inputToken} = req.body;
+
+		let trimmedInputToken = inputToken.trim();
+
+		console.log(req.body);
+		let user = await User.findOne({ secretToken: trimmedInputToken });
+
+		if (!user) {
+			req.flash('error-message', 'Wrong token. Please copy the token appropriately');
+			return res.redirect('back')
+		}
+
+		user.verified = true;
+		user.save();
+		res.redirect("/");
+	},
+
+	forgotPassword: async (req, res) => {
+		let pageTitle = "Forgot Password";
+		res.render("auth/forgot-password", { pageTitle });
+	},
+
+	postForgotPassword: async (req, res) => {
+		let{inputEmail} = req.body;
+
+		let trimmedInputEmail = inputEmail.trim();
+		let user = await User.findOne({ email: trimmedInputEmail });
+
+		if (!user) {
+			req.flash('error-message', 'Email not found');
+			return res.redirect('back')
+		}
+
+		let firstName = User.firstName;
+		await passwordEmail(req, firstName, trimmedInputEmail);
+		req.flash(
+			"success-message",
+			"Please check your email to reset your password",
+		);
+		return res.redirect("back");	
+	},
+
+	resetPassword: async (req, res) => {
+		let pageTitle = "Password reset";
+		res.render("auth/reset-password", { pageTitle });
+	},
+
+	postResetPassword: async (req, res) => {
+		let{newPassword, confirmNewPassword} = req.body;
+
+		if (newPassword.length < 6) {
+			req.flash("error-message", "Password must be six characters or more");
+			return res.redirect("back");
+		}
+
+		if (newPassword !== confirmNewPassword) {
+			req.flash("error-message", "Passwords do not match");
+			return res.redirect("back");
+		}
+
+		const salt = await bcrypt.genSalt();
+		const newHashedPassword = await bcrypt.hash(newPassword, salt);
+
+		User.password = newHashedPassword;
+		await User.save();
+		req.flash("success-message", "Password reset successfully")
+		res.redirect("/auth/login")
+	},
+
+	login: async (req, res) => {
+		let pageTitle = "Login page";
+		res.render("auth/login", {pageTitle});
+	},
+
 	postLogin: async (req, res) => {
 		passport.authenticate("local", {
 			successRedirect: "/",
@@ -105,12 +165,5 @@ module.exports = {
 			successFlash: true,
 			session: true,
 		});
-	},
-
-	forgotPassword: async (req, res) => {
-		let pageTitle = "Password reset";
-		res.render("auth/forgot-password", { pageTitle });
-	},
-
-	postForgotPassword: async (req, res) => {},
+	}
 };

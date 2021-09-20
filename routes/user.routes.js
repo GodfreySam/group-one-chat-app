@@ -6,9 +6,10 @@ const {
 	userHome,
 	postPost,
 	postComment,
-	postLike,
+	postCommentLike,
+	postPostLike,
 	commentDelete,
-	postDelete
+	postDelete,
 } = require("../controllers/user.controller");
 
 router.route("/post").get(userHome);
@@ -17,9 +18,9 @@ router.route("/comment").get(userHome);
 router.route("/comment", isLoggedIn).post(postComment);
 router.route("/comment/:postId", isLoggedIn).post(postComment);
 router.route("/like").get(userHome);
-router.route("/like", isLoggedIn).post(postLike);
-router.route("/like/:postId", isLoggedIn).post(postLike);
-router.route("/like/:commentId", isLoggedIn).post(postLike);
+// router.route("/like", isLoggedIn).post(postLike);
+router.route("/like-post/:postId", isLoggedIn).post(postPostLike);
+router.route("/like-comment/:commentId", isLoggedIn).post(postCommentLike);
 router.route("/delete-post/:postId", isLoggedIn).get(postDelete);
 router.route("/delete-comment/:commentId", isLoggedIn).get(commentDelete);
 
