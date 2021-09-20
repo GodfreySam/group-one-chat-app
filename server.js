@@ -15,7 +15,6 @@ const mongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const flash = require("connect-flash");
-const dotenv = require('dotenv');
 
 // Load config
 dotenv.config({ path: "./config/config.env" });
