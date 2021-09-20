@@ -15,6 +15,7 @@ module.exports = function(passport) {
 						if (!user) return done(null, false, req.flash('error-message', 'User not found!'));
 						await bcrypt.compare(password, user.password, (err, passwordMatch) => {
 							if (!passwordMatch) return done(null, false, req.flash('error-message', 'Password incorrect!'));
+							if(User.verified !== true) return done(null, false, req.flash("error-message", 'Please verify token in your email to proceed'))
 							return done(null, user, req.flash('success-message', 'Login successful'));
 						});
 					})

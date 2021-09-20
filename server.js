@@ -1,6 +1,10 @@
+// Load config
+const dotenv = require("dotenv");
+
+dotenv.config({path: './config/config.env'});
+
 // Global Variables
 const { globalVariables } = require("./middlewares/configurations");
-
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");
@@ -11,7 +15,6 @@ const mongoStore = require("connect-mongo");
 const mongoose = require("mongoose");
 const ejs = require("ejs");
 const flash = require("connect-flash");
-const dotenv = require('dotenv');
 
 // Load config
 dotenv.config({ path: "./config/config.env" });
