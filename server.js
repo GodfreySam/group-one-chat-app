@@ -1,10 +1,10 @@
-
 // Load config
-require("dotenv").config();
+const dotenv = require("dotenv");
+
+dotenv.config({path: './config/config.env'});
 
 // Global Variables
 const { globalVariables } = require("./middlewares/configurations");
-
 const express = require("express");
 const path = require("path");
 const logger = require("morgan");

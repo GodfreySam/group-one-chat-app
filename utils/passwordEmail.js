@@ -1,15 +1,12 @@
 const sendEmail = require('../misc/mailer');
 const { getMaxListeners } = require( '../models/User.model' );
 
-const verifyUserEmail = async (req, firstName, email, secretToken) => {
+const resetPasswordEmail = async (req, firstName, email) => {
    const html = `
       Hello ${firstName},
       <br/>
       <br/>
-
-      Thank you for registering an account with us at .
-      <br/><br/>
-      Please copy  to verify your account:  <strong>${secretToken}<strong/>
+      Please follow this link to reset your password:  <a href="http://${req.headers.host}/auth/reset-password">Reset Password</a>
       <br/>
 
       <br/><br/>
@@ -26,5 +23,5 @@ const verifyUserEmail = async (req, firstName, email, secretToken) => {
    )
 }
 
-module.exports = verifyUserEmail;
+module.exports = resetPasswordEmail;
 
