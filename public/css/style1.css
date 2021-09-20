@@ -1,17 +1,40 @@
 
 .img{
     
-    background: url('/images/Group.svg'), #407BFF;
+    background: url('/images/Group.svg'), #2e69e7;
     background-repeat: no-repeat;
     background-position: center;
     opacity: 0.8;
+    /* max-width: 800px; */
+    margin: 0 auto;
 }
-.first-col{
-    background-color: #407BFF;
+
+  
+  .forgot {
+    background: url('/images/Forgot.svg'), #2e69e7;
+    background-repeat: no-repeat;
+    background-position: center;
     opacity: 0.8;
+    /* max-width: 800px; */
+    margin: 0 auto;
+  }
+  .confirm {
+    background: url('/images/Confirmed.svg'), #2e69e7;
+    background-repeat: no-repeat;
+    background-position: center;
+    opacity: 0.8;
+    /* max-width: 800px; */
+    margin: 0 auto;
+  }
+.first-col{
+    background-color: #2e69e7;
+    opacity: 0.8;
+    /* position: relative; */
+    
+    
 }
 .third-col{
-    background-color: #407BFF;
+    background-color: #2e69e7;
     opacity: 0.8;
 }
 .form{
@@ -36,7 +59,7 @@
 #form{
     width: 400px;
     height: 50%;
-    margin-top: 50px;
+    margin-top: 10px;
     
 }
 #form p{
