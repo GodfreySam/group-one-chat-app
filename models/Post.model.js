@@ -6,7 +6,7 @@ const postSchema = new Schema(
 		article: {
 			type: String,
 		},
-		creator: {
+		user: {
 			type: mongoose.Types.ObjectId,
 			ref: "user",
 		},

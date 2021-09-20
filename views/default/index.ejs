@@ -2,14 +2,14 @@
 <%- include('../partials/header') -%>
 
 <div class="container">
-
+<%- include('../partials/messages') -%>
 		<div class="collapse" id="writePost">
 			<div class="card card-body">
 				<form action="/user/post" method="post">
 					<div class="form-group">
 						<textarea
 							class="form-control"
-							id="post"
+							id="editor"
 							name="post"
 							rows="3"
 							placeholder="What is on your mind?"
@@ -20,53 +20,68 @@
 			</div>
 		</div>
 	
+<main class="mainBody" style="margin-top: 120px">
+	<div class="jumbotron p-3 p-md-5 text-dark rounded bg-white">
+		<div class="media">
+			<div class="avatar-circle mr-3">
+				<span class="initials text-white">GI</spa>
 <main class="mainBody" style="margin-top: 80px">
+	<% allPost.forEach((post) => { %>
+
 	<div class="jumbotron p-3 p-md-5 text-white rounded bg-secondary">
 		<div class="media">
 			<div class="avatar-circle mr-3">
-				<span class="initials text-secondary">GI</span>
+				<span class="initials text-secondary">
+					<%= post.user.avatar %>
+				</span>
 			</div>
 			<div class="media-body">
 				<h5 class="mt-0">Media heading</h5>
 				<p>
-					Standing on the frontline when the bombs start to fall. Heaven is jealous
-					of our love, angels are crying from up above. Can't replace you with a
-					million rings. Boy, when you're with me I'll give you a taste. There’s no
-					going back. Before you met me I was alright but things were kinda heavy.
-					Heavy is the head that wears the crown.
+				<%= post.article %>
 				</p>
+
+				<% post.comments.forEach(comment => { %>
 				<div class="collapse" id="seeComment">
 					<div class="media mt-3">
 						<div class="avatar-circle mr-3">
-							<span class="initials text-secondary">GI</span>
+							<span class="initials text-secondary"><%= comment.user.avatar %></span>
 						</div>
 						<div class="media-body">
-							<h5 class="mt-0">Media heading</h5>
 							<p>
-								Greetings loved ones let's take a journey. Yes, we make angels cry,
-								raining down on earth from up above. Give you something good to
-								celebrate. I used to bite my tongue and hold my breath. I'm ma get your
-								heart racing in my skin-tight jeans. As I march alone to a different
-								beat. Summer after high school when we first met. You're so hypnotizing,
-								could you be the devil? Could you be an angel? It's time to bring out
-								the big balloons. Thought that I was the exception. Bikinis, zucchinis,
-								Martinis, no weenies.
+							<%= comment.statement %>
 							</p>
 						</div>
 					</div>
+					<div class="d-flex justify-content-between mt-4">
+						<div class="d-flex">
+						<form action="/user/like-comment/<%- comment._id %>" method="POST">
+							<input type="text" name="like" value="like" style="display: none" />
+							<button class="like-btn" type="submit">
+								<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
+							</button>
+						</form>
+						<p><%= comment.likes.length %>&nbsp; likes</p>
+					</div>
+					<div></div>
+					<div></div>
+					</div>
 				</div>
+
+				<% }) %>
+
 			</div>
 		</div>
 		<div class="d-flex justify-content-between mt-4">
 			<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
 			<div class="d-flex">
-				<form action="/user/like" method="POST">
+				<form action="/user/like-post/<%- post._id %>" method="POST">
 					<input type="text" name="like" value="like" style="display: none" />
 					<button class="like-btn" type="submit">
 						<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
 					</button>
 				</form>
-				<p>20 likes</p>
+				<p><%= post.likes.length %>&nbsp; likes</p>
 			</div>
 			<a
 				class=""
@@ -78,8 +93,9 @@
 			>
 				<i class="fa fa-comment" aria-hidden="true"></i>
 			</a>
-			<a
-				class=""
+			<div class="d-flex">
+				<a
+				class="mr-2"
 				data-toggle="collapse"
 				href="#seeComment"
 				role="button"
@@ -87,13 +103,20 @@
 				aria-controls="seeComment"
 			>
 				<i class="fas fa-comments"></i>
+				
 			</a>
+			<p>300 comments</p>
+			</div>
+			
 			<!-- <i class="fa-solid fa-comments"></i>
 			<i class="far fa-comments"></i> -->
 		</div>
+
 		<div class="d-flex justify-content-between mt-1">
-			<p>50 likes</p>
-			<p>300 comments</p>
+			<!-- <p><%= post.likes.length %>&nbsp; likes</p> -->
+			<!-- <p>50 likes</p> -->
+			<p><%= post.comments.length %>&nbsp; likes</p>
+			<!-- <p>300 comments</p> -->
 		</div>
 		<div class="collapse" id="writeComment">
 			<div class="card card-body">
@@ -112,6 +135,9 @@
 			</div>
 		</div>
 	</div>
+
+	<% }) %>
+
 </main>
 </div>
 
