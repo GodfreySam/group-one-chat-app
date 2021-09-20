@@ -180,7 +180,7 @@ module.exports = {
         session: true,
 	}),
 
-	getLogout: (req, res) => {
+	getLogout: (req, res)=>{
 		req.logout();
 		res.redirect('/');
 	}
