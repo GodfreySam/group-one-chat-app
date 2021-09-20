@@ -1,5 +1,10 @@
 // // Load config
 // const dotenv = require("dotenv");
+// Load config
+// const dotenv = require("dotenv");
+
+// dotenv.config({path: './config/config.env'});
+
 // Global Variables
 const { globalVariables } = require("./middlewares/configurations");
 const express = require("express");
