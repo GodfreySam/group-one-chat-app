@@ -6,10 +6,14 @@ module.exports = {
 	userHome: async (req, res) => {
 		try {
 			let pageTitle = "Home page";
-			let user = await User.find({ user: req.user }).populate(
-				"comments posts likes",
+
+			let userPost = await Post.find({ user: req.user }).populate(
+				"user comments likes",
 			);
-			res.render("user/index", { pageTitle, user });
+			res.render("default/index", {
+				pageTitle,
+				userPost,
+			});
 		} catch (err) {
 			console.log(err);
 		}
@@ -93,33 +97,15 @@ module.exports = {
 		}
 	},
 
-	postLike: async (req, res) => {
+	postPostLike: async (req, res) => {
 		try {
 			let { like } = req.body;
 
 			console.log(req.body);
 
-			let commentExist = await Comment.findOne({ _id: req.params.commentId });
 			let postExist = await Post.findOne({ _id: req.params.postId });
 
 			const newLike = new Like({ like });
-
-			if (commentExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						commentExist.likes.push(like._id);
-						commentExist.save();
-						req.flash("success-message", "You liked this comment");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
-			}
 
 			if (postExist) {
 				await newLike
@@ -142,13 +128,47 @@ module.exports = {
 		}
 	},
 
+	postCommentLike: async (req, res) => {
+		try {
+			let { like } = req.body;
+
+			console.log(req.body);
+
+			let commentExist = await Comment.findOne({ _id: req.params.commentId });
+		
+			const newLike = new Like({ like });
+
+			if (commentExist) {
+				await newLike
+					.save()
+					.then((like) => {
+						commentExist.likes.push(like._id);
+						commentExist.save();
+						req.flash("success-message", "You liked this comment");
+						return res.redirect("back");
+					})
+					.catch((error) => {
+						if (error) {
+							req.flash("error-message", error.message);
+							res.redirect("back");
+						}
+					});
+			}
+		} catch (err) {
+			console.log(err);
+		}
+	},
+
 	commentDelete: async (req, res) => {
 		try {
 			const { commentId } = req.params;
 			let deletedComment = await Comment.findOneAndDelete({ commentId });
 
 			if (!deletedComment) {
-				req.flash("error-message", "Comment could not be deleted now, please try again");
+				req.flash(
+					"error-message",
+					"Comment could not be deleted now, please try again",
+				);
 				return res.redirect("back");
 			}
 			req.flash("success-message", "Comment deleted successfully");
@@ -164,7 +184,10 @@ module.exports = {
 			let deletedPost = await Post.findOneAndDelete({ postId });
 
 			if (!deletedPost) {
-				req.flash("error-message", "Post could not be deleted now, please try again");
+				req.flash(
+					"error-message",
+					"Post could not be deleted now, please try again",
+				);
 				return res.redirect("back");
 			}
 			req.flash("success-message", "Post deleted successfully");

@@ -72,12 +72,18 @@ module.exports = {
 				charset: 'numeric'
 			});
 
+			let firstNameInitials = firstName.split("");
+			let lastNameInitials = lastName.split("");
+			let userAvatar = firstNameInitials[0] + lastNameInitials[0];
+			
+
 			const newUser = new User({
 				firstName, 
 				lastName , 
 				email,
 				secretToken,
 				password: hashedPassword,
+				avatar: userAvatar
 			});
 
 			await newUser.save();

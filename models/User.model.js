@@ -44,6 +44,9 @@ const userSchema = new Schema(
 				ref: "like",
 			},
 		],
+		avatar: {
+			type: String
+		}
 	},
 	{ timestamps: true },
 );
