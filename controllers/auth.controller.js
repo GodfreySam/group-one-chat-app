@@ -27,8 +27,10 @@ module.exports = {
 	postVerify: async (req, res) => {
 		let {inputToken} = req.body;
 
+		let trimmedInputToken = inputToken.trim();
+
 		console.log(req.body);
-		let user = await User.findOne({ secretToken: inputToken });
+		let user = await User.findOne({ secretToken: trimmedInputToken });
 
 		if (!user) {
 			req.flash('error-message', 'Wrong token. Please copy the token appropriately');
@@ -37,7 +39,7 @@ module.exports = {
 
 		user.verified = true;
 		user.save();
-		res.redirect("/auth/login");
+		res.render("Hello I'm in");
 	},
 
 	postRegister: async (req, res) => {
@@ -70,12 +72,18 @@ module.exports = {
 				charset: 'numeric'
 			});
 
+			let firstNameInitials = firstName.split("");
+			let lastNameInitials = lastName.split("");
+			let userAvatar = firstNameInitials[0] + lastNameInitials[0];
+			
+
 			const newUser = new User({
 				firstName, 
 				lastName , 
 				email,
 				secretToken,
 				password: hashedPassword,
+				avatar: userAvatar
 			});
 
 			await newUser.save();
@@ -112,5 +120,7 @@ module.exports = {
 		res.render("auth/forgot-password", { pageTitle });
 	},
 
-	postForgotPassword: async (req, res) => {},
+	postForgotPassword: async (req, res) => {
+		
+	},
 };

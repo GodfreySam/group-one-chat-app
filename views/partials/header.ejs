@@ -16,8 +16,12 @@
 				<ul class="navbar-nav ml-auto nav-pills flex-column flex-sm-row ">
 			<% if(isAuthenticated) { %>
 			<li class="nav-item">
+				<div class="avatar-circle">
+					<span class="initials text-secondary">
+						<%= user.avatar %>
+					</span>
+				</div>
 				<a class="dropdown-item" href="/auth/logout">Logout</a>
-				<%= user.fullName %>
 			</li>
 			<% } else { %>
 				<li class="nav-item">
