@@ -43,9 +43,10 @@
     flex-direction: column;
     /* justify-content: center; */
     align-items: center;
-    width: 500px;
+    width: 400px;
     height: 400px;
     background-color: #f3f3f3;
+    margin-right: 50px;
 }
 .regform{
     margin-top: 50px;
@@ -57,7 +58,6 @@
     background-color: #f3f3f3;
 }
 #form{
-    width: 80%;
     height: 50%;
     margin-top: 10px;
     

@@ -178,5 +178,9 @@ module.exports = {
         successFlash: true,
         failureFlash: true,
         session: true,
-	})
+	}),
+	getLogout:  (req, res) => {
+		req.logout()
+		res.redirect('/');
+	}
 };
