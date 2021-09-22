@@ -6,12 +6,13 @@ const User = require("../models/User.model");
 module.exports = {
 	userHome: async (req, res) => {
 		try {
-			let pageTitle = "Home page";
+			let pageTitle = "User Home";
 
-			let userPost = await Post.find({ user: req.user }).populate(
-				"user comments likes",
-			);
-			res.render("default/index", {
+			const userPost = await Post.find({ user: req.user })
+				.populate("user comments likes")
+				.sort({ _id: -1 });
+			
+			res.render("user/home", {
 				pageTitle,
 				userPost,
 			});
@@ -33,24 +34,25 @@ module.exports = {
 
 			console.log(req.body);
 
-			if (!article || article === "") {
+			if (!article) {
 				req.flash("error-message", "Field can not be empty");
 				return res.redirect("back");
 			}
 
-			if (article.length > 300) {
-				req.flash("error-message", "Post can not be more than 300 characters");
+			if (article.length > 250) {
+				req.flash("error-message", "Post can not be more than 250 characters");
 				return res.redirect("back");
 			}
 
 			const newPost = new Post({
-				article,
+				article
 			});
 
+			newPost.user = req.user.id
 			await newPost.save();
 
 			req.flash("success-message", "Your post was posted successfully");
-			return res.redirect("back");
+			return res.redirect("/default/index");
 		} catch (err) {
 			console.log(err);
 		}
