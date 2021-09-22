@@ -19,18 +19,22 @@
 			<%- include('../partials/messages') -%>
 			  <div id="form">
 				<p class="text-center">Sign Up</p>
-				<form action="/auth/register" method="post">
+				<form action="/auth/register" method="post" style="width: 80%;">
 					<div class="form-group">
 						<label for="exampleInputEmail1">First Name</label>
-						<input type="text" name="firstName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						<input type="text" name="firstName" placeholder="type in first name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 					  </div>
 					  <div class="form-group">
 						<label for="exampleInputEmail1">Last Name</label>
-						<input type="text" name="lastName" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						<input type="text" name="lastName" placeholder="type in last name" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 					  </div>
 					<div class="form-group">
 					  <label for="exampleInputEmail1">Email address</label>
-					  <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					  <input type="email" name="email" placeholder="type a valid email address" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+					</div>
+					<div class="form-group">
+					  <label for="exampleInputEmail1">User Name</label>
+					  <input type="text" name="username" placeholder="Please type a username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
 					</div>
 					<div class="row">
 						<div class="col">

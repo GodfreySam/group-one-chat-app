@@ -6,12 +6,13 @@ const User = require("../models/User.model");
 module.exports = {
 	userHome: async (req, res) => {
 		try {
-			let pageTitle = "Home page";
+			let pageTitle = "User Home";
 
-			let userPost = await Post.find({ user: req.user }).populate(
-				"user comments likes",
-			);
-			res.render("default/index", {
+			const userPost = await Post.find({ user: req.user })
+				.populate("user comments likes")
+				.sort({ _id: -1 });
+			
+			res.render("user/home", {
 				pageTitle,
 				userPost,
 			});
@@ -38,8 +39,8 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			if (article.length > 300) {
-				req.flash("error-message", "Post can not be more than 300 characters");
+			if (article.length > 250) {
+				req.flash("error-message", "Post can not be more than 250 characters");
 				return res.redirect("back");
 			}
 

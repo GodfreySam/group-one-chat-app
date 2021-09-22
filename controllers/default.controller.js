@@ -7,8 +7,8 @@ module.exports = {
 		try {
 			let pageTitle = "Home page";
 			let allPost = await Post.find({}).populate(
-				"user comments likes",
-			);
+				"user comments likes"
+			).sort({ _id: -1 });
 			res.render("default/index", {
 				pageTitle,
 				allPost

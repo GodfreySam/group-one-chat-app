@@ -45,7 +45,8 @@
     align-items: center;
     width: 500px;
     height: 400px;
-    background-color: #f3f3f3;
+    background-color: #5e5555;
+    margin-right: 50px;
 }
 .regform{
     margin-top: 50px;
@@ -57,7 +58,6 @@
     background-color: #f3f3f3;
 }
 #form{
-    width: 400px;
     height: 50%;
     margin-top: 10px;
     

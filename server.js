@@ -1,10 +1,3 @@
-// // Load config
-// const dotenv = require("dotenv");
-// Load config
-// const dotenv = require("dotenv");
-
-// dotenv.config({path: './config/config.env'});
-
 // Global Variables
 const { globalVariables } = require("./middlewares/configurations");
 const express = require("express");
@@ -67,6 +60,7 @@ passport.deserializeUser(function(id, done) {
 app.use(logger("dev"));
 app.use(flash());
 app.use(globalVariables);
+app.locals.moment = require("moment");
 
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, 'public')));
