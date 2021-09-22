@@ -1,7 +1,6 @@
 const sendEmail = require('../misc/mailer');
-const { getMaxListeners } = require( '../models/User.model' );
 
-const resetPasswordEmail = async (req, email) => {
+const resetPasswordEmail = async (req, token, inputEmail) => {
    const html = `
    <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
    <html xmlns="http://www.w3.org/1999/xhtml" lang="en-GB">
@@ -114,7 +113,7 @@ const resetPasswordEmail = async (req, email) => {
                                    "
                                  >
                                  <p style="font: 2em Raleway; font-weight: bolder;  padding: 1em; cursor: pointer;
-                                 "><a href="http://${req.headers.host}/auth/reset-password">Reset Password</a></p>
+                                 "><a href="http://${req.headers.host}/auth/reset-password/${token}">Reset Password</a></p>
                                  </div>
                              </td>
                            </tr>
@@ -204,10 +203,9 @@ const resetPasswordEmail = async (req, email) => {
 
    await sendEmail(
       'akpologun.winner@gmail.com',
-      email,
+      inputEmail,
       "Please verify your account",
       html
    )
 }
-
 module.exports = resetPasswordEmail;
