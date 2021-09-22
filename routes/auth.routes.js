@@ -21,9 +21,9 @@ router.route("/login").get(login).post(postLogin);
 
 router.route("/verify").get(verify).post(postVerify);
 
-router.route("/forgot-password").get(forgotPassword).post(postForgotPassword);
+router.route("/forgot-password/").get(forgotPassword).post(postForgotPassword);
 
-router.route("/reset-password").get(resetPassword).post(postResetPassword);
+router.route("/reset-password/:token").get(resetPassword).post(postResetPassword);
 
 router.route("/logout").get(getLogout);
 
