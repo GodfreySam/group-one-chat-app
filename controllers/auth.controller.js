@@ -25,10 +25,9 @@ passport.use(new LocalStrategy({usernameField: 'email', passReqToCallback: true}
 
 module.exports = {
 	register: async (req, res) => {
-		let pageTitle = "Register page";
-		res.render("auth/register", { pageTitle });
+		let pageTitle = "Register page"
+		res.render('auth/register', {pageTitle});
 	},
-
 	postRegister: async (req, res) => {
 		try {
 			let { firstName, lastName , email, password, confirmPassword } = req.body;
@@ -87,7 +86,8 @@ module.exports = {
 				"User registration successful, Check your email to verify your account",
 			);
 			return res.redirect("/auth/verify");
-		} catch (err) {
+		}
+		catch (err) {
 			console.log(err);
 		}
 	},
@@ -123,16 +123,19 @@ module.exports = {
 	postForgotPassword: async (req, res) => {
 		let{inputEmail} = req.body;
 
-		let trimmedInputEmail = inputEmail.trim();
-		let user = await User.findOne({ email: trimmedInputEmail });
+		let user = await User.findOne({ email: inputEmail });
 
 		if (!user) {
 			req.flash('error-message', 'Email not found');
 			return res.redirect('back')
 		}
-
-		let firstName = User.firstName;
-		await passwordEmail(req, firstName, trimmedInputEmail);
+		let token = randomstring.generate({
+			length: 6,
+			charset: 'numeric'
+		});
+		user.secretToken = token;
+		user.save();
+		await passwordEmail(req, token, inputEmail);
 		req.flash(
 			"success-message",
 			"Please check your email to reset your password",
@@ -142,17 +145,16 @@ module.exports = {
 
 	resetPassword: async (req, res) => {
 		let pageTitle = "Password reset";
-		res.render("auth/reset-password", { pageTitle });
+		let {token} = req.params;
+		res.render("auth/reset-password", { pageTitle, token });
 	},
 
 	postResetPassword: async (req, res) => {
 		let{newPassword, confirmNewPassword} = req.body;
-
 		if (newPassword.length < 6) {
 			req.flash("error-message", "Password must be six characters or more");
 			return res.redirect("back");
 		}
-
 		if (newPassword !== confirmNewPassword) {
 			req.flash("error-message", "Passwords do not match");
 			return res.redirect("back");
@@ -161,8 +163,15 @@ module.exports = {
 		const salt = await bcrypt.genSalt();
 		const newHashedPassword = await bcrypt.hash(newPassword, salt);
 
-		User.password = newHashedPassword;
-		await User.save();
+		let { token } = req.params;
+		let user = await User.findOne({secretToken: token})
+		console.log(user);
+		if (!user) {
+			req.flash('error-message', 'User not found')
+		}
+		user.password = newHashedPassword;
+		console.log(user.password);
+		user.save();
 		req.flash("success-message", "Password reset successfully")
 		res.redirect("/auth/login")
 	},
