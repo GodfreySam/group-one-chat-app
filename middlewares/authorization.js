@@ -3,8 +3,8 @@ module.exports = {
 		if (req.isAuthenticated()) {
 			next();
 		} else {
-			req.flash("error-message", "Please login or signup to continue");
-			res.redirect('/auth/login');
+			req.flash("error-message", "Please login to continue");
+			res.redirect("/auth/login");
 		}
-	}
-}
+	},
+};

@@ -1,5 +1,5 @@
 <% if (success_message && success_message.length > 0) { %>
-<div class="alert just-go alert-success" role="alert">
+<div class="alert just-go alert-success alert-dismissible fade show" role="alert">
 	<%= success_message %>
 
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -7,7 +7,7 @@
 	</button>
 </div>
 <% } %> <% if (error_message && error_message.length > 0) { %>
-<div class="alert just-go alert-danger" role="alert">
+<div class="alert just-go alert-danger alert-dismissible fade show" role="alert">
 	<%= error_message %>
 
 	<button type="button" class="close" data-dismiss="alert" aria-label="Close">
@@ -15,3 +15,8 @@
 	</button>
 </div>
 <% } %>
+
+<script>
+	$('.alert').alert();
+</script>
+

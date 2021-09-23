@@ -1,85 +1,83 @@
-<nav class="navbar navbar-expand-lg py-3 navbar-light bg-white fixed-top">
-	<a class="navbar-brand ml-3" href="/"> <img src="/images/lg.jpeg" width="180px" height="50px" alt="logo" srcset=""> </a>
+<nav class="navbar navbar-expand-lg fixed-top p-4 navbar-light bg-white">
+	<a class="navbar-brand flex-grow-1" href="#"
+		><img src="/images/lg.png" alt="logo"
+	/></a>
+	<% if(isAuthenticated) { %>
 	<button
 		class="navbar-toggler"
 		type="button"
 		data-toggle="collapse"
-		data-target="#navbarSupportedContent"
-		aria-controls="navbarSupportedContent"
+		data-target="#navbarNav"
+		aria-controls="navbarNav"
 		aria-expanded="false"
 		aria-label="Toggle navigation"
 	>
-		<span class="navbar-toggler-icon"></span>
+		<%= user.avatar %>
 	</button>
 
-	<div class="collapse navbar-collapse" id="navbarSupportedContent">
-				<ul class="navbar-nav ml-auto nav-pills flex-column flex-sm-row ">
-			<% if(isAuthenticated) { %>
-				<li class="nav-item">
-					<a
-						class="text-primary dropdown-item lead"
-						data-toggle="collapse"
-						href="#writePost"
-						role="button"
-						aria-expanded="false"
-						aria-controls="writeComment"
-					>
-					Create Post
-					</a>
-				</li>
-				<li class="nav-item mx-4">
-					<a
-						class="text-primary dropdown-item lead"
-						data-toggle="collapse"
-						href="/auth/logout"
-						role="button"
-						aria-expanded="false"
-						aria-controls="writeComment"
-					>
-					Logout
-					</a>
-				</li>
-			<li class="nav-item mr-2 mb-1">
-				<div class="avatar-profile">
-					<span class="initials-profile text-white">
-						<%= user.avatar %>
-					</span>
-				</div>
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<%= user.avatar %>
 			</li>
-			<% } else { %>
-				<li class="nav-item">
-					<a
-						class="text-primary dropdown-item lead"
-						href="/auth/login"
-						role="button"
-						aria-expanded="false"
-						aria-controls="writeComment"
-					>
-					Login
-					</a>
-				</li>
-				<li class="nav-item">
-					<a
-						class="text-primary dropdown-item lead"
-						data-toggle="collapse"
-						href="#writePost"
-						role="button"
-						aria-expanded="false"
-						aria-controls="writeComment"
-					>
-					Create Post
-					</a>
-				</li>
-				<li class="nav-item dropdown">
-					<a class="nav-link dropdown-toggle mx-5" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-						<i class="fas fa-user-circle text-primary" style="font-size: 25px;"></i>
-					</a>
-					<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					  <a class="dropdown-item" href="#">Action</a>
-				  </li>
-			<% } %>
-		
+			<li class="nav-item active">
+				<a
+					class="nav-link"
+					data-toggle="collapse"
+					href="#writePost"
+					role="button"
+					aria-expanded="false"
+					aria-controls="writeComment"
+				>
+					Create post
+					<span class="sr-only">(current)</span></a
+				>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/auth/logout">Logout</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/user/home">Profile</a>
+			</li>
 		</ul>
 	</div>
+	<% } else { %>
+	<button
+		class="navbar-toggler"
+		type="button"
+		data-toggle="collapse"
+		data-target="#navbarNav"
+		aria-controls="navbarNav"
+		aria-expanded="false"
+		aria-label="Toggle navigation"
+	>
+		<i class="fas fa-user-circle text-primary"></i>
+	</button>
+
+	<div class="collapse navbar-collapse" id="navbarNav">
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<i class="fas fa-user-circle text-primary"></i>
+			</li>
+			<li class="nav-item active">
+				<a
+					class="nav-link"
+					class="nav-link"
+					data-toggle="collapse"
+					href="#writePost"
+					role="button"
+					aria-expanded="false"
+					aria-controls="writeComment"
+					>Create post<span class="sr-only">(current)</span></a
+				>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/auth/login">Login</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/auth/register">Register</a>
+			</li>
+		</ul>
+	</div>
+	<% } %>
 </nav>
-<!-- !End of Navbar -->

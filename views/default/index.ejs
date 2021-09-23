@@ -1,32 +1,21 @@
-<%- include('../partials/head') -%> 
-<%- include('../partials/header') -%>
+<%- include('../partials/head') -%> <%- include('../partials/header') -%>
 
 <div class="container">
-<%- include('../partials/messages') -%>
-		<div class="collapse" id="writePost">
-			<div class="card card-body">
-				<form action="/user/post" method="post">
-					<div class="form-group">
-						<textarea
-							class="form-control"
-							name="post"
-							rows="3"
-							placeholder="What is on your mind?"
-						></textarea>
-					</div>
-					<button class="btn btn-primary" type="submit">Post</button>
-				</form>
+	<%- include('../partials/messages') -%>
+	<div class="collapse mb-5" id="writePost">
+		<form action="/user/post" method="post">
+			<div class="form-group">
+				<textarea
+					class="form-control"
+					id="writePost"
+					name="article"
+					rows="3"
+					placeholder="What is on your mind?"
+				></textarea>
 			</div>
-		</div>
-	
-<main class="mainBody" style="margin-top: 250px">
-	<div class="jumbotron p-3 p-md-5 text-dark rounded bg-white">
-		<div class="media">
-			<div class="avatar-circle mr-3">
-				<span class="initials text-white">GI</spa>
-<main class="mainBody" style="margin-top: 80px">
-	<% allPost.forEach((post) => { %>
-
+			<button class="btn btn-primary btn-lg" type="submit">Post</button>
+		</form>
+	</div>
 	<div class="jumbotron p-3 p-md-5 text-white rounded bg-secondary">
 		<div class="media">
 			<div class="avatar-circle mr-3"> 
@@ -41,105 +30,99 @@
 				<p>
 				<%= post.article %>
 				</p>
+	<main class="mainBody">
+		<% allPost.forEach((post) => { %>
+		<div class="card">
+			<div class="card-content">
+				<div class="user-details">
+					<div class="avatar-circle">
+						<span class="initials"> <%= post.user.avatar %> </span>
+						<!-- <span> <%= post.user.firstname %> </span> -->
+						<!-- <span> @<%= post.user.username %> </span> -->
+					</div>
+					<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
+				</div>
 
-				<% post.comments.forEach(comment => { %>
-				<div class="collapse" id="seeComment">
-					<div class="media mt-3">
-						<div class="avatar-circle mr-3">
-							<span class="initials text-secondary"><%= comment.user.avatar %></span>
-						</div>
+				<div class="jumbotron text-dark">
+					<div class="media">
 						<div class="media-body">
-							<p>
-							<%= comment.statement %>
-							</p>
+							<p><%= post.article %></p>
 						</div>
 					</div>
-					<div class="d-flex justify-content-between mt-4">
-						<div class="d-flex">
-						<form action="/user/like-comment/<%- comment._id %>" method="POST">
+				</div>
+				<hr />
+				<div class="interaction-section d-flex">
+					<div class="d-flex mx-4">
+						<form action="/user/like-post/<%- post._id %>" method="POST">
 							<input type="text" name="like" value="like" style="display: none" />
 							<button class="like-btn" type="submit">
 								<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
 							</button>
 						</form>
-						<p><%= comment.likes.length %>&nbsp; likes</p>
+						<p><%= post.likes.length %>&nbsp; likes</p>
 					</div>
-					<div></div>
-					<div></div>
+
+					<div class="d-flex mx-2">
+						<a
+							class="mr-2"
+							data-toggle="collapse"
+							href="#writeComment"
+							role="button"
+							aria-expanded="false"
+							aria-controls="seeComment"
+						>
+							<i class="fas fa-comments"></i>
+						</a>
+						<p><%= post.comments.length %>&nbsp; comments</p>
 					</div>
 				</div>
-
-				<% }) %>
-
-			</div>
-		</div>
-		<div class="d-flex justify-content-between mt-4">
-			<!-- <i class="fa fa-heart" aria-hidden="true"></i> -->
-			<div class="d-flex">
-				<form action="/user/like-post/<%- post._id %>" method="POST">
-					<input type="text" name="like" value="like" style="display: none" />
-					<button class="like-btn" type="submit">
-						<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
-					</button>
-				</form>
-				<p><%= post.likes.length %>&nbsp; likes</p>
-			</div>
-			<a
-				class=""
-				data-toggle="collapse"
-				href="#writeComment"
-				role="button"
-				aria-expanded="false"
-				aria-controls="writeComment"
-			>
-				<i class="fa fa-comment" aria-hidden="true"></i>
-			</a>
-			<div class="d-flex">
-				<a
-				class="mr-2"
-				data-toggle="collapse"
-				href="#seeComment"
-				role="button"
-				aria-expanded="false"
-				aria-controls="seeComment"
-			>
-				<i class="fas fa-comments"></i>
-				
-			</a>
-			<p>300 comments</p>
-			</div>
-			
-			<!-- <i class="fa-solid fa-comments"></i>
-			<i class="far fa-comments"></i> -->
-		</div>
-
-		<div class="d-flex justify-content-between mt-1">
-			<!-- <p><%= post.likes.length %>&nbsp; likes</p> -->
-			<!-- <p>50 likes</p> -->
-			<p><%= post.comments.length %>&nbsp; likes</p>
-			<!-- <p>300 comments</p> -->
-		</div>
-		<div class="collapse" id="writeComment">
-			<div class="card card-body">
-				<form action="/user/comment" method="post">
-					<div class="form-group">
-						<textarea
-							class="form-control"
-							id="comment"
-							name="comment"
-							rows="3"
-							placeholder="Write a public comment"
-						></textarea>
+				<div class="collapse" id="writeComment">
+					<div class="card card-body">
+						<form action="/user/comment-post/<%- post._id %>" method="post">
+							<div class="form-group">
+								<textarea
+									class="form-control"
+									id="comment"
+									name="comment"
+									rows="3"
+									placeholder="Write a public comment"
+								></textarea>
+							</div>
+							<button class="btn btn-primary" type="submit">Comment</button>
+						</form>
 					</div>
-					<button class="btn btn-primary" type="submit">Comment</button>
-				</form>
+
+					<% post.comments.forEach(comment => { %>
+					<div class="collapse" id="seeComment">
+						<div class="media mt-3">
+							<div class="avatar-circle mr-3">
+								<span class="initials text-secondary"><%= comment.user.avatar %></span>
+							</div>
+							<div class="media-body">
+								<p><%= comment.statement %></p>
+							</div>
+						</div>
+						<div class="d-flex justify-content-between mt-4">
+							<div class="d-flex">
+								<form action="/user/like-comment/<%- comment._id %>" method="POST">
+									<input type="text" name="like" value="like" style="display: none" />
+									<button class="like-btn" type="submit">
+										<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
+									</button>
+								</form>
+								<p><%= comment.likes.length %>&nbsp; likes</p>
+							</div>
+							<div></div>
+							<div></div>
+						</div>
+					</div>
+					<% }) %>
+				</div>
 			</div>
 		</div>
-	</div>
-
-	<% }) %>
-
-</main>
+		<hr class="partition" />
+		<% }) %>
+	</main>
 </div>
 
 <%- include('../partials/foot') -%>
