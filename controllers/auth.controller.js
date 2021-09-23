@@ -103,7 +103,7 @@ module.exports = {
 
 		let trimmedInputToken = inputToken.trim();
 
-		console.log(req.body);
+		// console.log(req.body);
 		let user = await User.findOne({ secretToken: trimmedInputToken });
 
 		if (!user) {
@@ -166,12 +166,12 @@ module.exports = {
 
 		let { token } = req.params;
 		let user = await User.findOne({secretToken: token})
-		console.log(user);
+		// console.log(user);
 		if (!user) {
 			req.flash('error-message', 'User not found')
 		}
 		user.password = newHashedPassword;
-		console.log(user.password);
+		// console.log(user.password);
 		user.save();
 		req.flash("success-message", "Password reset successfully")
 		res.redirect("/auth/login")
@@ -189,6 +189,36 @@ module.exports = {
         failureFlash: true,
         session: true,
 	}),
+
+	changePassword: (req, res) => {
+		let pageTitle = "Change Password";
+		res.render("auth/change-password", {pageTitle});
+	},
+
+	postChangePassword: async (req, res) => {
+		let{oldPassword, updatedPassword} = req.body;
+
+		const salt = await bcrypt.genSalt();
+		const hashedUpdatedPassword = await bcrypt.hash(updatedPassword, salt);
+		console.log(hashedUpdatedPassword);
+
+		let user = await User.findById(req.user._id);
+		
+		if (user) {
+		const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+		console.log(passwordMatch);
+			if (passwordMatch == false){
+				req.flash('error-message', 'Old password is wrong')
+				res.redirect("back")
+			}else{
+				user.password = hashedUpdatedPassword;
+				await user.save();
+				req.flash('success-message', 'Password changed successfully');
+				res.redirect('/user/profile');
+			}
+		}
+		return req.flash('error-message', 'Something went wrong')
+	},
 
 	getLogout: (req, res)=>{
 		req.logout();
