@@ -9,7 +9,7 @@ module.exports = function (passport) {
 				usernameField: "value",
 				passReqToCallback: true,
 			},
-			async (req, username, password, done) => {
+			async (req, value, password, done) => {
 				await User.findOne({ $or: [{ username: value }, { email: value }] })
 					.then(async (user) => {
 						if (!user)

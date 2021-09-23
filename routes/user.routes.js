@@ -1,20 +1,24 @@
 const express = require("express");
 const router = express.Router();
-const { isLoggedIn } = require("../middlewares/authorizations");
+
 
 const {
 	userHome,
+	userProfile,
 	postPost,
 	postComment,
 	postCommentLike,
 	postPostLike,
-	commentDelete,
-	postDelete,
+	postPostUnLike,
+	deleteComment,
+	deletePost
 } = require("../controllers/user.controller");
 
-router.route("/post").get(userHome);
-router.route("/post", isLoggedIn).post(postPost);
-router.route("/comment").get(userHome);
+const authorized = require("../middlewares/authorizations").isLoggedIn;
+
+router.route("/post").get(userHome).post(authorized, postPost);
+router.route("/profile").get(userProfile);
+router.route("/comment-post").get(userHome);
 router.route("/comment", isLoggedIn).post(postComment);
 router.route("/comment/:postId", isLoggedIn).post(postComment);
 router.route("/like").get(userHome);

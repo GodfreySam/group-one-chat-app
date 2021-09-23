@@ -1,5 +1,5 @@
 <nav class="navbar navbar-expand-lg fixed-top p-4 navbar-light bg-white">
-	<a class="navbar-brand flex-grow-1" href="#"
+	<a class="navbar-brand flex-grow-1" href="/"
 		><img src="/images/lg.png" alt="logo"
 	/></a>
 	<% if(isAuthenticated) { %>
@@ -31,11 +31,15 @@
 				>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Logout</a>
+				<a class="nav-link" href="/auth/logout">Logout</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Profile</a>
+				<a class="nav-link" href="/user/home">Profile</a>
 			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/auth/change-password">Change Password</a>
+			</li>
+			
 		</ul>
 	</div>
 	<% } else { %>
@@ -66,10 +70,10 @@
 				>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Login</a>
+				<a class="nav-link" href="/auth/login">Login</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="#">Register</a>
+				<a class="nav-link" href="/auth/register">Register</a>
 			</li>
 		</ul>
 	</div>
