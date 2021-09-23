@@ -9,9 +9,13 @@ module.exports = {
 			let allPost = await Post.find({}).populate(
 				"user comments likes"
 			).sort({ _id: -1 });
+			let allComment = await Comment.find({})
+				.populate("user comments likes")
+				.sort({ _id: -1 });
 			res.render("default/index", {
 				pageTitle,
-				allPost
+				allPost,
+				allComment
 			});
 		} catch (err) {
 			console.log(err);

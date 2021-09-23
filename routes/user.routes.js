@@ -1,28 +1,34 @@
 const express = require("express");
 const router = express.Router();
-const { isLoggedIn } = require("../middlewares/authorizations");
-
 const {
 	userHome,
+	userProfile,
 	postPost,
-	postComment,
+	postPostComment,
 	postCommentLike,
+	postCommentUnLike,
 	postPostLike,
-	commentDelete,
-	postDelete,
+	postPostUnLike,
+	deleteComment,
+	deletePost,
 } = require("../controllers/user.controller");
 
-router.route("/post").get(userHome);
-router.route("/post", isLoggedIn).post(postPost);
-router.route("/comment").get(userHome);
-router.route("/comment", isLoggedIn).post(postComment);
-router.route("/comment/:postId", isLoggedIn).post(postComment);
-router.route("/like").get(userHome);
-// router.route("/like", isLoggedIn).post(postLike);
-router.route("/like-post/:postId", isLoggedIn).post(postPostLike);
-router.route("/like-comment/:commentId", isLoggedIn).post(postCommentLike);
-router.route("/delete-post/:postId", isLoggedIn).get(postDelete);
-router.route("/delete-comment/:commentId", isLoggedIn).get(commentDelete);
+const authorized = require('../middlewares/authorization').isLoggedIn;
+
+router.route("/")
+	.get(userHome)
+	.post(postPost);
+router.route("/profile").get(userProfile);
+// router.route("/comment").post(postComment);
+router.route("/comment-post/:postId").post(postPostComment);
+// router.route("/like").get(userHome);
+// router.route("/like").post(postLike);
+router.route("/like-post/:postId").post(postPostLike);
+router.route("/like-post/:postId").post(postPostUnLike);
+router.route("/like-comment/:commentId").post(postCommentLike);
+router.route("/like-comment/:commentId").post(postCommentUnLike);
+router.route("/delete-post/:postId").get(deletePost);
+router.route("/delete-comment/:commentId").get(deleteComment);
 
 
 module.exports = router;
