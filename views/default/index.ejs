@@ -16,20 +16,7 @@
 			<button class="btn btn-primary btn-lg" type="submit">Post</button>
 		</form>
 	</div>
-	<div class="jumbotron p-3 p-md-5 text-white rounded bg-secondary">
-		<div class="media">
-			<div class="avatar-circle mr-3"> 
 
-				
-				<span class="initials text-secondary">
-					<%= post.user.avatar %>
-				</span>
-			</div>
-			<div class="media-body">
-				<h5 class="mt-0">Media heading</h5>
-				<p>
-				<%= post.article %>
-				</p>
 	<main class="mainBody">
 		<% allPost.forEach((post) => { %>
 		<div class="card">
@@ -42,8 +29,7 @@
 						<!-- <span> @<%= post.user.username %> </span> -->
 					<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
 				</div>
-
-				<div class="text-dark post-card">
+				<div class="post-card text-dark">
 					<div class="media">
 						<div class="media-body">
 							<p><%= post.article %></p>
@@ -61,7 +47,6 @@
 						</form>
 						<p><%= post.likes.length %>&nbsp; likes</p>
 					</div>
-
 					<div class="d-flex mx-2">
 						<a
 							class="mr-2"
@@ -91,7 +76,6 @@
 							<button class="btn btn-primary" type="submit">Comment</button>
 						</form>
 					</div>
-
 					<% post.comments.forEach(comment => { %>
 					<div class="collapse" id="seeComment">
 						<div class="media mt-3">
