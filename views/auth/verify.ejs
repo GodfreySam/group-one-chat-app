@@ -1,40 +1,33 @@
 <%- include('../partials/formHeader') -%>
-<div class="height: 100%;">
-	<div class="row">
+<div class="main">
 		
-		<div class="col-2 first-col" style="height: 100vh;" >
-	<div>
+		<div class="confirm">
 <img src="/images/lg.jpeg" width="180px" class="mt-5 ml-3" alt="logo" srcset="">
-	  </div>
-	  </div>
-	  <div class="col-4 confirm">	
-  </div>
-	  <div class="col-6 third-col">
-		  <div class="form">
-			 
-			  <div id="form">
-				<%- include('../partials/messages') -%>
-					<p class="text-center mt-5">Verify Account</p>
-					<form action="/auth/verify" method="POST">
-						<div class="form-group mt-5">
-						<label for="exampleInputEmail1" style="font-weight: bold;" >Enter the six(6) digits token sent to your email</label>
-						<input type="text" name="inputToken" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-						</div>
-						<button type="submit" class="btn btn-primary">Submit</button>
-						<!-- <p1 class="text-primary text-muted"><a href="/auth/forgot-password">Forgot password? </a> </p1> -->
-					</form>
-					
-			  </div>
-				
-
-			  <div>
-
-			  </div>
-
-		  </div>
-	  </div>
-	</div>
-</div>
+		</div>
+		<div class=" third-col">
+			<div class="small-form">
+			   
+				<div id="form">
+				  <%- include('../partials/messages') -%>
+					  <p class="text-center">Verify Account</p>
+					  <form action="/auth/verify" method="POST">
+						  <div class="form-group mt-4">
+						  <label for="exampleInputEmail1" style="font-weight: bold;" >Enter the six(6) digits token sent to your email</label>
+						  <input type="text" name="inputToken" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+						  </div>
+						  <button type="submit" class="btn btn-primary">Submit</button>
+						  <!-- <p1 class="text-primary text-muted"><a href="/auth/forgot-password">Forgot password? </a> </p1> -->
+					  </form>
+					  
+				</div>
+				  
+  
+				<div>
+  
+				</div>
+	 
+	  
+	  
 
 
 <%- include('../partials/foot') -%>
