@@ -1,7 +1,7 @@
-<nav class="navbar navbar-expand-lg fixed-top p-4 navbar-light bg-white">
-	<a class="navbar-brand flex-grow-1" href="/"
-		><img src="/images/lg.png" alt="logo"
-	/></a>
+
+<nav class="navbar navbar-expand-lg fixed-top navbar-light bg-white pb-0 mb-0 pt-0 mt-0 ml-auto">
+	<a class="navbar-brand" href="#"
+		><img src="/images/connect1.png" alt="logo"/></a>
 	<% if(isAuthenticated) { %>
 	<button
 		class="navbar-toggler"
@@ -12,16 +12,20 @@
 		aria-expanded="false"
 		aria-label="Toggle navigation"
 	>
-		<%= user.avatar %>
+		<span class="navbar-toggler-icon"></span>
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
+			<li class="nav-item">
+				<%= user.avatar %>
+			</li>
 			<li class="nav-item active">
 				<a
 					class="nav-link"
 					data-toggle="collapse"
 					href="#writePost"
+					id="show"
 					role="button"
 					aria-expanded="false"
 					aria-controls="writeComment"
@@ -36,9 +40,6 @@
 			<li class="nav-item">
 				<a class="nav-link" href="/user/home">Profile</a>
 			</li>
-			<li class="nav-item">
-				<a class="nav-link" href="/auth/change-password">Change Password</a>
-			</li>
 			
 		</ul>
 	</div>
@@ -52,14 +53,16 @@
 		aria-expanded="false"
 		aria-label="Toggle navigation"
 	>
-		<i class="fas fa-user-circle text-primary"></i>
+		<span class="navbar-toggler-icon"></span>
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a href="" class="nav-link"><i class="fas fa-user-circle text-primary"></i></a>
+			</li>
 			<li class="nav-item active">
 				<a
-					class="nav-link"
 					class="nav-link"
 					data-toggle="collapse"
 					href="#writePost"
@@ -69,7 +72,7 @@
 					>Create post<span class="sr-only">(current)</span></a
 				>
 			</li>
-			<li class="nav-item">
+			<li class="nav-item ">
 				<a class="nav-link" href="/auth/login">Login</a>
 			</li>
 			<li class="nav-item">

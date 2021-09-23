@@ -1,7 +1,9 @@
 const express = require("express");
 const router = express.Router();
-const { home } = require("../controllers/default.controller");
+const { home, postHome } = require("../controllers/default.controller");
 
-router.route("/").get(home);
+const authorized = require("../middlewares/authorization").isLoggedIn;
+
+router.route("/").get(home).post(authorized, postHome);
 
 module.exports = router;

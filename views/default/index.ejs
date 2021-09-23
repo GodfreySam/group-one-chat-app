@@ -24,13 +24,12 @@
 				<div class="user-details">
 					<div class="avatar-circle">
 						<span class="initials"> <%= post.user.avatar %> </span>
+					</div>
 						<!-- <span> <%= post.user.firstname %> </span> -->
 						<!-- <span> @<%= post.user.username %> </span> -->
-					</div>
 					<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
 				</div>
-
-				<div class="jumbotron text-dark">
+				<div class="post-card text-dark">
 					<div class="media">
 						<div class="media-body">
 							<p><%= post.article %></p>
@@ -48,7 +47,6 @@
 						</form>
 						<p><%= post.likes.length %>&nbsp; likes</p>
 					</div>
-
 					<div class="d-flex mx-2">
 						<a
 							class="mr-2"
@@ -78,7 +76,6 @@
 							<button class="btn btn-primary" type="submit">Comment</button>
 						</form>
 					</div>
-
 					<% post.comments.forEach(comment => { %>
 					<div class="collapse" id="seeComment">
 						<div class="media mt-3">
