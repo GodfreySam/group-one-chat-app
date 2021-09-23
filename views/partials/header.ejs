@@ -12,7 +12,9 @@
 		aria-expanded="false"
 		aria-label="Toggle navigation"
 	>
+	<div class="avatar-circle">
 		<%= user.avatar %>
+	</div>
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarNav">
@@ -25,6 +27,7 @@
 					class="nav-link"
 					data-toggle="collapse"
 					href="#writePost"
+					id="show"
 					role="button"
 					aria-expanded="false"
 					aria-controls="writeComment"
@@ -61,7 +64,6 @@
 			</li>
 			<li class="nav-item active">
 				<a
-					class="nav-link"
 					class="nav-link"
 					data-toggle="collapse"
 					href="#writePost"

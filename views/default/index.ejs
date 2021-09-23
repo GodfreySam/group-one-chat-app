@@ -24,13 +24,13 @@
 				<div class="user-details">
 					<div class="avatar-circle">
 						<span class="initials"> <%= post.user.avatar %> </span>
+					</div>
 						<!-- <span> <%= post.user.firstname %> </span> -->
 						<!-- <span> @<%= post.user.username %> </span> -->
-					</div>
 					<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
 				</div>
 
-				<div class="jumbotron text-dark">
+				<div class="text-dark post-card">
 					<div class="media">
 						<div class="media-body">
 							<p><%= post.article %></p>
