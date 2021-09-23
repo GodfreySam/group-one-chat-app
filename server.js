@@ -18,7 +18,7 @@ dotenv.config({ path: "./config/config.env" });
 
 //  Database connection
 mongoose
-	.connect(process.env.DATABASE)
+	.connect(process.env.MONGODB_URL)
 	.then((connected) => console.log("Database connected successfully"))
 	.catch((err) => console.log("Error connecting to DB", err));
 
@@ -38,7 +38,7 @@ app.use(
 		resave: true,
 		cookie: { maxAge: Date.now() + 3600 * 24 * 60 * 60 },
 		store: mongoStore.create({
-			mongoUrl: process.env.DATABASE,
+			mongoUrl: process.env.MONGODB_URL,
 			ttl: 3600 * 24 * 60 * 60,
 		})
 	}),
