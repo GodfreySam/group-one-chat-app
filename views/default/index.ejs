@@ -16,20 +16,7 @@
 			<button class="btn btn-primary btn-lg" type="submit">Post</button>
 		</form>
 	</div>
-	<div class="jumbotron p-3 p-md-5 text-white rounded bg-secondary">
-		<div class="media">
-			<div class="avatar-circle mr-3"> 
 
-				
-				<span class="initials text-secondary">
-					<%= post.user.avatar %>
-				</span>
-			</div>
-			<div class="media-body">
-				<h5 class="mt-0">Media heading</h5>
-				<p>
-				<%= post.article %>
-				</p>
 	<main class="mainBody">
 		<% allPost.forEach((post) => { %>
 		<div class="card">
@@ -37,9 +24,10 @@
 				<div class="user-details">
 					<div class="avatar-circle">
 						<span class="initials"> <%= post.user.avatar %> </span>
+
+					</div>
 						<!-- <span> <%= post.user.firstname %> </span> -->
 						<!-- <span> @<%= post.user.username %> </span> -->
-					</div>
 					<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
 				</div>
 

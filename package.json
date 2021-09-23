@@ -8,7 +8,7 @@
     "dev": "nodemon server.js"
   },
   "keywords": [],
-  "author": "godfrey, grace, winner",
+  "author": "godfrey, grace, winner, usoroh",
   "license": "ISC",
   "dependencies": {
     "bcryptjs": "^2.4.3",
