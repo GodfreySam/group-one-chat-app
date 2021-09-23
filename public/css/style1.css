@@ -47,7 +47,7 @@
     align-items: center;
     width: 500px;
     height: 400px;
-    background-color: #5e5555;
+    background-color: #f3f3f3;
     margin-right: 50px;
 }
 .small-form{
@@ -87,9 +87,9 @@
     
 }
 #form p{
-  margin: 10px 0px 0px 0px;
+  margin: 60px 0px 0px 0px;
     font-size: 25px;
-    font-weight: 600;
+    font-weight: 400;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
 #form span{
