@@ -102,11 +102,11 @@ module.exports = {
 
 	postPostComment: async (req, res) => {
 		try {
-			let { comment } = req.body;
+			let { statement } = req.body;
 
 			console.log(req.body);
 
-			if (!comment || comment === "") {
+			if (!statement || statement === "") {
 				req.flash("error-message", "Can not post empty comment");
 				return res.redirect("back");
 			}
@@ -124,7 +124,7 @@ module.exports = {
 			}
 
 			const newComment = new Comment({
-				comment,
+				statement
 			});
 
 			newComment.user = req.user.id;

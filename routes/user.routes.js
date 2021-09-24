@@ -14,11 +14,11 @@ const {
 	deletePost,
 } = require("../controllers/user.controller");
 
-const authorized = require('../middlewares/authorization').isLoggedIn;
+const authorized = require("../middlewares/authorization").isLoggedIn;
 
-router.route("/")
-	.get(userHome)
-	.post(authorized, postPost);
+router.route("/").get(userHome);
+
+router.route("/post").post(authorized, postPost);
 
 router.route("/profile").get(userProfile);
 
@@ -34,7 +34,5 @@ router.route("/like-comment/:commentId").post(postCommentLike);
 router.route("/like-comment/:commentId").post(postCommentUnLike);
 router.route("/delete-post/:postId").get(deletePost);
 router.route("/delete-comment/:commentId").get(deleteComment);
-
-
 
 module.exports = router;

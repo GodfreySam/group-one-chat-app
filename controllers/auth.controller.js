@@ -16,7 +16,7 @@ module.exports = {
 	},
 	postRegister: async (req, res) => {
 		try {
-			let { firstName, lastName , email, username, password, confirmPassword } = req.body;
+			let { firstName, lastName , email, userName, password, confirmPassword } = req.body;
 
 			// console.log(req.body);
 
@@ -51,7 +51,8 @@ module.exports = {
 
 			const newUser = new User({
 				firstName, 
-				lastName , 
+				lastName,
+				userName,
 				email,
 				secretToken,
 				password: hashedPassword,

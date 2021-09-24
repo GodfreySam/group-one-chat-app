@@ -25,14 +25,16 @@
 					<div class="avatar-circle">
 						<span class="initials"> <%= post.user.avatar %> </span>
 					</div>
-						<!-- <span> <%= post.user.firstname %> </span> -->
-						<!-- <span> @<%= post.user.username %> </span> -->
+					<div class="user-details_name">
+						<!-- <span> <%= post.user.firstName %> </span> -->
+						<span> <span class="tag">@</span><%= post.user.userName %> </span>
+					</div>
 					<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
 				</div>
 				<div class="post-card text-dark">
 					<div class="media">
 						<div class="media-body">
-							<p><%= post.article %></p>
+							<p class="post-article"><%= post.article %></p>
 						</div>
 					</div>
 				</div>
