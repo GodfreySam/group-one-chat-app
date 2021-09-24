@@ -1,6 +1,5 @@
 const User = require("../models/User.model");
 const passport = require("passport");
-// const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
 const verifyEmail = require("../utils/verifyEmail");
@@ -8,21 +7,7 @@ const passwordEmail = require("../utils/passwordEmail");
 
 // Passport config
 require("../config/passport.config")(passport);
-// passport.use(new LocalStrategy({usernameField: 'email', passReqToCallback: true}, async(req, email, password, done) => {
-//     await User.findOne({email})
-//     .then(async(user) => {
-//         if (!user) {return done(null, false, req.flash('error-message', 'User not found. Please register and try again.'));}
 
-//         bcrypt.compare(password, user.password, (err, passwordMatch) => {
-//             if (err){
-//                 return err;
-//             }
-//             if (!passwordMatch) return done(null,false, req.flash('error-message', 'Password incorrect'))
-
-//             return done(null, user, req.flash('success-message', 'Login successfully'));
-//         });
-//     });
-// }));
 
 module.exports = {
 	register: async (req, res) => {
@@ -32,8 +17,6 @@ module.exports = {
 	postRegister: async (req, res) => {
 		try {
 			let { firstName, lastName , email, username, password, confirmPassword } = req.body;
-
-			// console.log(req.body);
 
 			if (password.length < 6) {
 				req.flash("error-message", "Password must be six characters or more");
@@ -68,6 +51,7 @@ module.exports = {
 				firstName, 
 				lastName , 
 				email,
+				username,
 				secretToken,
 				password: hashedPassword,
 				avatar: userAvatar

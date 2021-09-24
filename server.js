@@ -18,7 +18,7 @@ dotenv.config({ path: "./config/config.env" });
 
 //  Database connection
 mongoose
-	.connect(process.env.DATABASE)
+	.connect(process.env.MONGODB_URL)
 	.then((connected) => console.log("Database connected successfully"))
 	.catch((err) => console.log("Error connecting to DB", err));
 
