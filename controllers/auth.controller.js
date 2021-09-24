@@ -1,6 +1,5 @@
 const User = require("../models/User.model");
 const passport = require("passport");
-// const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
 const verifyEmail = require("../utils/verifyEmail");
@@ -17,8 +16,6 @@ module.exports = {
 	postRegister: async (req, res) => {
 		try {
 			let { firstName, lastName , email, userName, password, confirmPassword } = req.body;
-
-			// console.log(req.body);
 
 			if (password.length < 6) {
 				req.flash("error-message", "Password must be six characters or more");
@@ -54,6 +51,7 @@ module.exports = {
 				lastName,
 				userName,
 				email,
+				username,
 				secretToken,
 				password: hashedPassword,
 				avatar: userAvatar
