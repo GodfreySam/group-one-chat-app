@@ -38,7 +38,7 @@ app.use(
 		resave: true,
 		cookie: { maxAge: Date.now() + 3600 * 24 * 60 * 60 },
 		store: mongoStore.create({
-			mongoUrl: process.env.DATABASE,
+			mongoUrl: process.env.MONGODB_URL,
 			ttl: 3600 * 24 * 60 * 60,
 		})
 	}),

@@ -8,7 +8,6 @@ const passwordEmail = require("../utils/passwordEmail");
 // Passport config
 require("../config/passport.config")(passport);
 
-
 module.exports = {
 	register: async (req, res) => {
 		let pageTitle = "Register page"
