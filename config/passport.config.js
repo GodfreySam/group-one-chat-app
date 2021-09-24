@@ -10,11 +10,16 @@ module.exports = function (passport) {
 				passReqToCallback: true,
 			},
 			async (req, value, password, done) => {
-				await User.findOne({ $or: [{ username: value }, { email: value }] })
+				    const user = await User.findOne({ $or: [{ username: value }, { email: value }] })
 					.then(async (user) => {
-						if (!user)
-							return done(null, false, req.flash("error-message", "User not found!"));
-						await bcrypt.compare(password, user.password, (err, passwordMatch) => {
+						if (!user){
+							return done(
+								null,
+								false,
+								req.flash("error-message", "User not found!"));
+						}else{
+							const passwordMatch = await bcrypt.compare(password, user.password);
+
 							if (!passwordMatch) {
 								return done(
 									null,
@@ -35,7 +40,8 @@ module.exports = function (passport) {
 								user,
 								req.flash("success-message", "Login successful"),
 							);
-						});
+						}
+						    
 					})
 					.catch((err) => {
 						console.log(err);
