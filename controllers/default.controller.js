@@ -17,17 +17,5 @@ module.exports = {
 		} catch (err) {
 			console.log(err);
 		}
-	},
-
-	postHome: async (req, res) => {
-		try {
-			console.log(req.body);
-			if (req.body) {
-				req.flash("error-message", "Please Login or Sign up to continue");
-				return res.redirect("/auth/login");
-			}
-		} catch (err) {
-			console.log(err);
-		}
 	}
 };
