@@ -4,6 +4,21 @@ const Comment = require("../models/Comment.model");
 const User = require("../models/User.model");
 
 module.exports = {
+	userHome: async (req, res) => {
+		try {
+			let pageTitle = "Post page";
+			const usersPost = await Post.find({}).lean()
+				.populate("user comments likes")
+				.sort({ _id: -1 });
+			res.render("default/index", {
+				pageTitle,
+				usersPost,
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	},
+
 	userProfile: async (req, res) => {
 		try {
 			let pageTitle = "User Profile";
@@ -14,7 +29,7 @@ module.exports = {
 			});
 			const userLikes = await Like.find({ user: req.user }).sort({ _id: -1 });
 
-			res.render("user/home", {
+			res.render("user/profile", {
 				pageTitle,
 				userPosts,
 				userComments,
@@ -30,8 +45,9 @@ module.exports = {
 		try {
 			let { newusername } = req.body;
 
-			console.log(req.body);
-			const username = await User.find({}).username;
+			// console.log(req.body);
+
+			let username = await User.find({ user: req.user }).username;
 
 			if (!newusername) {
 				req.flash("error-message", "Please fill in a new user name");
@@ -39,32 +55,20 @@ module.exports = {
 			}
 
 			if (username === newusername) {
-				req.flash("error-message", "Username already exists, please use a different one");
+				req.flash(
+					"error-message",
+					"Username already exists, please use a different one",
+				);
 				return res.redirect("back");
 			}
 
 			let loggedInUser = await User.find({ user: req.user });
-			
+
 			loggedInUser.username = newusername;
 			await loggedInUser.save();
 
 			req.flash("success-message", "Your post was posted successfully");
 			return res.redirect("/default/index");
-		} catch (err) {
-			console.log(err);
-		}
-	},
-
-	userHome: async (req, res) => {
-		try {
-			let pageTitle = "Post page";
-			const userPost = await Post.find({ user: req.user })
-				.populate("user comments likes")
-				.sort({ _id: -1 });
-			res.render("default/index", {
-				pageTitle,
-				userPost,
-			});
 		} catch (err) {
 			console.log(err);
 		}
@@ -81,8 +85,8 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			if (article.length > 250) {
-				req.flash("error-message", "Post can not be more than 250 characters");
+			if (article.length > 300) {
+				req.flash("error-message", "Post can not be more than 300 characters");
 				return res.redirect("back");
 			}
 
@@ -90,23 +94,23 @@ module.exports = {
 				article,
 			});
 
-			newPost.user = req.user.id;
-			await newPost.save();
+				newPost.user = req.user.id;
+				await newPost.save();
 
-			req.flash("success-message", "Your post was posted successfully");
-			return res.redirect("/default/index");
+			req.flash("success-message", "You created a new post");
+			return res.redirect("/");
 		} catch (err) {
 			console.log(err);
 		}
 	},
 
-	postPostComment: async (req, res) => {
+	postComment: async (req, res) => {
 		try {
-			let { comment } = req.body;
+			let { statement } = req.body;
 
 			console.log(req.body);
 
-			if (!comment || comment === "") {
+			if (!statement || statement === "") {
 				req.flash("error-message", "Can not post empty comment");
 				return res.redirect("back");
 			}
@@ -124,10 +128,8 @@ module.exports = {
 			}
 
 			const newComment = new Comment({
-				comment,
+				statement,
 			});
-
-			newComment.user = req.user.id;
 
 			await newComment
 				.save()
@@ -155,7 +157,7 @@ module.exports = {
 		try {
 			let { like } = req.body;
 
-			console.log(req.body);
+			// console.log(req.body);
 
 			let postExist = await Post.findOne({ _id: req.params.postId });
 
@@ -167,7 +169,7 @@ module.exports = {
 					.then((like) => {
 						postExist.likes.push(like._id);
 						postExist.save();
-						req.flash("success-message", "You liked this post");
+						// req.flash("success-message", "Liked!");
 						return res.redirect("back");
 					})
 					.catch((error) => {
@@ -198,7 +200,7 @@ module.exports = {
 					.then((like) => {
 						postExist.likes.pop(like._id);
 						postExist.save();
-						req.flash("success-message", "You unliked this post");
+						req.flash("success-message", "Unliked!");
 						return res.redirect("back");
 					})
 					.catch((error) => {
@@ -229,7 +231,7 @@ module.exports = {
 					.then((like) => {
 						commentExist.likes.push(like._id);
 						commentExist.save();
-						req.flash("success-message", "You liked this comment");
+						req.flash("success-message", "Liked!");
 						return res.redirect("back");
 					})
 					.catch((error) => {
@@ -260,7 +262,7 @@ module.exports = {
 					.then((like) => {
 						commentExist.likes.pop(like._id);
 						commentExist.save();
-						req.flash("success-message", "You unliked this comment");
+						req.flash("success-message", "Unliked!");
 						return res.redirect("back");
 					})
 					.catch((error) => {

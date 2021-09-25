@@ -156,10 +156,48 @@ h6 {
 	line-height: 0.5rem;
 }
 
+.header-avatar-circle {
+	width: 40px;
+	height: 40px;
+  margin-right: 1.5rem;
+	background-color: #007bff;
+	text-align: center;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+}
+
+.header-avatar-circle .header-initials {
+   position: relative;
+	top: 0.5rem; 
+	color: #f9f9f9;
+	font-weight: bolder;
+	font-size: 1.2rem; 
+	line-height: 0.5rem;
+}
+
+.post-article {
+	text-align: left;
+}
+
+.user-details_name {
+	display: flex;
+	flex-direction: row;
+	margin-top: 3rem;
+	font-weight: bolder;
+	margin-left: -9rem;
+	justify-content: space-evenly;
+}
+
+.user-details_name .tag {
+	color: rgb(8, 185, 8);
+}
+
 .timestamp {
   margin-right: 10rem;
   padding-bottom: 0;
   margin-top: 3rem;
+  font-size: 0.8rem;
 }
 
 .avatar-profile {
@@ -323,9 +361,14 @@ html {
 	  }
 	.navbar .navbar-nav .nav-link:hover::after {
 		width: 100%;
-	  } */
-  }
+	  } 
+  } */
 
+  .fadeEffect {
+	opacity: 0.7;
+	transition: opacity 4s;
+	transition-timing-function: ease-out;
+}
 
 
   /* styling of the 404 page */
