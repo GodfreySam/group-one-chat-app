@@ -180,6 +180,10 @@ h6 {
 	text-align: left;
 }
 
+p.comment-statement {
+	margin-left: 5rem;
+}
+
 .user-details_name {
 	display: flex;
 	flex-direction: row;
@@ -326,9 +330,6 @@ html {
 	width: 100%;
   }
 
-
-
-
   /* at screen 991 */
 
 
@@ -405,4 +406,6 @@ html {
 	  background: #39ac31;
 	  margin: 20px 0;
 	  display: inline-block;}
-	  .contant_box_404{ margin-top:-50px;}
+
+	  .contant_box_404 { margin-top:-50px;}
+	}

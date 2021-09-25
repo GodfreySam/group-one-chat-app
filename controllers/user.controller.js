@@ -7,12 +7,14 @@ module.exports = {
 	userHome: async (req, res) => {
 		try {
 			let pageTitle = "Post page";
-			const usersPost = await Post.find({}).lean()
-				.populate("user comments likes")
+			const allPost = await Post.find({})
+				.lean()
+				.populate("user likes")
+				.populate({path: "comments", populate: { path: "user likes" } })
 				.sort({ _id: -1 });
 			res.render("default/index", {
 				pageTitle,
-				usersPost,
+				allPost,
 			});
 		} catch (err) {
 			console.log(err);
@@ -94,8 +96,8 @@ module.exports = {
 				article,
 			});
 
-				newPost.user = req.user.id;
-				await newPost.save();
+			newPost.user = req.user.id;
+			await newPost.save();
 
 			req.flash("success-message", "You created a new post");
 			return res.redirect("/");
@@ -122,7 +124,7 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			if (comment.length > 300) {
+			if (statement.length > 300) {
 				req.flash("error-message", "Comment can not be more than 300 characters");
 				return res.redirect("back");
 			}
@@ -130,6 +132,8 @@ module.exports = {
 			const newComment = new Comment({
 				statement,
 			});
+
+			newComment.user = req.user.id;
 
 			await newComment
 				.save()
@@ -142,12 +146,9 @@ module.exports = {
 				.catch((error) => {
 					if (error) {
 						req.flash("error-message", error.message);
-						res.redirect("back");
+						return res.redirect("back");
 					}
 				});
-
-			req.flash("success-message", "Your comment was posted successfully");
-			return res.redirect("back");
 		} catch (err) {
 			console.log(err);
 		}
@@ -231,7 +232,7 @@ module.exports = {
 					.then((like) => {
 						commentExist.likes.push(like._id);
 						commentExist.save();
-						req.flash("success-message", "Liked!");
+						// req.flash("success-message", "Liked!");
 						return res.redirect("back");
 					})
 					.catch((error) => {
@@ -310,6 +311,28 @@ module.exports = {
 			}
 			req.flash("success-message", "Post deleted successfully");
 			res.redirect("back");
+		} catch (err) {
+			console.log(err);
+		}
+	},
+
+	viewComment: async (req, res) => {
+		try {
+			let pageTitle = "View Comments";
+
+
+			let post = await Post.findOne({ _id: req.params.postId });
+
+			if (!post) {
+				req.flash("error-message", "Post doesn't exist or has been deleted");
+				return res.redirect("back");
+			}
+
+			res.render("user/view-comment", {
+				pageTitle,
+				post,
+			});
+
 		} catch (err) {
 			console.log(err);
 		}

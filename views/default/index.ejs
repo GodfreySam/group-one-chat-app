@@ -26,7 +26,6 @@
 						<span class="initials"> <%= post.user.avatar %> </span>
 					</div>
 					<div class="user-details_name">
-						<!-- <span> <%= post.user.firstName %> </span> -->
 						<span> <span class="tag">@</span><%= post.user.username %> </span>
 					</div>
 					<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
@@ -56,7 +55,6 @@
 							href="#writeComment"
 							role="button"
 							aria-expanded="false"
-							aria-controls="seeComment"
 						>
 							<i class="fas fa-comments"></i>
 						</a>
@@ -69,23 +67,39 @@
 							<div class="form-group">
 								<textarea
 									class="form-control"
-									id="comment"
-									name="comment"
+									id="statement"
+									name="statement"
 									rows="3"
 									placeholder="Write a public comment"
 								></textarea>
 							</div>
 							<button class="btn btn-primary" type="submit">Comment</button>
+							<a
+								class="btn btn-secondary ml-2"
+								data-toggle="collapse"
+								href="#seeComment"
+								role="button"
+								aria-expanded="false"
+								role="button"
+								class="btn btn-secondary"
+								>View Comments</a
+							>
 						</form>
 					</div>
 					<% post.comments.forEach(comment => { %>
-					<div class="collapse" id="seeComment">
-						<div class="media mt-3">
-							<div class="avatar-circle mr-3">
-								<span class="initials text-secondary"><%= comment.user.avatar %></span>
+					<div class="collapse card" id="seeComment">
+						<div class="card-content mt-3">
+							<div class="user-details">
+								<div class="avatar-circle">
+									<span class="initials"> <%= comment.user.avatar %> </span>
+								</div>
+								<div class="user-details_name">
+									<span> <span class="tag">@</span><%= comment.user.username %> </span>
+								</div>
+								<cite class="timestamp"> <%= moment(comment.createdAt).fromNow() %></cite>
 							</div>
 							<div class="media-body">
-								<p><%= comment.statement %></p>
+								<p class="comment-statement"><%= comment.statement %></p>
 							</div>
 						</div>
 						<div class="d-flex justify-content-between mt-4">
