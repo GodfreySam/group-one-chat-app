@@ -16,12 +16,6 @@ const commentSchema = new Schema(
 				ref: "like",
 			},
 		],
-		posts: [
-			{
-				type: mongoose.Types.ObjectId,
-				ref: "post",
-			},
-		],
 	},
 	{ timestamps: true },
 );
