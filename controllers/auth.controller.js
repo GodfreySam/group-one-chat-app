@@ -1,5 +1,6 @@
 const User = require("../models/User.model");
 const passport = require("passport");
+// const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require("bcryptjs");
 const randomstring = require("randomstring");
 const verifyEmail = require("../utils/verifyEmail");
@@ -10,16 +11,15 @@ require("../config/passport.config")(passport);
 
 module.exports = {
 	register: async (req, res) => {
-		let pageTitle = "Register page";
-		res.render("auth/register", { pageTitle });
+		let pageTitle = "Register page"
+		res.render('auth/register', {pageTitle});
 	},
 	postRegister: async (req, res) => {
 		try {
-			let { firstName, lastName, username, email, password, confirmPassword } =
-				req.body;
+			let { firstName, lastName , email, username, password, confirmPassword } = req.body;
 
 			// console.log(req.body);
-			
+
 			if (password.length < 6) {
 				req.flash("error-message", "Password must be six characters or more");
 				return res.redirect("back");
@@ -41,21 +41,21 @@ module.exports = {
 			const hashedPassword = await bcrypt.hash(password, salt);
 			const secretToken = randomstring.generate({
 				length: 6,
-				charset: "numeric",
+				charset: 'numeric'
 			});
 
 			let firstNameInitials = firstName.split("");
 			let lastNameInitials = lastName.split("");
 			let userAvatar = firstNameInitials[0] + lastNameInitials[0];
+			
 
 			const newUser = new User({
-				firstName,
-				lastName,
-				username,
+				firstName, 
+				lastName , 
 				email,
 				secretToken,
 				password: hashedPassword,
-				avatar: userAvatar,
+				avatar: userAvatar
 			});
 
 			await newUser.save();
@@ -72,7 +72,8 @@ module.exports = {
 				"User registration successful, Check your email to verify your account",
 			);
 			return res.redirect("/auth/verify");
-		} catch (err) {
+		}
+		catch (err) {
 			console.log(err);
 		}
 	},
@@ -83,7 +84,7 @@ module.exports = {
 	},
 
 	postVerify: async (req, res) => {
-		let { inputToken } = req.body;
+		let {inputToken} = req.body;
 
 		let trimmedInputToken = inputToken.trim();
 
@@ -91,11 +92,8 @@ module.exports = {
 		let user = await User.findOne({ secretToken: trimmedInputToken });
 
 		if (!user) {
-			req.flash(
-				"error-message",
-				"Wrong token. Please copy the token appropriately",
-			);
-			return res.redirect("back");
+			req.flash('error-message', 'Wrong token. Please copy the token appropriately');
+			return res.redirect('back')
 		}
 
 		user.verified = true;
@@ -109,17 +107,17 @@ module.exports = {
 	},
 
 	postForgotPassword: async (req, res) => {
-		let { inputEmail } = req.body;
+		let{inputEmail} = req.body;
 
 		let user = await User.findOne({ email: inputEmail });
 
 		if (!user) {
-			req.flash("error-message", "Email not found");
-			return res.redirect("back");
+			req.flash('error-message', 'Email not found');
+			return res.redirect('back')
 		}
 		let token = randomstring.generate({
 			length: 6,
-			charset: "numeric",
+			charset: 'numeric'
 		});
 		user.secretToken = token;
 		user.save();
@@ -128,17 +126,17 @@ module.exports = {
 			"success-message",
 			"Please check your email to reset your password",
 		);
-		return res.redirect("back");
+		return res.redirect("back");	
 	},
 
 	resetPassword: async (req, res) => {
 		let pageTitle = "Password reset";
-		let { token } = req.params;
+		let {token} = req.params;
 		res.render("auth/reset-password", { pageTitle, token });
 	},
 
 	postResetPassword: async (req, res) => {
-		let { newPassword, confirmNewPassword } = req.body;
+		let{newPassword, confirmNewPassword} = req.body;
 		if (newPassword.length < 6) {
 			req.flash("error-message", "Password must be six characters or more");
 			return res.redirect("back");
@@ -152,70 +150,63 @@ module.exports = {
 		const newHashedPassword = await bcrypt.hash(newPassword, salt);
 
 		let { token } = req.params;
-		let user = await User.findOne({ secretToken: token });
+		let user = await User.findOne({secretToken: token})
 		// console.log(user);
 		if (!user) {
-			req.flash("error-message", "User not found");
+			req.flash('error-message', 'User not found')
 		}
 		user.password = newHashedPassword;
 		// console.log(user.password);
 		user.save();
-		req.flash("success-message", "Password reset successfully");
-		res.redirect("/auth/login");
+		req.flash("success-message", "Password reset successfully")
+		res.redirect("/auth/login")
 	},
 
 	login: async (req, res) => {
 		let pageTitle = "Login page";
-		res.render("auth/login", { pageTitle });
+		res.render("auth/login", {pageTitle});
 	},
 
-	postLogin: async (req, res, next) => {
-		try {
-			passport.authenticate("local", {
-				successRedirect: "/",
-				failureRedirect: "/auth/login",
-				successFlash: true,
-				failureFlash: true,
-				session: true,
-			})(req, res, next);
-		} catch (err) {
-			console.log(err);
-			next(err);
-		}
-	},
+	postLogin: passport.authenticate('local',{
+        successRedirect: '/',
+        failureRedirect: '/auth/login',
+        successFlash: true,
+        failureFlash: true,
+        session: true,
+	}),
 
 	changePassword: (req, res) => {
 		let pageTitle = "Change Password";
-		res.render("auth/change-password", { pageTitle });
+		res.render("auth/change-password", {pageTitle});
 	},
 
 	postChangePassword: async (req, res) => {
-		let { oldPassword, updatedPassword } = req.body;
+		let{oldPassword, updatedPassword} = req.body;
 
 		const salt = await bcrypt.genSalt();
 		const hashedUpdatedPassword = await bcrypt.hash(updatedPassword, salt);
 		console.log(hashedUpdatedPassword);
 
 		let user = await User.findById(req.user._id);
-
+		
 		if (user) {
-			const passwordMatch = await bcrypt.compare(oldPassword, user.password);
-			console.log(passwordMatch);
-			if (passwordMatch == false) {
-				req.flash("error-message", "Old password is wrong");
-				res.redirect("back");
-			} else {
+		const passwordMatch = await bcrypt.compare(oldPassword, user.password);
+		console.log(passwordMatch);
+			if (passwordMatch == false){
+				req.flash('error-message', 'Old password is wrong')
+				res.redirect("back")
+			}else{
 				user.password = hashedUpdatedPassword;
 				await user.save();
-				req.flash("success-message", "Password changed successfully");
-				res.redirect("/user/profile");
+				req.flash('success-message', 'Password changed successfully');
+				res.redirect('/user/profile');
 			}
 		}
-		return req.flash("error-message", "Something went wrong");
+		return req.flash('error-message', 'Something went wrong')
 	},
 
-	getLogout: (req, res) => {
+	getLogout: (req, res)=>{
 		req.logout();
-		res.redirect("/");
-	},
+		res.redirect('/');
+	}
 };

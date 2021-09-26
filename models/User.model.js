@@ -10,10 +10,10 @@ const userSchema = new Schema(
 		lastName: {
 			type: String,
 		},
-		username: {
+		email: {
 			type: String,
 		},
-		email: {
+		username: {
 			type: String,
 		},
 		password: {
