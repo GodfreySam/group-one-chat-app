@@ -26,7 +26,8 @@ module.exports = {
 			let pageTitle = "User Profile";
 
 			const userPosts = await Post.find({ user: req.user }).sort({ _id: -1 });
-			const userComments = await Comment.find({ user: req.user }).sort({_id: -1,
+			const userComments = await Comment.find({ user: req.user }).sort({
+				_id: -1,
 			});
 			const userLikes = await Like.find({ user: req.user }).sort({ _id: -1 });
 
@@ -55,12 +56,15 @@ module.exports = {
 			}
 
 			if (username === newusername) {
-				req.flash("error-message", "Username already exists, please use a different one");
+				req.flash(
+					"error-message",
+					"Username already exists, please use a different one",
+				);
 				return res.redirect("back");
 			}
 
 			let loggedInUser = await User.find({ user: req.user });
-			
+
 			loggedInUser.username = newusername;
 			await loggedInUser.save();
 
@@ -71,34 +75,19 @@ module.exports = {
 		}
 	},
 
-	userHome: async (req, res) => {
-		try {
-			let pageTitle = "Post page";
-			const userPost = await Post.find({ user: req.user })
-				.populate("user comments likes")
-				.sort({ _id: -1 });
-			res.render("default/index", {
-				pageTitle,
-				userPost,
-			});
-		} catch (err) {
-			console.log(err);
-		}
-	},
-
 	postPost: async (req, res) => {
 		try {
 			let { article } = req.body;
 
-			console.log(req.body);
+			// console.log(req.body);
 
 			if (!article) {
 				req.flash("error-message", "Field can not be empty");
 				return res.redirect("back");
 			}
 
-			if (article.length > 250) {
-				req.flash("error-message", "Post can not be more than 250 characters");
+			if (article.length > 300) {
+				req.flash("error-message", "Post can not be more than 300 characters");
 				return res.redirect("back");
 			}
 
@@ -110,13 +99,13 @@ module.exports = {
 			await newPost.save();
 
 			req.flash("success-message", "Your post was posted successfully");
-			return res.redirect("/default/index");
+			return res.redirect("/");
 		} catch (err) {
 			console.log(err);
 		}
 	},
 
-	postPostComment: async (req, res) => {
+	postComment: async (req, res) => {
 		try {
 			let { comment } = req.body;
 
