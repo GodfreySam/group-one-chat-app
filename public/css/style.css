@@ -183,7 +183,8 @@ h6 {
 }
 
 p.comment-statement {
-	margin-left: 5rem;
+	margin-left: -5rem;
+	text-align: left;
 }
 
 .details {

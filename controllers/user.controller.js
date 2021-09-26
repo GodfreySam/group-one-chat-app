@@ -107,11 +107,11 @@ module.exports = {
 
 	postComment: async (req, res) => {
 		try {
-			let { comment } = req.body;
+			let { statement } = req.body;
 
-			console.log(req.body);
+			// console.log(req.body);
 
-			if (!comment || comment === "") {
+			if (!statement || statement === "") {
 				req.flash("error-message", "Can not post empty comment");
 				return res.redirect("back");
 			}
@@ -123,14 +123,12 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			if (comment.length > 300) {
+			if (statement.length > 300) {
 				req.flash("error-message", "Comment can not be more than 300 characters");
 				return res.redirect("back");
 			}
 
-			const newComment = new Comment({
-				comment,
-			});
+			const newComment = new Comment({ statement });
 
 			newComment.user = req.user.id;
 
