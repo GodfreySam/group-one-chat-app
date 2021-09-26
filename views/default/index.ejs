@@ -21,12 +21,14 @@
 		<% allPost.forEach((post) => { %>
 		<div class="card">
 			<div class="card-content">
-				<div class="user-details">
-					<div class="avatar-circle">
-						<span class="initials"> <%= post.user.avatar %> </span>
-					</div>
-					<div class="user-details_name">
-						<span> <span class="tag">@</span><%= post.user.username %> </span>
+				<div class="details">
+					<div class="user-details">
+						<div class="avatar-circle">
+							<span class="initials"> <%= post.user.avatar %> </span>
+						</div>
+						<span class="user-name">
+							<span class="tag">@</span><%= post.user.username %>
+						</span>
 					</div>
 					<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
 				</div>
@@ -40,10 +42,10 @@
 				<hr />
 				<div class="interaction-section d-flex">
 					<div class="d-flex mx-4">
-						<form action="/user/like-post/<%- post._id %>" method="POST">
+						<form class="ml-3" action="/user/like-post/<%- post._id %>" method="POST">
 							<input type="text" name="like" value="like" style="display: none" />
 							<button class="like-btn" type="submit">
-								<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
+								<a><i class="fa fa-heart stroke-transparent" aria-hidden="true"></i></a>
 							</button>
 						</form>
 						<p><%= post.likes.length %>&nbsp; likes</p>
@@ -56,7 +58,7 @@
 							role="button"
 							aria-expanded="false"
 						>
-							<i class="fas fa-comments"></i>
+							<i class="fas fa-comments stroke-transparent"></i>
 						</a>
 						<p><%= post.comments.length %>&nbsp; comments</p>
 					</div>
@@ -89,30 +91,44 @@
 					<% post.comments.forEach(comment => { %>
 					<div class="collapse card" id="seeComment">
 						<div class="card-content mt-3">
-							<div class="user-details">
-								<div class="avatar-circle">
-									<span class="initials"> <%= comment.user.avatar %> </span>
+							<div class="details">
+								<div class="user-details">
+									<div class="avatar-circle">
+										<span class="initials"> <%= comment.user.avatar %> </span>
+									</div>
+									<span class="user-name">
+										<span class="tag">@</span><%= comment.user.username %>
+									</span>
 								</div>
-								<div class="user-details_name">
-									<span> <span class="tag">@</span><%= comment.user.username %> </span>
-								</div>
-								<cite class="timestamp"> <%= moment(comment.createdAt).fromNow() %></cite>
+								<cite class="timestamp">
+									<%= moment(comment.createdAt).fromNow() %></cite
+								>
 							</div>
-							<div class="media-body">
-								<p class="comment-statement"><%= comment.statement %></p>
+							<div class="post-card text-dark">
+								<div class="media">
+									<div class="media-body">
+										<p class="comment-statement"><%= comment.statement %></p>
+									</div>
+								</div>
 							</div>
 						</div>
-						<div class="d-flex justify-content-between mt-4">
+						<hr />
+						<div class="interaction-section d-flex">
 							<div class="d-flex">
-								<form action="/user/like-comment/<%- comment._id %>" method="POST">
+								<form
+									class="ml-5"
+									action="/user/like-comment/<%- comment._id %>"
+									method="POST"
+								>
 									<input type="text" name="like" value="like" style="display: none" />
 									<button class="like-btn" type="submit">
-										<a><i class="fa fa-heart text-primary" aria-hidden="true"></i></a>
+										<a
+											><i class="fa fa-heart stroke-transparent" aria-hidden="true"></i
+										></a>
 									</button>
 								</form>
 								<p><%= comment.likes.length %>&nbsp; likes</p>
 							</div>
-							<div></div>
 							<div></div>
 						</div>
 					</div>
@@ -124,5 +140,15 @@
 		<% }) %>
 	</main>
 </div>
+
+<script>
+	const likeBtn = document.querySelectorAll(".like-btn");
+
+	const faHearts = document.querySelectorAll(".fa-heart");
+
+	likeBtn.forEach((btn) => {
+		btn.addEventListener("click", ()=> faHearts.forEach(heart => heart));
+	});
+</script>
 
 <%- include('../partials/foot') -%>

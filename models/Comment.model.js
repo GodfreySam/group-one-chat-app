@@ -10,10 +10,14 @@ const commentSchema = new Schema(
 			type: mongoose.Types.ObjectId,
 			ref: "user",
 		},
-		likes: [
+		likes: {
+			type: Array,
+			default: [],
+		},
+		posts: [
 			{
 				type: mongoose.Types.ObjectId,
-				ref: "like",
+				ref: "post",
 			},
 		],
 	},

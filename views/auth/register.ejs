@@ -208,9 +208,6 @@ section .container.active .signupBx .imgBx
 {
 	top: 0%;
 }
-
-
-
 section .container .signinBx .formBx
 {
 	top: 0;
@@ -227,8 +224,6 @@ section .container.active .signinBx .imgBx
 {
 	top: -100%;
 }
-
-
 @media (max-width: 991px)
 {
 	section .container
@@ -248,12 +243,7 @@ section .container.active .signinBx .imgBx
 		top: -100%;
 	}
 }
-
 </style>
-
-
-
-
 <section>
 		<div class="user signupBx">
 			 <div class="imgBx"><img src="/images/img2.jpg"></div> -->
@@ -261,26 +251,18 @@ section .container.active .signinBx .imgBx
 				<form action="/auth/register" method="POST">
 					<h2>Create an account</h2>
 					<input type="text" name="firstName" placeholder="Firstname">
-
 					<input type="text" name="lastName" placeholder="Lastname">
-
 					<input type="text" name="userName" placeholder="Username">
-
 					<input type="email" name="email" placeholder="Email Address">
-
 					<input type="password" name="password" placeholder="Create Password">
-
 					<input type="password" name="confirmPassword" placeholder="Confirm Password">
-
 					<input type="submit" name="" value="Register">
-
 					<p class="signup">Already have an account? <a href="/auth/login" onclick="toggleForm();">Sign in.</a></p>
 				</form>
 			</div>
 			
 		</div>
 </section>
-
 <script>
 	function toggleForm(){
 		var container = document.querySelector('.container');
@@ -289,9 +271,6 @@ section .container.active .signinBx .imgBx
 		section.classList.toggle('active')
 	}
 </script>
-
-
-
 <footer>
 	<p>
 		Created with <i class="fa fa-heart"></i> by
