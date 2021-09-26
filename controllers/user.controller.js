@@ -10,7 +10,7 @@ module.exports = {
 			const allPost = await Post.find({})
 				.lean()
 				.populate("user likes")
-				.populate({path: "comments", populate: { path: "user likes" } })
+				.populate({ path: "comments", populate: { path: "user likes" } })
 				.sort({ _id: -1 });
 			res.render("default/index", {
 				pageTitle,
@@ -140,7 +140,7 @@ module.exports = {
 				.then((comment) => {
 					postExist.comments.push(comment._id);
 					postExist.save();
-					req.flash("success-message", "Comment posted succesfully");
+					req.flash("success-message", "Comment posted successfully");
 					return res.redirect("back");
 				})
 				.catch((error) => {
@@ -156,60 +156,16 @@ module.exports = {
 
 	postPostLike: async (req, res) => {
 		try {
-			let { like } = req.body;
-
-			// console.log(req.body);
-
 			let postExist = await Post.findOne({ _id: req.params.postId });
-
-			const newLike = new Like({ like });
-
-			if (postExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						postExist.likes.push(like._id);
-						postExist.save();
-						// req.flash("success-message", "Liked!");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	},
-
-	postPostUnLike: async (req, res) => {
-		try {
-			let { like } = req.body;
-
-			console.log(req.body);
-
-			let postExist = await Post.findOne({ _id: req.params.postId });
-
-			const newLike = new Like({ like });
-
-			if (postExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						postExist.likes.pop(like._id);
-						postExist.save();
-						req.flash("success-message", "Unliked!");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
+			let likeId = req.user.id;
+			if (!postExist.likes.includes(likeId)) {
+				await postExist.updateOne({ $push: { likes: likeId } });
+				req.flash("success-message", "Post Liked!");
+				return res.redirect("back");
+			} else {
+				await postExist.updateOne({ $pull: { likes: likeId } });
+				req.flash("success-message", "Post Unliked!");
+				return res.redirect("back");
 			}
 		} catch (err) {
 			console.log(err);
@@ -218,60 +174,16 @@ module.exports = {
 
 	postCommentLike: async (req, res) => {
 		try {
-			let { like } = req.body;
-
-			console.log(req.body);
-
 			let commentExist = await Comment.findOne({ _id: req.params.commentId });
-
-			const newLike = new Like({ like });
-
-			if (commentExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						commentExist.likes.push(like._id);
-						commentExist.save();
-						// req.flash("success-message", "Liked!");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	},
-
-	postCommentUnLike: async (req, res) => {
-		try {
-			let { like } = req.body;
-
-			console.log(req.body);
-
-			let commentExist = await Comment.findOne({ _id: req.params.commentId });
-
-			const newLike = new Like({ like });
-
-			if (commentExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						commentExist.likes.pop(like._id);
-						commentExist.save();
-						req.flash("success-message", "Unliked!");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
+			let likeId = req.user.id;
+			if (!commentExist.likes.includes(likeId)) {
+				await commentExist.updateOne({ $push: { likes: likeId } });
+				req.flash("success-message", "Comment Liked!");
+				return res.redirect("back");
+			} else {
+				await commentExist.updateOne({ $pull: { likes: likeId } });
+				req.flash("success-message", "Comment Unliked!");
+				return res.redirect("back");
 			}
 		} catch (err) {
 			console.log(err);
@@ -320,7 +232,6 @@ module.exports = {
 		try {
 			let pageTitle = "View Comments";
 
-
 			let post = await Post.findOne({ _id: req.params.postId });
 
 			if (!post) {
@@ -332,7 +243,6 @@ module.exports = {
 				pageTitle,
 				post,
 			});
-
 		} catch (err) {
 			console.log(err);
 		}

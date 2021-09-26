@@ -46,7 +46,9 @@ h6 {
 	margin-left: 50px;
 	padding-top: 1rem;
 }
-
+.navbar-brand {
+	margin-left: -2rem !important;
+}
 .navbar-brand img {
   width: 150px;
   height: auto;
@@ -159,7 +161,7 @@ h6 {
 .header-avatar-circle {
 	width: 40px;
 	height: 40px;
-  margin-right: 1.5rem;
+  	margin: 0 1rem;
 	background-color: #007bff;
 	text-align: center;
 	border-radius: 50%;
@@ -184,21 +186,29 @@ p.comment-statement {
 	margin-left: 5rem;
 }
 
-.user-details_name {
+.details {
 	display: flex;
 	flex-direction: row;
-	margin-top: 3rem;
-	font-weight: bolder;
-	margin-left: -9rem;
-	justify-content: space-evenly;
+	justify-content: space-between;
 }
 
-.user-details_name .tag {
+.user-details {
+  display: flex;
+  flex-direction: row;
+}
+
+.user-name {
+	margin-top: 3rem;
+	left: 0.5rem;
+	font-weight: bolder;
+}
+
+.user-name .tag {
 	color: rgb(8, 185, 8);
 }
 
 .timestamp {
-  margin-right: 10rem;
+  margin-right: 3rem;
   padding-bottom: 0;
   margin-top: 3rem;
   font-size: 0.8rem;
@@ -214,14 +224,8 @@ p.comment-statement {
 	-moz-border-radius: 50%;
 }
 
-.user-details {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-}
-
 hr.partition {
-  border: 0.5px solid white;
+  border: 0.5px solid cyan;
   padding: auto;
   margin: 2rem 0;
 }
@@ -253,18 +257,29 @@ body {
 	background-color: #f9f9f9;
 	border-top: 0.05rem solid #e5e5e5;
 }
-.fa {
-	font-size: 25px;
-}
-.fas {
-	font-size: 25px;
-}
+
 .blog-footer p:last-child {
 	margin-bottom: 0;
 }
 html {
 	position: relative;
 	min-height: 100%;
+}
+
+.fa-comments, .fa-heart {
+	font-size: 20px;
+	color: #fff;
+}
+
+.isLiked {
+	color: rgb(153, 153, 4) !important;
+	font-size: 20px !important;
+	z-index: 5 !important;
+}
+
+.stroke-transparent {
+	-webkit-text-stroke: 1px #000;
+	-webkit-text-fill-color: transparent;
 }
 
 .like-btn {
