@@ -26,12 +26,11 @@ module.exports = {
 			let pageTitle = "User Profile";
 
 			const userPosts = await Post.find({ user: req.user }).sort({ _id: -1 });
-			const userComments = await Comment.find({ user: req.user }).sort({
-				_id: -1,
+			const userComments = await Comment.find({ user: req.user }).sort({_id: -1,
 			});
 			const userLikes = await Like.find({ user: req.user }).sort({ _id: -1 });
 
-			res.render("user/profile", {
+			res.render("user/home", {
 				pageTitle,
 				userPosts,
 				userComments,
@@ -47,9 +46,8 @@ module.exports = {
 		try {
 			let { newusername } = req.body;
 
-			// console.log(req.body);
-
-			let username = await User.find({ user: req.user }).username;
+			console.log(req.body);
+			const username = await User.find({}).username;
 
 			if (!newusername) {
 				req.flash("error-message", "Please fill in a new user name");
@@ -57,20 +55,32 @@ module.exports = {
 			}
 
 			if (username === newusername) {
-				req.flash(
-					"error-message",
-					"Username already exists, please use a different one",
-				);
+				req.flash("error-message", "Username already exists, please use a different one");
 				return res.redirect("back");
 			}
 
 			let loggedInUser = await User.find({ user: req.user });
-
+			
 			loggedInUser.username = newusername;
 			await loggedInUser.save();
 
 			req.flash("success-message", "Your post was posted successfully");
 			return res.redirect("/default/index");
+		} catch (err) {
+			console.log(err);
+		}
+	},
+
+	userHome: async (req, res) => {
+		try {
+			let pageTitle = "Post page";
+			const userPost = await Post.find({ user: req.user })
+				.populate("user comments likes")
+				.sort({ _id: -1 });
+			res.render("default/index", {
+				pageTitle,
+				userPost,
+			});
 		} catch (err) {
 			console.log(err);
 		}
@@ -87,8 +97,8 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			if (article.length > 300) {
-				req.flash("error-message", "Post can not be more than 300 characters");
+			if (article.length > 250) {
+				req.flash("error-message", "Post can not be more than 250 characters");
 				return res.redirect("back");
 			}
 
@@ -99,20 +109,20 @@ module.exports = {
 			newPost.user = req.user.id;
 			await newPost.save();
 
-			req.flash("success-message", "You created a new post");
-			return res.redirect("/");
+			req.flash("success-message", "Your post was posted successfully");
+			return res.redirect("/default/index");
 		} catch (err) {
 			console.log(err);
 		}
 	},
 
-	postComment: async (req, res) => {
+	postPostComment: async (req, res) => {
 		try {
-			let { statement } = req.body;
+			let { comment } = req.body;
 
 			console.log(req.body);
 
-			if (!statement || statement === "") {
+			if (!comment || comment === "") {
 				req.flash("error-message", "Can not post empty comment");
 				return res.redirect("back");
 			}
@@ -124,13 +134,13 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			if (statement.length > 300) {
+			if (comment.length > 300) {
 				req.flash("error-message", "Comment can not be more than 300 characters");
 				return res.redirect("back");
 			}
 
 			const newComment = new Comment({
-				statement,
+				comment,
 			});
 
 			newComment.user = req.user.id;
@@ -146,9 +156,12 @@ module.exports = {
 				.catch((error) => {
 					if (error) {
 						req.flash("error-message", error.message);
-						return res.redirect("back");
+						res.redirect("back");
 					}
 				});
+
+			req.flash("success-message", "Your comment was posted successfully");
+			return res.redirect("back");
 		} catch (err) {
 			console.log(err);
 		}
