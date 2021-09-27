@@ -1,15 +1,56 @@
 /* stylelint-disable selector-list-comma-newline-after */
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:wght@400;500&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Poppins&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Bree+Serif&display=swap");
 
+* {
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+}
+
+body {
+	overflow-x: hidden;
+	font-family: "Poppins", sans-serif;
+   /* background: rgb(99, 39, 120) */
+}
+
+#profile-form {
+	max-width: 900px;
+	background: #e5e5e5;
+	display: flex;
+	margin: 100px auto 0;
+	/* margin-top: 200px; */
+	/* justify-content: center;
+	align-items: center; */
+}
+
+#profile-form form{
+	width: 350px;
+	margin: 0 auto 0;
+	padding: 4rem 0;
+}
+
+#profile-form form p{ 
+	font-weight: bolder;
+}
 
 .blog-header {
 	line-height: 1;
 	border-bottom: 1px solid #e5e5e5;
 }
 
-.container {
+.cant-post-form {
+	margin-top: 150px;
+}
+
+.auth-wrapper {
+	max-width: 100%;
+}
+
+.wrapper {
 	max-width: 600px;
-  	margin-top: 150px;
+	/* margin-top: 100px; */
 }
 
 .blog-header-logo {
@@ -30,12 +71,12 @@ h6 {
 	font-family: "Playfair Display", Georgia, "Times New Roman", serif;
 }
 
-  .display-4 {
-    font-size: 2.5rem;
-  }
+.display-4 {
+	font-size: 2.5rem;
+}
 
 .media-body {
-  text-align: justify;
+	text-align: justify;
 }
 
 .post-card {
@@ -50,8 +91,8 @@ h6 {
 	margin-left: -2rem !important;
 }
 .navbar-brand img {
-  width: 150px;
-  height: auto;
+	width: 150px;
+	height: auto;
 }
 
 .display-4 {
@@ -143,7 +184,7 @@ h6 {
 .avatar-circle {
 	width: 60px;
 	height: 60px;
-  margin: 1rem;
+	margin: 1rem;
 	background-color: #007bff;
 	text-align: center;
 	border-radius: 50%;
@@ -152,16 +193,16 @@ h6 {
 }
 
 .avatar-circle .initials {
-   position: relative;
-	top: 1.3rem; 
-	font-size: 2rem; 
+	position: relative;
+	top: 1.3rem;
+	font-size: 2rem;
 	line-height: 0.5rem;
 }
 
 .header-avatar-circle {
 	width: 40px;
 	height: 40px;
-  	margin: 0 1rem;
+	margin: 0 1rem;
 	background-color: #007bff;
 	text-align: center;
 	border-radius: 50%;
@@ -170,11 +211,11 @@ h6 {
 }
 
 .header-avatar-circle .header-initials {
-   position: relative;
-	top: 0.5rem; 
+	position: relative;
+	top: 0.5rem;
 	color: #f9f9f9;
 	font-weight: bolder;
-	font-size: 1.2rem; 
+	font-size: 1.2rem;
 	line-height: 0.5rem;
 }
 
@@ -194,8 +235,8 @@ p.comment-statement {
 }
 
 .user-details {
-  display: flex;
-  flex-direction: row;
+	display: flex;
+	flex-direction: row;
 }
 
 .user-name {
@@ -209,10 +250,10 @@ p.comment-statement {
 }
 
 .timestamp {
-  margin-right: 3rem;
-  padding-bottom: 0;
-  margin-top: 3rem;
-  font-size: 0.8rem;
+	margin-right: 3rem;
+	padding-bottom: 0;
+	margin-top: 3rem;
+	font-size: 0.8rem;
 }
 
 .avatar-profile {
@@ -226,9 +267,9 @@ p.comment-statement {
 }
 
 hr.partition {
-  border: 0.5px solid cyan;
-  padding: auto;
-  margin: 2rem 0;
+	border: 0.5px solid cyan;
+	padding: auto;
+	margin: 2rem 0;
 }
 
 /* initials */
@@ -267,9 +308,11 @@ html {
 	min-height: 100%;
 }
 
-.fa-comments, .fa-heart {
+.fa-comments,
+.fa-heart {
 	font-size: 20px;
 	color: #fff;
+	margin-right: 1rem;
 }
 
 .isLiked {
@@ -289,16 +332,15 @@ html {
 }
 
 .navbar-toggler {
-  border: none;
+	border: none;
 }
 
 .navbar-brand img {
 	width: 200px;
 }
 
-
 .nav-link {
-	font-family: 'Poppins', sans-serif;
+	font-family: "Poppins", sans-serif;
 	margin-right: 20px;
 	font-size: 20px;
 }
@@ -310,12 +352,10 @@ html {
 	justify-items: center;
 }
 
-
-
 .navbar .navbar-nav .nav-link:hover {
 	color: #fa0000;
-  }
-  /* @media only screen and (min-width: 960px) {
+}
+/* @media only screen and (min-width: 960px) {
 	.navbar .navbar-nav .nav-link {
 	  padding: 0.5em 0.7em;
 	}
@@ -326,43 +366,64 @@ html {
 	  padding: 0 0.7em;
 	}
   } */
-  .navbar .navbar-nav .nav-link {
+.navbar .navbar-nav .nav-link {
 	position: relative;
-  }
-  .navbar .navbar-nav .nav-link::after {
+}
+.navbar .navbar-nav .nav-link::after {
 	position: absolute;
 	bottom: 0;
 	left: 0;
 	right: 0;
 	margin: auto;
-	background-color:#fa0000;
+	background-color: #fa0000;
 	color: transparent;
 	width: 0%;
-	content: '';
+	content: "";
 	height: 3px;
 	transition: all 0.5s;
-  }
-  .navbar .navbar-nav .nav-link:hover::after {
+}
+.navbar .navbar-nav .nav-link:hover::after {
 	width: 100%;
-  }
+}
 
-  /* at screen 991 */
+/* at screen 991 */
 
+@media (max-width: 325px) {
+	.post-feed {
+		width: 100vw;
+	}
+}
 
-  @media (max-width: 991px) {
+@media (max-width: 900px) {
+	.news-feed, .profile-feed {
+		display: none;
+	}
+
+	.post-container {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+	}
+
+	.post-feed {
+		width: 100%;
+	}
+}
+
+@media (max-width: 991px) {
 	.navbar .navbar-nav .nav-link {
-	  padding: 1em 0.7em;
+		padding: 1em 0.7em;
 	}
 	.navbar {
-	  padding: 0;
+		padding: 0;
 	}
 	.navbar .navbar-brand {
-	  padding: 0 0.7em;
+		padding: 0 0.7em;
 	}
 
 	.navbar .navbar-nav .nav-link {
 		position: relative;
-	  }
+	}
 	/* .navbar .navbar-nav .nav-link::after {
 		position: absolute;
 		bottom: 0;
@@ -381,47 +442,47 @@ html {
 	  } 
   } */
 
-  .fadeEffect {
-	opacity: 0.7;
-	transition: opacity 4s;
-	transition-timing-function: ease-out;
-}
-
-
-  /* styling of the 404 page */
-
-  .page404 { 
-	  padding:40px 0; 
-	  background:#fff; 
-	  font-family: 'Poppins', sans-serif;
-  }
-  
-  .page404  img {
-	   width:100%;
-}
-  
-  .four_zero_four_bg{
-   	  background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
-	  height: 400px;
-	  background-position: center;
-}
-   
-   
-    .four_zero_four_bg h1 {
-   		font-size:80px;
-}
-   
-	.four_zero_four_bg h3{
-		font-size:80px;
-		
+	.fadeEffect {
+		opacity: 0.7;
+		transition: opacity 4s;
+		transition-timing-function: ease-out;
 	}
-			   
-	.link404{			 
-	  color: #fff!important;
-	  padding: 10px 20px;
-	  background: #39ac31;
-	  margin: 20px 0;
-	  display: inline-block;}
 
-	  .contant_box_404 { margin-top:-50px;}
+	/* styling of the 404 page */
+
+	.page404 {
+		padding: 40px 0;
+		background: #fff;
+		font-family: "Poppins", sans-serif;
 	}
+
+	.page404 img {
+		width: 100%;
+	}
+
+	.four_zero_four_bg {
+		background-image: url(https://cdn.dribbble.com/users/285475/screenshots/2083086/dribbble_1.gif);
+		height: 400px;
+		background-position: center;
+	}
+
+	.four_zero_four_bg h1 {
+		font-size: 80px;
+	}
+
+	.four_zero_four_bg h3 {
+		font-size: 80px;
+	}
+
+	.link404 {
+		color: #fff !important;
+		padding: 10px 20px;
+		background: #39ac31;
+		margin: 20px 0;
+		display: inline-block;
+	}
+
+	.contant_box_404 {
+		margin-top: -50px;
+	}
+}

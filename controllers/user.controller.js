@@ -29,21 +29,21 @@ module.exports = {
 			const userComments = await Comment.find({ user: req.user }).sort({
 				_id: -1,
 			});
-			const userLikes = await Like.find({ user: req.user }).sort({ _id: -1 });
-
-			res.render("user/home", {
+			const userActivity = await User.find({ user: req.user }).populate("posts comments");
+			console.log(userActivity);
+			res.render("user/profile", {
 				pageTitle,
 				userPosts,
 				userComments,
-				userLikes,
 				user: req.user,
+				userActivity
 			});
 		} catch (err) {
 			console.log(err);
 		}
 	},
 
-	postUserNameUpdate: async (req, res) => {
+	updateUser: async (req, res) => {
 		try {
 			let { newusername } = req.body;
 

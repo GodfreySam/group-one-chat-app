@@ -1,23 +1,224 @@
-<%- include('../partials/head') -%> <%- include('../partials/header') -%>
-
-<div class="container">
-	<%- include('../partials/messages') -%>
-	<div class="collapse mb-5" id="writePost">
-		<form action="/user/post" method="post">
-			<div class="form-group">
-				<textarea
-					class="form-control"
-					id="writePost"
-					name="article"
-					rows="3"
-					placeholder="What is on your mind?"
-				></textarea>
+<%- include('../partials/head') -%> <%- include('../partials/header') -%> <%
+if(isAuthenticated) { %>
+<div class="container rounded bg-white mt-5 mb-5">
+	<div class="row profile-container">
+		<div class="col-3 border-right profile-feed">
+			<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+				<div class="rounded-circle user-img mt-5">
+					<span class="user-name_initials"> <%= user.avatar %> </span>
+				</div>
+				<span class="font-weight-bold"
+					><%= user.firstName %> &nbsp; <%= user.lastName%></span
+				>
+				<span class="text-black-50">@<%= user.username %></span><span> </span>
+				<span class="text-black-50"><%= user.email %></span><span> </span>
 			</div>
-			<button class="btn btn-primary btn-lg" type="submit">Post</button>
-		</form>
-	</div>
+		</div>
+		<div class="col border-right post-container">
+			<!---beginning of user feeds-->
 
+			<div class="post-feed">
+				<div class="mt-5">
+					<form action="/user/post" method="post">
+						<div class="form-group">
+							<textarea
+								class="form-control"
+								name="article"
+								rows="3"
+								placeholder="What is on your mind?"
+							></textarea>
+						</div>
+						<button class="btn btn-primary btn" type="submit">Post</button>
+					</form>
+				</div>
+				<div class="d-flex justify-content-between mt-5 align-items-center">
+					<h4 class="text-right">Timeline</h4>
+				</div>
+				<hr />
+				<div class="container auth-wrapper">
+					<%- include('../partials/messages') -%>
+					<main class="mainBody">
+						<% allPost.forEach((post) => { %>
+						<div class="card">
+							<div class="card-content">
+								<div class="details">
+									<div class="user-details">
+										<div class="avatar-circle">
+											<span class="initials"> <%= post.user.avatar %> </span>
+										</div>
+										<span class="user-name">
+											<span class="tag">@</span><%= post.user.username %>
+										</span>
+									</div>
+									<cite class="timestamp"> <%= moment(post.createdAt).fromNow() %></cite>
+								</div>
+								<div class="post-card text-dark">
+									<div class="media">
+										<div class="media-body">
+											<p class="post-article"><%= post.article %></p>
+										</div>
+									</div>
+								</div>
+								<hr />
+								<div class="interaction-section d-flex">
+									<div class="d-flex mx-4">
+										<form
+											class="ml-3"
+											action="/user/like-post/<%- post._id %>"
+											method="POST"
+										>
+											<input type="text" name="like" value="like" style="display: none" />
+											<button class="like-btn" type="submit">
+												<a
+													><i class="fa fa-heart stroke-transparent" aria-hidden="true"></i
+												></a>
+											</button>
+										</form>
+										<p><%= post.likes.length %>&nbsp; likes</p>
+									</div>
+									<div class="d-flex mx-2">
+										<a
+											class="mr-2"
+											data-toggle="collapse"
+											href="#writeComment"
+											role="button"
+											aria-expanded="false"
+										>
+											<i class="fas fa-comments stroke-transparent"></i>
+										</a>
+										<p><%= post.comments.length %>&nbsp; comments</p>
+									</div>
+								</div>
+								<div class="collapse" id="writeComment">
+									<div class="card card-body">
+										<form action="/user/comment-post/<%- post._id %>" method="post">
+											<div class="form-group">
+												<textarea
+													class="form-control"
+													id="statement"
+													name="statement"
+													rows="3"
+													placeholder="Write a public comment"
+												></textarea>
+											</div>
+											<button class="btn btn-primary" type="submit">Comment</button>
+											<a
+												class="btn btn-secondary ml-2"
+												data-toggle="collapse"
+												href="#seeComment"
+												role="button"
+												aria-expanded="false"
+												role="button"
+												class="btn btn-secondary"
+												>View Comments</a
+											>
+										</form>
+									</div>
+									<% post.comments.forEach(comment => { %>
+									<div class="collapse card" id="seeComment">
+										<div class="card-content mt-3">
+											<div class="details">
+												<div class="user-details">
+													<div class="avatar-circle">
+														<span class="initials"> <%= comment.user.avatar %> </span>
+													</div>
+													<span class="user-name">
+														<span class="tag">@</span><%= comment.user.username %>
+													</span>
+												</div>
+												<cite class="timestamp">
+													<%= moment(comment.createdAt).fromNow() %></cite
+												>
+											</div>
+											<div class="post-card text-dark">
+												<div class="media">
+													<div class="media-body">
+														<p class="comment-statement"><%= comment.statement %></p>
+													</div>
+												</div>
+											</div>
+										</div>
+										<hr />
+										<div class="interaction-section d-flex">
+											<div class="d-flex">
+												<form
+													class="ml-5"
+													action="/user/like-comment/<%- comment._id %>"
+													method="POST"
+												>
+													<input
+														type="text"
+														name="like"
+														value="like"
+														style="display: none"
+													/>
+													<button class="like-btn" type="submit">
+														<a
+															><i class="fa fa-heart stroke-transparent" aria-hidden="true"></i
+														></a>
+													</button>
+												</form>
+												<p><%= comment.likes.length %>&nbsp; likes</p>
+											</div>
+											<div></div>
+										</div>
+									</div>
+									<% }) %>
+								</div>
+							</div>
+						</div>
+						<hr class="partition" />
+						<% }) %>
+					</main>
+				</div>
+			</div>
+		</div>
+		<!---end of user feeds-->
+		<div class="col-3 news-feed">
+			<div class="p-3 py-5">
+				<div class="d-flex justify-content-between align-items-center experience">
+					<span class="border px-3 p-1 add-experience">
+						<i class="fa fa-plus"></i>
+						&nbsp;Add interest</span
+					>
+				</div>
+				<br />
+				<div class="col-md-12">
+					<label class="labels">News around the word</label>
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Soccer, Basketball..."
+						value=""
+					/>
+				</div>
+				<br />
+				<div class="col-md-12">
+					<label class="labels">Horoscope</label
+					><input type="text" class="form-control" placeholder="Virgo..." value="" />
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<% } else { %>
+<div class="container wrapper">
+	<%- include('../partials/messages') -%>
 	<main class="mainBody">
+		<div class="cant-post-form mb-5" id="">
+			<form action="/user/post" method="post">
+				<div class="form-group">
+					<textarea
+						class="form-control"
+						id=""
+						name="article"
+						rows="3"
+						placeholder="What is on your mind?"
+					></textarea>
+				</div>
+				<button class="btn btn-primary btn pt-0" type="submit">Post</button>
+			</form>
+		</div>
 		<% allPost.forEach((post) => { %>
 		<div class="card">
 			<div class="card-content">
@@ -140,6 +341,7 @@
 		<% }) %>
 	</main>
 </div>
+<% } %>
 
 <script>
 	const likeBtn = document.querySelectorAll(".like-btn");
@@ -147,7 +349,7 @@
 	const faHearts = document.querySelectorAll(".fa-heart");
 
 	likeBtn.forEach((btn) => {
-		btn.addEventListener("click", ()=> faHearts.forEach(heart => heart));
+		btn.addEventListener("click", () => faHearts.forEach((heart) => heart));
 	});
 </script>
 

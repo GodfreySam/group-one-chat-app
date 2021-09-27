@@ -4,7 +4,7 @@ const router = express.Router();
 const {
 	userProfile,
 	viewComment,
-	postUserNameUpdate,
+	updateUser,
 	postPost,
 	postComment,
 	postCommentLike,
@@ -21,6 +21,7 @@ router.route("/post").post(authorized, postPost);
 router.route("/").get(authorized, userHome);
 router.route("/view-comment/:postId").get(viewComment);
 router.route("/profile").get(authorized, userProfile);
+router.route("/profile").post(authorized, updateUser);
 router.route("/comment-post/:postId").post(authorized, postComment);
 router.route("/like-post/:postId").post(authorized, postPostLike);
 router.route("/like-comment/:commentId").post(authorized, postCommentLike);
