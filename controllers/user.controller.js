@@ -45,31 +45,18 @@ module.exports = {
 
 	updateUser: async (req, res) => {
 		try {
-			let { newusername } = req.body;
 
 			console.log(req.body);
-			const username = await User.find({}).username;
 
-			if (!newusername) {
-				req.flash("error-message", "Please fill in a new user name");
-				return res.redirect("back");
+			let updateDetails = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
+				new: true,
+				runValidators: true,
+			});
+
+			if (updateDetails) {
+				req.flash("success-message", "User name updated successfully!");
+				return res.redirect("/");
 			}
-
-			if (username === newusername) {
-				req.flash(
-					"error-message",
-					"Username already exists, please use a different one",
-				);
-				return res.redirect("back");
-			}
-
-			let loggedInUser = await User.find({ user: req.user });
-
-			loggedInUser.username = newusername;
-			await loggedInUser.save();
-
-			req.flash("success-message", "Your post was posted successfully");
-			return res.redirect("/default/index");
 		} catch (err) {
 			console.log(err);
 		}
