@@ -12,7 +12,7 @@ const mongoose = require("mongoose");
 const ejs = require("ejs");
 const flash = require("connect-flash");
 const User = require('./models/User.model');
-
+ 
 // Load config
 dotenv.config({ path: "./config/config.env" });
 
@@ -73,7 +73,7 @@ app.use((req, res, next) => {
 });
 
 //  assign port to a variable
-const port = process.env.PORT || 3900;
+const port = process.env.PORT || 4000;
 
 app.listen(port, () =>
 	console.log(`server running on http://localhost:${port}`),
