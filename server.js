@@ -16,7 +16,7 @@ const User = require('./models/User.model');
 // Load config
 dotenv.config({ path: "./config/config.env" });
 
-//  Database connection
+//  Database connection  
 mongoose
 	.connect(process.env.MONGODB_URL)
 	.then((connected) => console.log("Database connected successfully"))

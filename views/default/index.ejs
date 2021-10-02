@@ -101,21 +101,11 @@ if(isAuthenticated) { %>
 													placeholder="Write a public comment"
 												></textarea>
 											</div>
-											<button class="btn btn-primary" type="submit">Comment</button>
-											<a
-												class="btn btn-secondary ml-2"
-												data-toggle="collapse"
-												href="#seeComment"
-												role="button"
-												aria-expanded="false"
-												role="button"
-												class="btn btn-secondary"
-												>View Comments</a
-											>
+											<button class="btn btn-primary" type="submit">Comment</butto>
 										</form>
 									</div>
 									<% post.comments.forEach(comment => { %>
-									<div class="collapse card" id="seeComment">
+									<div class="card" id="">
 										<div class="card-content mt-3">
 											<div class="details">
 												<div class="user-details">
@@ -176,7 +166,7 @@ if(isAuthenticated) { %>
 		<!---end of user feeds-->
 		<div class="col-3 news-feed">
 			<div class="p-3 py-5">
-				<div class="d-flex justify-content-between align-items-center experience">
+				<div class="d-flex justify-content-between ml-4 align-items-center experience">
 					<span class="border px-3 p-1 add-experience">
 						<i class="fa fa-plus"></i>
 						&nbsp;Add interest</span
@@ -245,7 +235,7 @@ if(isAuthenticated) { %>
 					<div class="d-flex mx-4">
 						<form class="ml-3" action="/user/like-post/<%- post._id %>" method="POST">
 							<input type="text" name="like" value="like" style="display: none" />
-							<button class="like-btn" type="submit">
+							<button class="like-btn" type="submit" onClick="function toggleColor(){ this.classList.toggle('isLiked')}; toggleColor();" >
 								<a><i class="fa fa-heart stroke-transparent" aria-hidden="true"></i></a>
 							</button>
 						</form>
@@ -277,20 +267,10 @@ if(isAuthenticated) { %>
 								></textarea>
 							</div>
 							<button class="btn btn-primary" type="submit">Comment</button>
-							<a
-								class="btn btn-secondary ml-2"
-								data-toggle="collapse"
-								href="#seeComment"
-								role="button"
-								aria-expanded="false"
-								role="button"
-								class="btn btn-secondary"
-								>View Comments</a
-							>
 						</form>
 					</div>
 					<% post.comments.forEach(comment => { %>
-					<div class="collapse card" id="seeComment">
+					<div class="card collaspe" id="writeComment">
 						<div class="card-content mt-3">
 							<div class="details">
 								<div class="user-details">
@@ -322,7 +302,7 @@ if(isAuthenticated) { %>
 									method="POST"
 								>
 									<input type="text" name="like" value="like" style="display: none" />
-									<button class="like-btn" type="submit">
+									<button class="like-btn" type="submit" onClick="function toggleColor(){ this.classList.toggle('isLiked')}; toggleColor();">
 										<a
 											><i class="fa fa-heart stroke-transparent" aria-hidden="true"></i
 										></a>
@@ -342,15 +322,5 @@ if(isAuthenticated) { %>
 	</main>
 </div>
 <% } %>
-
-<script>
-	const likeBtn = document.querySelectorAll(".like-btn");
-
-	const faHearts = document.querySelectorAll(".fa-heart");
-
-	likeBtn.forEach((btn) => {
-		btn.addEventListener("click", () => faHearts.forEach((heart) => heart));
-	});
-</script>
 
 <%- include('../partials/foot') -%>
