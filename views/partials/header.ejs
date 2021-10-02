@@ -1,5 +1,17 @@
-<nav class="navbar navbar-expand-lg fixed-top p-4 navbar-light bg-white">
-	<a class="navbar-brand flex-grow-1" href="#"
+<nav
+	class="
+		navbar navbar-expand-lg
+		fixed-top
+		navbar-light
+		bg-white
+		pb-0
+		mb-0
+		pt-0
+		mt-0
+		ml-auto
+	"
+>
+	<a class="navbar-brand" href="#"
 		><img src="/images/lg.png" alt="logo"
 	/></a>
 	<% if(isAuthenticated) { %>
@@ -12,24 +24,25 @@
 		aria-expanded="false"
 		aria-label="Toggle navigation"
 	>
-		<%= user.avatar %>
+		<span class="navbar-toggler-icon"></span>
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<%= user.avatar %>
+				<div class="header-avatar-circle">
+					<span class="header-initials"> <%= user.avatar %> </span>
+				</div>
 			</li>
 			<li class="nav-item active">
 				<a
 					class="nav-link"
-					data-toggle="collapse"
-					href="#writePost"
+					href="/"
+					id="show"
 					role="button"
 					aria-expanded="false"
-					aria-controls="writeComment"
 				>
-					Create post
+					Home
 					<span class="sr-only">(current)</span></a
 				>
 			</li>
@@ -37,7 +50,7 @@
 				<a class="nav-link" href="/auth/logout">Logout</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link" href="/user/home">Profile</a>
+				<a class="nav-link" href="/user/profile">Profile</a>
 			</li>
 		</ul>
 	</div>
@@ -51,24 +64,23 @@
 		aria-expanded="false"
 		aria-label="Toggle navigation"
 	>
-		<i class="fas fa-user-circle text-primary"></i>
+		<span class="navbar-toggler-icon"></span>
 	</button>
 
 	<div class="collapse navbar-collapse" id="navbarNav">
 		<ul class="navbar-nav">
 			<li class="nav-item">
-				<i class="fas fa-user-circle text-primary"></i>
+				<a href="" class="nav-link"
+					><i class="fas fa-user-circle text-primary"></i
+				></a>
 			</li>
 			<li class="nav-item active">
 				<a
 					class="nav-link"
-					class="nav-link"
-					data-toggle="collapse"
-					href="#writePost"
+					href="/"
 					role="button"
 					aria-expanded="false"
-					aria-controls="writeComment"
-					>Create post<span class="sr-only">(current)</span></a
+					>Home<span class="sr-only">(current)</span></a
 				>
 			</li>
 			<li class="nav-item">

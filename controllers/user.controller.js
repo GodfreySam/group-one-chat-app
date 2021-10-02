@@ -4,6 +4,23 @@ const Comment = require("../models/Comment.model");
 const User = require("../models/User.model");
 
 module.exports = {
+	userHome: async (req, res) => {
+		try {
+			let pageTitle = "Post page";
+			const allPost = await Post.find({})
+				.lean()
+				.populate("user likes")
+				.populate({ path: "comments", populate: { path: "user likes" } })
+				.sort({ _id: -1 });
+			res.render("default/index", {
+				pageTitle,
+				allPost,
+			});
+		} catch (err) {
+			console.log(err);
+		}
+	},
+
 	userProfile: async (req, res) => {
 		try {
 			let pageTitle = "User Profile";
@@ -12,59 +29,34 @@ module.exports = {
 			const userComments = await Comment.find({ user: req.user }).sort({
 				_id: -1,
 			});
-			const userLikes = await Like.find({ user: req.user }).sort({ _id: -1 });
-
-			res.render("user/home", {
+			const userActivity = await User.find({ user: req.user }).populate("posts comments");
+			console.log(userActivity);
+			res.render("user/profile", {
 				pageTitle,
 				userPosts,
 				userComments,
-				userLikes,
 				user: req.user,
+				userActivity
 			});
 		} catch (err) {
 			console.log(err);
 		}
 	},
 
-	postUserNameUpdate: async (req, res) => {
+	updateUser: async (req, res) => {
 		try {
-			let { newusername } = req.body;
 
 			console.log(req.body);
-			const username = await User.find({}).username;
 
-			if (!newusername) {
-				req.flash("error-message", "Please fill in a new user name");
-				return res.redirect("back");
-			}
-
-			if (username === newusername) {
-				req.flash("error-message", "Username already exists, please use a different one");
-				return res.redirect("back");
-			}
-
-			let loggedInUser = await User.find({ user: req.user });
-			
-			loggedInUser.username = newusername;
-			await loggedInUser.save();
-
-			req.flash("success-message", "Your post was posted successfully");
-			return res.redirect("/default/index");
-		} catch (err) {
-			console.log(err);
-		}
-	},
-
-	userHome: async (req, res) => {
-		try {
-			let pageTitle = "Post page";
-			const userPost = await Post.find({ user: req.user })
-				.populate("user comments likes")
-				.sort({ _id: -1 });
-			res.render("default/index", {
-				pageTitle,
-				userPost,
+			let updateDetails = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
+				new: true,
+				runValidators: true,
 			});
+
+			if (updateDetails) {
+				req.flash("success-message", "User name updated successfully!");
+				return res.redirect("/");
+			}
 		} catch (err) {
 			console.log(err);
 		}
@@ -74,15 +66,15 @@ module.exports = {
 		try {
 			let { article } = req.body;
 
-			console.log(req.body);
+			// console.log(req.body);
 
 			if (!article) {
 				req.flash("error-message", "Field can not be empty");
 				return res.redirect("back");
 			}
 
-			if (article.length > 250) {
-				req.flash("error-message", "Post can not be more than 250 characters");
+			if (article.length > 300) {
+				req.flash("error-message", "Post can not be more than 300 characters");
 				return res.redirect("back");
 			}
 
@@ -94,19 +86,19 @@ module.exports = {
 			await newPost.save();
 
 			req.flash("success-message", "Your post was posted successfully");
-			return res.redirect("/default/index");
+			return res.redirect("/");
 		} catch (err) {
 			console.log(err);
 		}
 	},
 
-	postPostComment: async (req, res) => {
+	postComment: async (req, res) => {
 		try {
-			let { comment } = req.body;
+			let { statement } = req.body;
 
-			console.log(req.body);
+			// console.log(req.body);
 
-			if (!comment || comment === "") {
+			if (!statement || statement === "") {
 				req.flash("error-message", "Can not post empty comment");
 				return res.redirect("back");
 			}
@@ -118,14 +110,12 @@ module.exports = {
 				return res.redirect("back");
 			}
 
-			if (comment.length > 300) {
+			if (statement.length > 300) {
 				req.flash("error-message", "Comment can not be more than 300 characters");
 				return res.redirect("back");
 			}
 
-			const newComment = new Comment({
-				comment,
-			});
+			const newComment = new Comment({ statement });
 
 			newComment.user = req.user.id;
 
@@ -134,7 +124,7 @@ module.exports = {
 				.then((comment) => {
 					postExist.comments.push(comment._id);
 					postExist.save();
-					req.flash("success-message", "Comment posted succesfully");
+					req.flash("success-message", "Comment posted successfully");
 					return res.redirect("back");
 				})
 				.catch((error) => {
@@ -153,60 +143,16 @@ module.exports = {
 
 	postPostLike: async (req, res) => {
 		try {
-			let { like } = req.body;
-
-			console.log(req.body);
-
 			let postExist = await Post.findOne({ _id: req.params.postId });
-
-			const newLike = new Like({ like });
-
-			if (postExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						postExist.likes.push(like._id);
-						postExist.save();
-						req.flash("success-message", "You liked this post");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	},
-
-	postPostUnLike: async (req, res) => {
-		try {
-			let { like } = req.body;
-
-			console.log(req.body);
-
-			let postExist = await Post.findOne({ _id: req.params.postId });
-
-			const newLike = new Like({ like });
-
-			if (postExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						postExist.likes.pop(like._id);
-						postExist.save();
-						req.flash("success-message", "You unliked this post");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
+			let likeId = req.user.id;
+			if (!postExist.likes.includes(likeId)) {
+				await postExist.updateOne({ $push: { likes: likeId } });
+				req.flash("success-message", "Post Liked!");
+				return res.redirect("back");
+			} else {
+				await postExist.updateOne({ $pull: { likes: likeId } });
+				req.flash("success-message", "Post Unliked!");
+				return res.redirect("back");
 			}
 		} catch (err) {
 			console.log(err);
@@ -215,60 +161,16 @@ module.exports = {
 
 	postCommentLike: async (req, res) => {
 		try {
-			let { like } = req.body;
-
-			console.log(req.body);
-
 			let commentExist = await Comment.findOne({ _id: req.params.commentId });
-
-			const newLike = new Like({ like });
-
-			if (commentExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						commentExist.likes.push(like._id);
-						commentExist.save();
-						req.flash("success-message", "You liked this comment");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
-			}
-		} catch (err) {
-			console.log(err);
-		}
-	},
-
-	postCommentUnLike: async (req, res) => {
-		try {
-			let { like } = req.body;
-
-			console.log(req.body);
-
-			let commentExist = await Comment.findOne({ _id: req.params.commentId });
-
-			const newLike = new Like({ like });
-
-			if (commentExist) {
-				await newLike
-					.save()
-					.then((like) => {
-						commentExist.likes.pop(like._id);
-						commentExist.save();
-						req.flash("success-message", "You unliked this comment");
-						return res.redirect("back");
-					})
-					.catch((error) => {
-						if (error) {
-							req.flash("error-message", error.message);
-							res.redirect("back");
-						}
-					});
+			let likeId = req.user.id;
+			if (!commentExist.likes.includes(likeId)) {
+				await commentExist.updateOne({ $push: { likes: likeId } });
+				req.flash("success-message", "Comment Liked!");
+				return res.redirect("back");
+			} else {
+				await commentExist.updateOne({ $pull: { likes: likeId } });
+				req.flash("success-message", "Comment Unliked!");
+				return res.redirect("back");
 			}
 		} catch (err) {
 			console.log(err);
@@ -308,6 +210,26 @@ module.exports = {
 			}
 			req.flash("success-message", "Post deleted successfully");
 			res.redirect("back");
+		} catch (err) {
+			console.log(err);
+		}
+	},
+
+	viewComment: async (req, res) => {
+		try {
+			let pageTitle = "View Comments";
+
+			let post = await Post.findOne({ _id: req.params.postId });
+
+			if (!post) {
+				req.flash("error-message", "Post doesn't exist or has been deleted");
+				return res.redirect("back");
+			}
+
+			res.render("user/view-comment", {
+				pageTitle,
+				post,
+			});
 		} catch (err) {
 			console.log(err);
 		}
