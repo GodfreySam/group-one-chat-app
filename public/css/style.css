@@ -10,7 +10,7 @@
 }
 
 html {
-	font-family: "Poppins", sans-serif; 
+	font-family: "Poppins", sans-serif;
 }
 
 body {
@@ -22,14 +22,15 @@ body {
 ::placeholder {
 	color: #ced0d1;
 	opacity: 0.3;
-	
 }
 
 .page-container {
 	top: auto;
 }
 
-.user-details_left {
+.user-details {
+	display: flex;
+	flex-direction: row;
 	margin-top: -1.5rem;
 }
 
@@ -50,6 +51,29 @@ body {
 	font-weight: bolder;
 }
 
+.post-form {
+	display: flex;
+	flex-direction: row;
+	justify-content: center !important;
+}
+
+.post-form .form-group {
+	width: 70%;
+	margin-top: 12px;
+}
+
+.post-form textarea {
+	border-top: none;
+	border-right: none;
+	border-left: none;
+}
+
+.post-form button {
+	width: 70px;
+	height: 50px;
+	font-weight: 600;
+}
+
 .blog-header {
 	line-height: 1;
 	border-bottom: 1px solid #e5e5e5;
@@ -57,10 +81,6 @@ body {
 
 .cant-post-form {
 	margin-top: 150px;
-}
-
-.auth-wrapper {
-	max-width: 100%;
 }
 
 .wrapper {
@@ -82,10 +102,6 @@ h6 {
 
 .navbar-brand {
 	margin-left: -2rem !important;
-}
-.navbar-brand img {
-	width: 150px;
-	height: auto;
 }
 
 /* avatar */
@@ -128,14 +144,89 @@ h6 {
 	line-height: 0.5rem;
 }
 
+.user-post {
+	border-radius: 0 30px 0 30px;
+	background-color: #ced0d1;
+	margin: 1rem 0 2rem;
+}
+
+.user-comment {
+	border-radius: 0 30px 0 30px;
+	background-color: #ffffff;
+	margin: 1rem 5rem 2rem;
+}
+
+@media (max-width: 400px) {
+	.avatar-circle {
+		width: 30px !important;
+		height: 30px !important;
+		margin: 0.7rem !important;
+	}
+
+	.avatar-circle .initials {
+		position: relative;
+		top: 0.2rem;
+		font-size: 0.7rem !important;
+		line-height: 0.3rem !important;
+	}
+}
+
+@media (max-width: 665px) {
+	.user-comment {
+		margin: 1rem 0 2rem;
+	}
+
+	.avatar-circle {
+		width: 30px;
+		height: 30px;
+		margin: 0.7rem;
+	}
+
+	.avatar-circle .initials {
+		position: relative;
+		top: 0.2rem;
+		font-size: 0.9rem;
+		line-height: 0.3rem;
+	}
+
+	.post-card , .comment-card {
+		margin: 0 3rem 0 !important;
+	}
+}
+
+.post-heading,
+.comment-heading {
+	margin-top: 1rem;
+	display: flex;
+	flex-direction: row;
+}
+
+.names {
+	font-weight: bold;
+}
+
+.post-card,
+.comment-card {
+	margin: -2.5rem 4.5rem 0;
+}
+
+.post-time {
+	margin-left: 3rem;
+}
+
+.post-article {
+	padding: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
 .user-name {
 	margin-top: -0.5rem;
 	margin-left: 1rem;
 }
 
-.user-name .tag {
-	color: rgb(8, 185, 8);
-	font-weight: bold;
+.tag {
+	color: #007bff !important;
 }
 
 .timestamp {

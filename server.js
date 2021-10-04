@@ -51,6 +51,7 @@ app.use(logger("dev"));
 app.use(flash());
 app.use(globalVariables);
 app.locals.moment = require("moment");
+app.locals.momentMobile = require("moment-twitter");
 
 app.set("views", path.join(__dirname, "views"));
 app.use(express.static(path.join(__dirname, 'public')));
