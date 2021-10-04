@@ -6,13 +6,13 @@ const User = require("../models/User.model");
 module.exports = {
 	userHome: async (req, res) => {
 		try {
-			let pageTitle = "Post page";
+			let pageTitle = "User page";
 			const allPost = await Post.find({})
 				.lean()
 				.populate("user likes")
 				.populate({ path: "comments", populate: { path: "user likes" } })
 				.sort({ _id: -1 });
-			res.render("default/index", {
+			res.render("user/home", {
 				pageTitle,
 				allPost,
 			});
@@ -29,14 +29,16 @@ module.exports = {
 			const userComments = await Comment.find({ user: req.user }).sort({
 				_id: -1,
 			});
-			const userActivity = await User.find({ user: req.user }).populate("posts comments");
+			const userActivity = await User.find({ user: req.user }).populate(
+				"posts comments",
+			);
 			console.log(userActivity);
 			res.render("user/profile", {
 				pageTitle,
 				userPosts,
 				userComments,
 				user: req.user,
-				userActivity
+				userActivity,
 			});
 		} catch (err) {
 			console.log(err);
@@ -45,13 +47,16 @@ module.exports = {
 
 	updateUser: async (req, res) => {
 		try {
-
 			console.log(req.body);
 
-			let updateDetails = await User.findOneAndUpdate({ _id: req.params.id }, req.body, {
-				new: true,
-				runValidators: true,
-			});
+			let updateDetails = await User.findOneAndUpdate(
+				{ _id: req.params.id },
+				req.body,
+				{
+					new: true,
+					runValidators: true,
+				},
+			);
 
 			if (updateDetails) {
 				req.flash("success-message", "User name updated successfully!");

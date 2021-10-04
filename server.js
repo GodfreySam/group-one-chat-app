@@ -73,7 +73,7 @@ app.use((req, res, next) => {
 });
 
 //  assign port to a variable
-const port = process.env.PORT || 4000;
+const port = process.env.PORT || 3900;
 
 app.listen(port, () =>
 	console.log(`server running on http://localhost:${port}`),
