@@ -18,7 +18,7 @@ const authorized = require("../middlewares/authorization").isLoggedIn;
 
 router.route("/post").post(authorized, postPost);
 
-router.route("/").get(authorized, userHome);
+router.route("/home").get(authorized, userHome);
 router.route("/view-comment/:postId").get(viewComment);
 router.route("/profile").get(authorized, userProfile);
 router.route("/profile").post(authorized, updateUser);

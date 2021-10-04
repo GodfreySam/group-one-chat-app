@@ -3,7 +3,7 @@ const Post = require("../models/Post.model");
 const User = require("../models/User.model");
 
 module.exports = {
-	home: async (req, res) => {
+	landing: async (req, res) => {
 		try {
 			let pageTitle = "Home page";
 			let allPost = await Post.find({})

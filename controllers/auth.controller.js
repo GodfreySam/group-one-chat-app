@@ -172,7 +172,7 @@ module.exports = {
 	postLogin: async (req, res, next) => {
 		try {
 			passport.authenticate("local", {
-				successRedirect: "/",
+				successRedirect: "/user/home",
 				failureRedirect: "/auth/login",
 				successFlash: true,
 				failureFlash: true,

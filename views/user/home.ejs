@@ -1,28 +1,36 @@
-<%- include('../partials/head') -%> <%- include('../partials/header') -%>
+<%- include('../partials/head') -%>
+<%- include('../partials/header') -%> 
 
-<div class="row page-container bg-white">
-	<div class="col-3 border-right profile-feed">
-		<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-			<a class="navbar-brand" href="#">
-				<img src="/images/lg.png" alt="logo" />
-			</a>
+	<div class="row page-container bg-white">
+		<div class="col-3 border-right profile-feed">
+			<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+				<a class="navbar-brand" href="#" >
+					<img src="/images/lg.png" alt="logo" />
+				</a>
 			<ul class="navbar-nav">
 				<li class="nav-item">
-					<a href="" class="nav-link">
-						<i class="fas fa-user-circle text-primary"></i>
-					</a>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="/auth/login">
-						Login<span class="sr-only">(current)</span>
-					</a>
+					<div class="d-flex flex-column align-items-center text-center p-3 py-5">
+						<div class="rounded-circle user-img mt-5">
+							<span class="user-name_initials"> <%= user.avatar %> </span>
+						</div>
+						<span class="font-weight-bold">
+							<%= user.firstName %> &nbsp; <%= user.lastName%>
+						</span>
+						<span class="text-black-50">@<%= user.username %></span><span> </span>
+						<span class="text-black-50"><%= user.email %></span><span> </span>
+					</div>
 				</li>
 				<li class="nav-item">
-					<a class="nav-link" href="/auth/register">Register</a>
+					<a class="nav-link" href="/user/profile">Profile</a>
+				</li>
+				<li class="nav-item active">
+					<a class="nav-link" href="/auth/logout">
+						Logout<span class="sr-only">(current)</span>
+					</a>
 				</li>
 			</ul>
+			</div>
 		</div>
-	</div>
 	<div class="col border-right post-container">
 		<!---beginning of user feeds-->
 
@@ -165,33 +173,31 @@
 		</div>
 	</div>
 	<!---end of user feeds-->
-	<div class="col-3 news-feed">
-		<div class="p-3 py-5">
-			<div
-				class="d-flex justify-content-between ml-4 align-items-center experience"
-			>
-				<span class="border px-3 p-1 add-experience">
-					<i class="fa fa-plus"></i>
-					&nbsp;Add interest</span
-				>
-			</div>
-			<br />
-			<div class="col-md-12">
-				<label class="labels">News around the word</label>
-				<input
-					type="text"
-					class="form-control"
-					placeholder="Soccer, Basketball..."
-					value=""
-				/>
-			</div>
-			<br />
-			<div class="col-md-12">
-				<label class="labels">Horoscope</label
-				><input type="text" class="form-control" placeholder="Virgo..." value="" />
+		<div class="col-3 news-feed">
+			<div class="p-3 py-5">
+				<div class="d-flex justify-content-between ml-4 align-items-center experience">
+					<span class="border px-3 p-1 add-experience">
+						<i class="fa fa-plus"></i>
+						&nbsp;Add interest</span
+					>
+				</div>
+				<br />
+				<div class="col-md-12">
+					<label class="labels">News around the word</label>
+					<input
+						type="text"
+						class="form-control"
+						placeholder="Soccer, Basketball..."
+						value=""
+					/>
+				</div>
+				<br />
+				<div class="col-md-12">
+					<label class="labels">Horoscope</label
+					><input type="text" class="form-control" placeholder="Virgo..." value="" />
+				</div>
 			</div>
 		</div>
 	</div>
-</div>
 
 <%- include('../partials/foot') -%>
