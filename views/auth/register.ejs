@@ -1,13 +1,21 @@
 <%- include('../partials/formHeader') -%>
 <div class="main">
-	<div class="first-col">
-		<img src="/images/lg.png" width="100px" height="50px" class="mt-2 ml-3" alt="logo" srcset="">
+	 <div class="header-img">
+		<img
+			src="/images/lg.png"
+			width="180px"
+			class=""
+			alt="logo"
+			srcset=""
+		/>
 	</div>
+	<div class="auth-wrapper mt-3">
+		<div class="first-col"></div>
 	<div class="third-col"> 
 		<div class="regform">
 			<%- include('../partials/messages') -%>
-			  <div id="form">
-				<p class="text-center mt-5">Sign Up</p>
+			  <div id="form" class="col-sm-12">
+				<p class="text-center by-3 form-heading">Sign Up</p>
 				<form action="/auth/register" method="post">
 					<div class="form-group">
 						<label for="exampleInputEmail1">First Name</label>
@@ -25,32 +33,25 @@
 					  <label for="exampleInputEmail1">Email address</label>
 					  <input type="email" name="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp" required>
 					</div>
-					<div class="row">
-						<div class="col">
-							<label for="exampleInputPassword1">Password</label>
-							<input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
-						</div>
-						<div class="col">
-							<label for="exampleInputPassword1">Confirm Password</label>
-							<input type="password" name="confirmPassword" class="form-control" id="exampleInputPassword1" required>
-						</div>
-					  </div>
 					<div class="form-group">
-					  
+						<label for="exampleInputPassword1">Password</label>
+						<input type="password" name="password" class="form-control" id="exampleInputPassword1" required>
 					</div>
 					<div class="form-group">
-						
-					  </div>
-					<button type="submit" class="btn btn-primary">Register</button>
-				  </form>
-				  <br>
-				  <span style="font-size: 20px;"  class="">Already have an account? &nbsp;<p1 style="font-size: 20px;" class="text-primary">
+						<label for="exampleInputPassword1">Confirm Password</label>
+						<input type="password" name="confirmPassword" class="form-control" id="exampleInputPassword1" required>
+					</div>
+					 <div class="row">
+					  <button type="submit" class="btn btn-primary ml-3">Register</button>
+					 <span class="text-muted mt-2">Already have an account? &nbsp;<p1 class="text-primary">
 					  <a href="/auth/login">Log In</p1></a>
-					  </span>
-			
+					</span>
+				  </div>	
+				  </form>
 			  </div>
 		  </div>
 	  </div>
+	</div>
 </div>
 
 <%- include('../partials/foot') -%>

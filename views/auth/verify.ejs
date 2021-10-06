@@ -1,19 +1,13 @@
 <%- include('../partials/formHeader') -%>
 <div class="main">
-	<div class="confirm">
-		<img
-			src="/images/lg.png"
-			width="180px"
-			class="mt-5 ml-3"
-			alt="logo"
-			srcset=""
-		/>
+	<div class="header-img">
+		<img src="/images/lg.png" width="180px" class="" alt="logo" srcset="" />
 	</div>
-	<div class="third-col">
-		<div class="small-form">
+	<div class="auth-wrapper">
+		<div class="form">
 			<div id="form">
 				<%- include('../partials/messages') -%>
-				<p class="text-center">Verify Account</p>
+				<p class="text-center my-5 form-heading">Verify Account</p>
 				<form action="/auth/verify" method="POST">
 					<div class="form-group mt-4">
 						<label for="exampleInputEmail1" style="font-weight: bold"
@@ -29,13 +23,9 @@
 						/>
 					</div>
 					<button type="submit" class="btn btn-primary">Submit</button>
-					<!-- <p1 class="text-primary text-muted"><a href="/auth/forgot-password">Forgot password? </a> </p1> -->
 				</form>
 			</div>
-
-			<div></div>
-
-			<%- include('../partials/foot') -%>
 		</div>
 	</div>
 </div>
+<%- include('../partials/foot') -%>

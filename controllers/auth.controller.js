@@ -208,7 +208,7 @@ module.exports = {
 				user.password = hashedUpdatedPassword;
 				await user.save();
 				req.flash("success-message", "Password changed successfully");
-				res.redirect("/user/profile");
+				res.redirect("/user/home");
 			}
 		}
 		return req.flash("error-message", "Something went wrong");

@@ -1,40 +1,40 @@
 <%- include('../partials/formHeader') -%>
+
+
 <div class="main">
-	<div class=" first-col" >
-<img src="/images/lg.png" width="180px" class="mt-5 ml-3" alt="logo" srcset="">
-
-
-	  </div>
-	<div class=" third-col">
+   <div class="header-img">
+		<img
+			src="/images/lg.png"
+			width="180px"
+			class=""
+			alt="logo"
+			srcset=""
+		/>
+	</div>
+	<div class="auth-wrapper">
+		<div class="social-img first-col"></div>
 		<div class="form">
-		   
-			<div id="form">
-			  <%- include('../partials/messages') -%>
-				  <p class="text-center mb-2">Login</p>
-				  <form action="/auth/login" method="POST">
-					  <div class="form-group">
-					  <label for="exampleInputEmail1">Email</label>
-					  <input type="value" name="value" placeholder="email or username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
-					  </div>
-					  <div class="form-group">
-					  <label for="exampleInputPassword1">Password</label>
-					  <input type="password" name="password" class="form-control" id="exampleInputPassword1">
-					  </div>
-					  <button type="submit" class="btn btn-primary">Submit</button>
-					  <p1 class="text-primary text-muted"><a href="/auth/forgot-password">Forgot password? </a> </p1>
-				  </form>
-				  <br>
-				  <span style="font-size: 25px;"  class="">Not Registered? <p1 style="font-size: 20px; font-weight: bold;" class="text-primary">
-					  <a href="/auth/register">Sign Up</p1></a>
-					  </span>
+				<div id="form">
+				<%- include('../partials/messages') -%>
+					<p class="text-center mb-2 form-heading">Login</p>
+					<form action="/auth/login" method="POST">
+						<div class="form-group">
+						<label for="exampleInputEmail1">Email</label>
+						<input type="value" name="value" placeholder="email or username" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+						</div>
+						<div class="form-group">
+						<label for="exampleInputPassword1">Password</label>
+						<input type="password" name="password" class="form-control" id="exampleInputPassword1">
+						</div>
+						<button type="submit" class="btn btn-primary">Login</button>
+					</form>
+					<br>
+					<p class="text-primary text-muted">Forgot password?&nbsp;<a href="/auth/forgot-password"> Reset</a></p>
+					<p class="text-primary text-muted">Not Registered?&nbsp;<a href="/auth/register">Sign Up</a></p>
+				</div>
+		</div>
+	</div>
 
-			</div>
-			  
-
-			<div>
-
-			</div>
 </div>
 		
 <%- include('../partials/foot') -%>
-</div>

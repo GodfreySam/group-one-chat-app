@@ -54,7 +54,7 @@
 				<%- include('../partials/messages') -%>
 				<main class="mainBody">
 					<% allPost.forEach((post) => { %>
-						<div class="user-post pb-3">
+						<div class="user-post">
 							<div class="user-details">
 								<div class="avatar-circle">
 									<span class="initials"><%= post.user.avatar %> </span>
@@ -62,12 +62,12 @@
 								<p class="post-heading">
 									<span class="names"><%= post.user.firstName %>&nbsp;<%= post.user.lastName%></span>&nbsp;
 									<span class="names"><span class="tag">@</span><%= post.user.username %></span>
-									<span class="post-time"><cite class="timestamp"> <%= momentMobile(post.createdAt).twitterShort() %></cite></span>
+									<span class="post-time"><span class="timestamp"> <%= momentMobile(post.createdAt).twitterShort() %></span></span>
 								</p>
 							</div>
 								<div class="post-card">
-								   <p class="py-3 post-article"><%= post.article %></p>
-                           <form class="pb-2 mb-4 mt-1" action="/user/like-post/<%- post._id %>" method="POST">
+								   <p class="pt-3 post-article"><%= post.article %></p>
+                           <form class="pb-2 mt-1" action="/user/like-post/<%- post._id %>" method="POST">
                                  <input type="text" name="like" value="like" style="display: none" />
                                  <span class="">
                                     <button class="like-btn" type="submit">
@@ -82,7 +82,7 @@
                                     <% } %>
                                  </span>
                                  <span class="ml-4">
-                                    <a role="button" data-toggle="modal" data-target="#postComment<%- post._id %>" ><i class="fa fa-comment stroke-transparent" aria-hidden="true"></i></a>
+                                    <a role="button"><i class="fa fa-comment stroke-transparent" aria-hidden="true"></i></a>
                                  &nbsp;<% if(post.comments.length <= 1) { %>
                                     <span> <%= post.comments.length %>&nbsp;comment</span>
                                     <% } else { %>
@@ -91,34 +91,20 @@
                                  </span>
                               </form>
                            </div>
-                           <div class="modal fade" id="postComment<%- post._id %>" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                              <div class="modal-dialog modal-dialog-centered">
-                                 <div class="modal-content">
-                                    <div class="modal-header">
-                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                       <span aria-hidden="true">&times;</span>
-                                    </button>
-                                    </div>
-                                    <div class="modal-body">
-                                       <form action="/user/comment-post/<%- post._id %>" method="post">
-                                          <div class="form-group">
-                                             <textarea
-                                                class="form-control"
-                                                id="statement"
-                                                name="statement"
-                                                rows="2"
-                                                placeholder="Write a public comment"
-                                             ></textarea>
-                                          </div>
-                                          <div class="modal-footer">
-                                          <button type="button" class="btn btn-warning" data-dismiss="modal">Discard</button>
-                                          <button class="btn btn-primary" type="submit">Comment</button>
-                                          </div>
-                                       </form>
-											</div>
-										</div>
+									 <form class="post-comment_form" action="/user/comment-post/<%- post._id %>" method="post">
+										<div class="form-group">
+											<textarea
+												class="form-control"
+												id="statement"
+												name="statement"
+												rows="1"
+												placeholder="Write a public comment"
+											></textarea>
+										<button class="btn btn-primary" type="submit">
+											post
+										</button>
 									</div>
-									</div>
+									</form>
 								<% post.comments.forEach(comment => { %>
 										<div class="user-comment">
 											<div class="user-details">
@@ -128,12 +114,12 @@
 												<p class="comment-heading">
 													<span class="names"><%= comment.user.firstName %>&nbsp;<%= comment.user.lastName%></span>&nbsp;
 													<span class="names"><span class="tag">@</span><%= comment.user.username %></span>
-													<span class="post-time"><cite class="timestamp"> <%= momentMobile(comment.createdAt).twitterShort() %></cite></span>
+													<span class="post-time"><span class="timestamp"> <%= momentMobile(comment.createdAt).twitterShort() %></span></span>
 												</p>
 											</div>
 											<div class="comment-card">
-												<p class="py-3 post-article"><%= comment.statement %></p>
-												<form class="pb-2 mt-2" action="/user/like-comment/<%- comment._id %>" method="POST">
+												<p class="pt-2 post-article"><%= comment.statement %></p>
+												<form class="pb-1 mt-2" action="/user/like-comment/<%- comment._id %>" method="POST">
 													<input type="text" name="like" value="like" style="display: none" />
 													<span class="mr-4">
 														<button class="like-btn" type="submit">

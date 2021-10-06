@@ -11,7 +11,7 @@ module.exports = {
 				.lean()
 				.populate("user likes")
 				.populate({ path: "comments", populate: { path: "user likes" } })
-				.sort({ _id: -1 });
+				.sort({ _id: -1 });	
 			res.render("user/home", {
 				pageTitle,
 				allPost,
