@@ -1,172 +1,199 @@
 <%- include('../partials/head') -%> <%- include('../partials/header') -%>
 
-<div class="row page-container bg-white">
-   <div class="col-3 border-right profile-feed">
-		<div class="d-flex flex-column align-items-center text-center p-3 py-5">
-			<a class="navbar-brand aside-img" href="#">
-				<img src="/images/lg.png" alt="logo" />
-			</a>
-			<ul class="navbar-nav">
-				<li class="nav-item">
-					<a href="" class="nav-link">
-						<div class="rounded-circle user-img mt-5">
-							<span class="user-name_initials">
-								<i class="fas fa-user-circle"></i>	 
-							</span>
-						</div>
-					</a>
-				</li>
-				<li class="nav-item active">
-					<a class="nav-link" href="/auth/login">
-						Login<span class="sr-only">(current)</span>
-					</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" href="/auth/register">Register</a>
-				</li>
-			</ul>
-		</div>
-	</div>
-	<div class="col border-right post-container">
-		<!---beginning of user feeds-->
-
-		<div class="post-feed">
-			<div class="mt-5 pt-5">
-				<form class="post-form" action="/user/post" method="post">
-					<div class="form-group">
-						<textarea
-							class="form-control"
-							name="article"
-							rows="1"
-							placeholder="What is on your mind?"
-						></textarea>
+<div class="border-right profile-feed">
+	<div class="d-flex flex-column align-items-center text-center">
+		<a class="navbar-brand aside-img" href="#">
+			<img src="/images/lg.png" alt="logo" />
+		</a>
+		<ul class="navbar-nav">
+			<li class="nav-item">
+				<a href="" class="nav-link">
+					<div class="rounded-circle user-img mt-5">
+						<span class="user-name_initials">
+							<i class="fas fa-user-circle"></i>
+						</span>
 					</div>
-					<button class="btn btn-primary btn" type="submit">Post</button>
-				</form>
-			</div>
+				</a>
+			</li>
+			<li class="nav-item active">
+				<a class="nav-link" href="/auth/login">
+					Login<span class="sr-only">(current)</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="/auth/register">Register</a>
+			</li>
+		</ul>
+	</div>
+</div>
+
+<div class="post-container">
+	<!---beginning of user feeds-->
+	<div class="post-feed">
+		<div class="mt-5 pt-5">
+			<form class="post-form" action="/user/post" method="post">
+				<div class="form-group">
+					<textarea
+						class="form-control"
+						name="article"
+						rows="1"
+						placeholder="What is on your mind?"
+					></textarea>
+				</div>
+				<button class="btn btn-primary btn" type="submit">Post</button>
+			</form>
+		</div>
+		<%- include('../partials/messages') -%>
+		<main class="mainBody">
 			<div class="d-flex mt-5 ml-2 align-items-center">
 				<h4 class="text-right">Timeline</h4>
 			</div>
-			<hr class="mb-5"/>
-				<%- include('../partials/messages') -%>
-				<main class="mainBody">
-					<% allPost.forEach((post) => { %>
-						<div class="user-post">
-							<div class="user-details">
-								<div class="avatar-circle">
-									<span class="initials"><%= post.user.avatar %> </span>
-								</div>
-								<p class="post-heading">
-									<span class="names"><%= post.user.firstName %>&nbsp;<%= post.user.lastName%></span>&nbsp;
-									<span class="names"><span class="tag">@</span><%= post.user.username %></span>
-									<span class="post-time"><span class="timestamp"> <%= momentMobile(post.createdAt).twitterShort() %></span></span>
-								</p>
-							</div>
-								<div class="post-card">
-								   <p class="pt-3 post-article"><%= post.article %></p>
-                           <form class="pb-2 mt-1" action="/user/like-post/<%- post._id %>" method="POST">
-                                 <input type="text" name="like" value="like" style="display: none" />
-                                 <span class="">
-                                    <button class="like-btn" type="submit">
-                                    <a>
-                                       <i class="fa fa-heart stroke-transparent" aria-hidden="true"></i>
-                                    </a>
-                                    </button>
-                                 <% if(post.likes.length <= 1) { %>
-                                    <%= post.likes.length %>&nbsp;like
-                                    <% } else { %>
-                                       <%= post.likes.length %>&nbsp;likes
-                                    <% } %>
-                                 </span>
-                                 <span class="ml-4">
-                                    <a role="button"><i class="fa fa-comment stroke-transparent" aria-hidden="true"></i></a>
-                                 &nbsp;<% if(post.comments.length <= 1) { %>
-                                    <span> <%= post.comments.length %>&nbsp;comment</span>
-                                    <% } else { %>
-                                       <span> <%= post.comments.length %>&nbsp;comments</span>
-                                    <% } %>
-                                 </span>
-                              </form>
-                           </div>
-									 <form class="post-comment_form" action="/user/comment-post/<%- post._id %>" method="post">
-										<div class="form-group">
-											<textarea
-												class="form-control"
-												id="statement"
-												name="statement"
-												rows="1"
-												placeholder="Write a public comment"
-											></textarea>
-										<button class="btn btn-primary" type="submit">
-											post
-										</button>
-									</div>
-									</form>
-								<% post.comments.forEach(comment => { %>
-										<div class="user-comment">
-											<div class="user-details">
-												<div class="avatar-circle">
-													<span class="initials"><%= comment.user.avatar %> </span>
-												</div>
-												<p class="comment-heading">
-													<span class="names"><%= comment.user.firstName %>&nbsp;<%= comment.user.lastName%></span>&nbsp;
-													<span class="names"><span class="tag">@</span><%= comment.user.username %></span>
-													<span class="post-time"><span class="timestamp"> <%= momentMobile(comment.createdAt).twitterShort() %></span></span>
-												</p>
-											</div>
-											<div class="comment-card">
-												<p class="pt-2 post-article"><%= comment.statement %></p>
-												<form class="pb-1 mt-2" action="/user/like-comment/<%- comment._id %>" method="POST">
-													<input type="text" name="like" value="like" style="display: none" />
-													<span class="mr-4">
-														<button class="like-btn" type="submit">
-														<a>
-															<i class="fa fa-heart stroke-transparent" aria-hidden="true"></i>
-														</a>
-													</button>
-													<% if(comment.likes.length <= 1) { %>
-														<%= comment.likes.length %>&nbsp;like
-													<% } else { %>
-														<%= comment.likes.length %>&nbsp;likes
-													<% } %>
-													</span>
-													<a role="button" class="mx-4" style="color: inherit; text-decoration: none;">Reply</a>
-												</form>
-											</div>
-										</div>
-								<% }) %>		
-						</div>
-				
-					<% }) %>
-				</main>
-		</div>
-	</div>
-	<!---end of user feeds-->
-	<div class="col-3 news-feed">
-		<div class="p-3 py-5">
-			<div
-				class="d-flex justify-content-between ml-4 align-items-center experience"
-			>
-				<span class="border px-3 p-1 add-experience">
-					<i class="fa fa-plus"></i>
-					&nbsp;Add interest</span
+			<hr class="mb-5" />
+			<% allPost.forEach((post) => { %>
+			<div class="user-post">
+				<div class="user-details">
+					<div class="avatar-circle">
+						<span class="initials"><%= post.user.avatar %> </span>
+					</div>
+					<p class="post-heading">
+						<span class="names"
+							><%= post.user.firstName %>&nbsp;<%= post.user.lastName%></span
+						>&nbsp;
+						<span class="names"
+							><span class="tag">@</span><%= post.user.username %></span
+						>
+						<span class="post-time"
+							><span class="timestamp">
+								<%= momentMobile(post.createdAt).twitterShort() %></span
+							></span
+						>
+					</p>
+				</div>
+				<div class="post-card">
+					<p class="pt-3 post-article"><%= post.article %></p>
+					<form
+						class="pb-2 mt-1"
+						action="/user/like-post/<%- post._id %>"
+						method="POST"
+					>
+						<input type="text" name="like" value="like" style="display: none" />
+						<span class="">
+							<button class="like-btn" type="submit">
+								<a>
+									<i class="fa fa-heart stroke-transparent" aria-hidden="true"></i>
+								</a>
+							</button>
+							<% if(post.likes.length <= 1) { %> <%= post.likes.length %>&nbsp;like <%
+							} else { %> <%= post.likes.length %>&nbsp;likes <% } %>
+						</span>
+						<span class="ml-4">
+							<a role="button"
+								><i class="fa fa-comment stroke-transparent" aria-hidden="true"></i
+							></a>
+							&nbsp;<% if(post.comments.length <= 1) { %>
+							<span> <%= post.comments.length %>&nbsp;comment</span>
+							<% } else { %>
+							<span> <%= post.comments.length %>&nbsp;comments</span>
+							<% } %>
+						</span>
+					</form>
+				</div>
+				<form
+					class="post-comment_form"
+					action="/user/comment-post/<%- post._id %>"
+					method="post"
 				>
+					<div class="form-group">
+						<textarea
+							class="form-control"
+							id="statement"
+							name="statement"
+							rows="1"
+							placeholder="Write a public comment"
+						></textarea>
+						<button class="btn btn-primary" type="submit">post</button>
+					</div>
+				</form>
+				<% post.comments.forEach(comment => { %>
+				<div class="user-comment">
+					<div class="user-details">
+						<div class="avatar-circle">
+							<span class="initials"><%= comment.user.avatar %> </span>
+						</div>
+						<p class="comment-heading">
+							<span class="names"
+								><%= comment.user.firstName %>&nbsp;<%= comment.user.lastName%></span
+							>&nbsp;
+							<span class="names"
+								><span class="tag">@</span><%= comment.user.username %></span
+							>
+							<span class="post-time"
+								><span class="timestamp">
+									<%= momentMobile(comment.createdAt).twitterShort() %></span
+								></span
+							>
+						</p>
+					</div>
+					<div class="comment-card">
+						<p class="pt-2 post-article"><%= comment.statement %></p>
+						<form
+							class="pb-1 mt-2"
+							action="/user/like-comment/<%- comment._id %>"
+							method="POST"
+						>
+							<input type="text" name="like" value="like" style="display: none" />
+							<span class="mr-4">
+								<button class="like-btn" type="submit">
+									<a>
+										<i class="fa fa-heart stroke-transparent" aria-hidden="true"></i>
+									</a>
+								</button>
+								<% if(comment.likes.length <= 1) { %> <%= comment.likes.length
+								%>&nbsp;like <% } else { %> <%= comment.likes.length %>&nbsp;likes <% }
+								%>
+							</span>
+							<a
+								role="button"
+								class="mx-4"
+								style="color: inherit; text-decoration: none"
+								>Reply</a
+							>
+						</form>
+					</div>
+				</div>
+				<% }) %>
 			</div>
-			<br />
-			<div class="col-md-12">
-				<label class="labels">News around the word</label>
-				<input
-					type="text"
-					class="form-control"
-					placeholder="Soccer, Basketball..."
-					value=""
-				/>
-			</div>
-			<br />
-			<div class="col-md-12">
-				<label class="labels">Horoscope</label
-				><input type="text" class="form-control" placeholder="Virgo..." value="" />
-			</div>
+
+			<% }) %>
+		</main>
+	</div>
+</div>
+<!---end of user feeds-->
+
+<div class="border-left news-feed">
+	<div class="py-5">
+		<div
+			class="d-flex justify-content-between ml-4 align-items-center experience"
+		>
+			<span class="border px-2 p-1 add-experience">
+				<i class="fa fa-plus"></i>
+				&nbsp;Add interest</span
+			>
+		</div>
+		<br />
+		<div class="col-md-12">
+			<label class="labels">News around the word</label>
+			<input
+				type="text"
+				class="form-control"
+				placeholder="Soccer, Basketball..."
+				value=""
+			/>
+		</div>
+		<br />
+		<div class="col-md-12">
+			<label class="labels">Horoscope</label
+			><input type="text" class="form-control" placeholder="Virgo..." value="" />
 		</div>
 	</div>
 </div>
