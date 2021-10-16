@@ -1,5 +1,4 @@
 <%- include('../partials/head') -%> <%- include('../partials/header') -%>
-
 <div class="border-right profile-feed">
 	<div class="d-flex flex-column align-items-center text-center">
 		<a class="navbar-brand aside-img" href="#">
@@ -33,19 +32,17 @@
 <div class="post-container">
 	<!---beginning of user feeds-->
 	<div class="post-feed">
-		<div class="mt-5 pt-5">
-			<form class="post-form" action="/user/post" method="post">
-				<div class="form-group">
-					<textarea
-						class="form-control"
-						name="article"
-						rows="1"
-						placeholder="What is on your mind?"
-					></textarea>
-				</div>
-				<button class="btn btn-primary btn" type="submit">Post</button>
-			</form>
-		</div>
+		<form class="post-form" action="/user/post" method="post">
+			<div class="form-group">
+				<textarea
+					class="form-control"
+					name="article"
+					rows="1"
+					placeholder="What is on your mind?"
+				></textarea>
+			</div>
+			<button class="btn btn-primary btn" type="submit">Post</button>
+		</form>
 		<%- include('../partials/messages') -%>
 		<main class="mainBody">
 			<div class="d-flex mt-5 ml-2 align-items-center">
@@ -73,12 +70,8 @@
 					</p>
 				</div>
 				<div class="post-card">
-					<p class="pt-3 post-article"><%= post.article %></p>
-					<form
-						class="pb-2 mt-1"
-						action="/user/like-post/<%- post._id %>"
-						method="POST"
-					>
+					<p class="post-article"><%= post.article %></p>
+					<form class="" action="/user/like-post/<%- post._id %>" method="POST">
 						<input type="text" name="like" value="like" style="display: none" />
 						<span class="">
 							<button class="like-btn" type="submit">
@@ -138,9 +131,9 @@
 						</p>
 					</div>
 					<div class="comment-card">
-						<p class="pt-2 post-article"><%= comment.statement %></p>
+						<p class="post-article"><%= comment.statement %></p>
 						<form
-							class="pb-1 mt-2"
+							class=""
 							action="/user/like-comment/<%- comment._id %>"
 							method="POST"
 						>

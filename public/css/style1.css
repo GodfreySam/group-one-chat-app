@@ -47,9 +47,6 @@
 	font-weight: 600 !important;
 }
 
-#form {
-	/* height: 80%; */
-}
 #form p {
 	margin: 10px 0px 0px 0px;
 	font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
@@ -59,6 +56,13 @@
 }
 
 @media screen and (max-width: 700px) {
+	.main .third-col .regform {
+	width: 100vw;
+	padding: 0 0.2rem;
+	height: auto;
+	background-color: #fff;
+	padding-bottom: 2rem;
+}
 	.auth-wrapper {
 		display: flex;
 		flex-direction: column;
@@ -70,9 +74,47 @@
 	}
 }
 
-@media screen and (max-width: 400px) {
+@media screen and (max-width: 320px) {
+.main .third-col .regform {
+	width: 100vw;
+	padding: 0 0.2rem;
+	height: auto;
+	background-color: #fff;
+	padding-bottom: 2rem;
+}
 	.form {
 		margin-top: 50px;
+		padding-left: 0.1rem;
+		padding-right: 0.1rem;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		width: 100vw;
+		height: 400px;
+		background-color: #f3f3f3;
+	}
+	.form form input {
+		width: 100%;
+	}
+
+	.form form button {
+		width: 100%;
+		font-weight: 800;
+	}
+}
+
+@media screen and (max-width: 400px) {
+	.main .third-col .regform {
+	width: 100vw;
+	padding: 0 0.2rem;
+	height: auto;
+	background-color: #fff;
+	padding-bottom: 2rem;
+}
+	.form {
+		margin-top: 50px;
+		padding-left: 0.1rem;
+		padding-right: 0.1rem;
 		display: flex;
 		flex-direction: column;
 		align-items: center;

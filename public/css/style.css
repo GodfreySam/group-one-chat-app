@@ -19,15 +19,19 @@ body {
 	background-color: #fff;
 }
 
-::placeholder {
-	color: #ced0d1;
-	opacity: 0.3;
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+	font-family: "Poppins", sans-serif;
 }
 
 .profile-feed {
 	position: fixed;
 	top: 0;
-	left: 2rem;
+	left: 0;
 	height: 100vh;
 	overflow-x: hidden;
 	width: 250px;
@@ -36,98 +40,126 @@ body {
 .news-feed {
 	position: fixed;
 	top: 0;
-	right: 2rem;
+	right: 0;
 	height: 100vh;
 	overflow-x: hidden;
 	width: 250px;
 }
 
 .post-container {
-	position: absolute;
-	left: 50%;
-	transform: translate(-50%, 0);
+	padding: 0 18rem;
 }
 
-@media (max-width: 1269px) {
-	.profile-feed {
-		left: 1rem;
-		width: 200px;
+@media screen and (max-width: 1000px) {
+	.post-container {
+		padding: 0 16rem;
 	}
 
-	.news-feed {
-		right: 1rem;
-		width: 200px;
-	}
-}
-
-@media (max-width: 1080px) {
-.post-container {
-	width: 650px;
-}
-}
-
-@media (max-width: 1130px) {
-	.profile-feed {
-		left: 0;
-		padding-left: 0;
-		padding-right: 0;
-		width: 180px;
+		.user-post {
+		border-radius: 0 30px 0 30px;
+		background-color: #ced0d1;
+		margin: 1rem 0 1rem;
+		padding: 0 0 1rem 0;
 	}
 
-	.news-feed {
-		right: 0;
-		padding-left: 0;
-		padding-right: 0;
-		width: 180px;
+	.user-comment {
+		border-radius: 0 30px 0 30px;
+		background-color: #ffffff;
+		margin: 0.5rem 1rem 0.5rem;
+		font-size: smaller;
+	}
+
+		.avatar-circle {
+		width: 30px !important;
+		height: 30px !important;
+		margin: 0.7rem !important;
+	}
+
+	.avatar-circle .initials {
+		position: relative;
+		top: 0.2rem;
+		font-size: 0.7rem !important;
+		line-height: 0.3rem !important;
 	}
 }
 
-.user-details {
-	display: flex;
+::placeholder {
+	color: #ced0d1;
+	opacity: 0.3;
+	font-size: 12.5px;
+}
+
+.navbar-brand {
+	margin-left: -2rem !important;
+}
+
+.stroke-transparent {
+	-webkit-text-stroke: 1px #000;
+	-webkit-text-fill-color: transparent;
+}
+
+.like-btn {
+	background: none;
+	border: none;
+}
+
+.fa-comments,
+.fa-heart {
+	font-size: 20px;
+	color: #fff;
+	margin-right: 1rem;
+}
+
+.navbar-toggler {
+	border: none;
+}
+
+.navbar-brand img {
+	width: 200px;
+}
+
+.nav-link {
+	font-family: "Poppins", sans-serif;
+	margin-right: 20px;
+	font-size: 20px;
+}
+
+.navbar-expand-lg .navbar-collapse {
 	flex-direction: row;
-	margin-top: -1.5rem;
+	justify-content: flex-end;
+	justify-items: center;
 }
 
-#profile-form {
-	max-width: 900px;
-	background: #e5e5e5;
-	display: flex;
-	margin: 100px auto 0;
+.navbar .navbar-nav .nav-link:hover {
+	color: #fa0000;
 }
 
-#profile-form form {
-	width: 350px;
-	margin: 0 auto 0;
-	padding: 4rem 0;
+.navbar .navbar-nav .nav-link {
+	position: relative;
+}
+.navbar .navbar-nav .nav-link::after {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	margin: auto;
+	background-color: #fa0000;
+	color: transparent;
+	width: 0%;
+	content: "";
+	height: 3px;
+	transition: all 0.5s;
 }
 
-#profile-form form p {
-	font-weight: bolder;
+.navbar .navbar-nav .nav-link:hover::after {
+	width: 100%;
 }
 
 .post-form {
 	display: flex;
 	flex-direction: row;
 	justify-content: center !important;
-}
-
-.post-comment_form textarea {
-	border-radius: 0 5px 5px 30px;
-}
-
-.post-comment_form button {
-	width: 60px;
-	height: 50px;
-	padding-top: 0 !important;
-	padding-bottom: 0 !important;
-	border-radius: 5px 30px 30px 5px;
-}
-
-.post-comment_form .form-group {
-	display: flex;
-	flex-direction: row;
-	width: 80%;
-	border-radius: 30px;
+	padding-top: 150px;
 }
 
 .post-form .form-group {
@@ -145,36 +177,6 @@ body {
 	width: 70px;
 	height: 50px;
 	font-weight: 600;
-}
-
-.blog-header {
-	line-height: 1;
-	border-bottom: 1px solid #e5e5e5;
-}
-
-.cant-post-form {
-	margin-top: 150px;
-}
-
-.wrapper {
-	max-width: 600px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
-	font-family: "Poppins", sans-serif;
-}
-
-.display-4 {
-	font-size: 2.5rem;
-}
-
-.navbar-brand {
-	margin-left: -2rem !important;
 }
 
 /* avatar */
@@ -228,14 +230,24 @@ h6 {
 	border-radius: 0 30px 0 30px;
 	background-color: #ffffff;
 	margin: 2rem 5rem 1rem;
+	font-size: smaller;
 }
 
-@media (max-width: 400px) {
-	.post-container {
-		width: 100vw;
+@media screen and (max-width: 748px) {
+
+		.user-post {
+		border-radius: 0 30px 0 30px;
+		background-color: #ced0d1;
+		margin: 1rem 0 1rem;
+		padding: 0 0 1rem 0;
 	}
 
-	.avatar-circle {
+	.user-comment {
+		margin: 0.5rem 1rem 0.5rem;
+		font-size: smaller;
+	}
+
+		.avatar-circle {
 		width: 30px !important;
 		height: 30px !important;
 		margin: 0.7rem !important;
@@ -249,63 +261,25 @@ h6 {
 	}
 }
 
-@media (max-width: 665px) {
-	.post-container {
-		width: 100vw;
-	}
-	
-	.user-comment {
-		margin: 1rem 0 2rem;
-	}
-
-	.avatar-circle {
-		width: 30px;
-		height: 30px;
-		margin: 0.7rem;
-	}
-
-	.avatar-circle .initials {
-		position: relative;
-		top: 0.2rem;
-		font-size: 0.9rem;
-		line-height: 0.3rem;
-	}
-
-	.post-card,
-	.comment-card {
-		margin: 0 3rem 0 !important;
-	}
+.user-details {
+	display: flex;
+	flex-direction: row;
 }
 
 .post-heading,
 .comment-heading {
-	margin-top: 1rem;
+	padding-top: 1rem;
 	display: flex;
 	flex-direction: row;
+	align-items: center;
 }
 
 .names {
 	font-weight: bold;
 }
 
-.post-card,
-.comment-card {
-	margin: -2.5rem 4.5rem 0;
-}
-
 .post-time {
-	margin-left: 3rem;
-}
-
-.post-article {
-	padding: 0;
-	margin-left: 0;
-	margin-right: 0;
-}
-
-.user-name {
-	margin-top: -0.5rem;
-	margin-left: 1rem;
+	margin-left: 2rem;
 }
 
 .tag {
@@ -316,123 +290,82 @@ h6 {
 	margin-right: 10rem;
 	padding-bottom: 0;
 	margin-top: 3rem;
-	font-size: 0.9rem;
+	font-size: 0.8rem;
 }
 
-.avatar-profile {
-	width: 50px;
+.post-card,
+.comment-card {
+	display: flex;
+	flex-direction: column;
+	text-align: left;
+}
+
+.post-card .post-article {
+	max-width: 600px;
+}
+
+.comment-card .post-article,
+.comment-card form,
+.post-card .post-article,
+.post-card form {
+	padding-left: 4rem;
+}
+
+.post-article {
+	padding: 0;
+	margin-left: 0;
+	margin-right: 0;
+}
+
+.post-comment_form textarea {
+	border-radius: 0 5px 5px 30px;
+}
+
+.post-comment_form button {
+	width: 60px;
 	height: 50px;
-	background-color: #007bff;
-	text-align: center;
-	border-radius: 50%;
-	-webkit-border-radius: 50%;
-	-moz-border-radius: 50%;
+	padding-top: 0 !important;
+	padding-bottom: 0 !important;
+	border-radius: 5px 30px 30px 5px;
 }
 
-.initials {
-	font-family: "Poppins", sans-serif;
-	font-weight: bold;
-	color: #fff;
-}
-.initials-profile {
-	position: relative;
-	top: 3px; /* 25% of parent */
-	font-size: 30px; /* 50% of parent */
-	line-height: 35px; /* 50% of parent */
-	font-family: "Poppins", sans-serif;
-	font-weight: bold;
-}
-
-.fa-comments,
-.fa-heart {
-	font-size: 20px;
-	color: #fff;
-	margin-right: 1rem;
-}
-
-.isLiked {
-	color: rgb(153, 153, 4) !important;
-	font-size: 20px !important;
-	z-index: 5 !important;
-}
-
-.stroke-transparent {
-	-webkit-text-stroke: 1px #000;
-	-webkit-text-fill-color: transparent;
-}
-
-.like-btn {
-	background: none;
-	border: none;
-}
-
-.navbar-toggler {
-	border: none;
-}
-
-.navbar-brand img {
-	width: 200px;
-}
-
-.nav-link {
-	font-family: "Poppins", sans-serif;
-	margin-right: 20px;
-	font-size: 20px;
-}
-
-.navbar-expand-lg .navbar-collapse {
-	/* display: flex; */
+.post-comment_form .form-group {
+	display: flex;
 	flex-direction: row;
-	justify-content: flex-end;
-	justify-items: center;
+	width: 80%;
+	border-radius: 30px;
 }
 
-.navbar .navbar-nav .nav-link:hover {
-	color: #fa0000;
-}
-
-.navbar .navbar-nav .nav-link {
-	position: relative;
-}
-.navbar .navbar-nav .nav-link::after {
-	position: absolute;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	margin: auto;
-	background-color: #fa0000;
-	color: transparent;
-	width: 0%;
-	content: "";
-	height: 3px;
-	transition: all 0.5s;
-}
-.navbar .navbar-nav .nav-link:hover::after {
-	width: 100%;
-}
-
-/* at screen 991 */
-
-@media (max-width: 325px) {
-	.post-feed {
-		width: 100vw;
-	}
-}
-
-@media (min-width: 1000px) {
+@media (min-width: 982px) {
 	.navbar {
 		display: none;
 	}
 }
 
-@media (max-width: 1000px) {
-	.news-feed,
-	.profile-feed {
+@media (max-width: 980px) {
+	.profile-feed,
+	.news-feed {
 		display: none;
 	}
-}
 
-@media (max-width: 991px) {
+	.post-container {
+		padding-left: 5rem;
+		padding-right: 5rem;
+	}
+
+		.avatar-circle {
+		width: 30px !important;
+		height: 30px !important;
+		margin: 0.7rem !important;
+	}
+
+	.avatar-circle .initials {
+		position: relative;
+		top: 0.2rem;
+		font-size: 0.7rem !important;
+		line-height: 0.3rem !important;
+	}
+
 	.navbar .navbar-nav .nav-link {
 		padding: 1em 0.7em;
 	}
@@ -490,4 +423,120 @@ h6 {
 	.contant_box_404 {
 		margin-top: -50px;
 	}
+}
+
+@media (max-width: 780px) {
+	.page-item {
+		width: 100vw;
+		overflow-x: hidden;
+	}
+
+		.avatar-circle {
+		width: 30px !important;
+		height: 30px !important;
+		margin: 0.7rem !important;
+	}
+
+	.avatar-circle .initials {
+		position: relative;
+		top: 0.2rem;
+		font-size: 0.7rem !important;
+		line-height: 0.3rem !important;
+	}
+}
+
+@media screen and (max-width: 680px) {
+	.post-container {
+		padding-left: 2rem;
+		padding-right: 2rem;
+	}
+
+	.avatar-circle {
+		width: 30px;
+		height: 30px;
+		margin: 0.7rem;
+	}
+
+	.avatar-circle .initials {
+		position: relative;
+		top: 0.2rem;
+		font-size: 0.9rem;
+		line-height: 0.3rem;
+	}
+}
+
+@media screen and (max-width: 580px) {
+	.post-container {
+		padding-left: 0;
+		padding-right: 0;
+		width: 100vw;
+	}
+
+	.user-post {
+		border-radius: 0 30px 0 30px;
+		background-color: #ced0d1;
+		margin: 1rem 0 1rem;
+		padding: 0 0 1rem 0;
+	}
+
+	.user-comment {
+		border-radius: 0 30px 0 30px;
+		background-color: #ffffff;
+		margin: 0.5rem 1rem 0.5rem;
+		font-size: smaller;
+	}
+
+		.avatar-circle {
+		width: 30px !important;
+		height: 30px !important;
+		margin: 0.7rem !important;
+	}
+
+	.avatar-circle .initials {
+		position: relative;
+		top: 0.2rem;
+		font-size: 0.7rem !important;
+		line-height: 0.3rem !important;
+	}
+}
+
+.avatar-profile {
+	width: 50px;
+	height: 50px;
+	background-color: #007bff;
+	text-align: center;
+	border-radius: 50%;
+	-webkit-border-radius: 50%;
+	-moz-border-radius: 50%;
+}
+
+.initials {
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+	color: #fff;
+}
+.initials-profile {
+	position: relative;
+	top: 3px; /* 25% of parent */
+	font-size: 30px; /* 50% of parent */
+	line-height: 35px; /* 50% of parent */
+	font-family: "Poppins", sans-serif;
+	font-weight: bold;
+}
+
+#profile-form {
+	max-width: 900px;
+	background: #e5e5e5;
+	display: flex;
+	margin: 100px auto 0;
+}
+
+#profile-form form {
+	width: 350px;
+	margin: 0 auto 0;
+	padding: 4rem 0;
+}
+
+#profile-form form p {
+	font-weight: bolder;
 }
