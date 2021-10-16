@@ -31,7 +31,8 @@
 
 <div class="post-container">
 	<!---beginning of user feeds-->
-	<div class="post-feed">
+	<main class="mainBody">
+		<%- include('../partials/messages') -%>
 		<form class="post-form" action="/user/post" method="post">
 			<div class="form-group">
 				<textarea
@@ -43,126 +44,139 @@
 			</div>
 			<button class="btn btn-primary btn" type="submit">Post</button>
 		</form>
-		<%- include('../partials/messages') -%>
-		<main class="mainBody">
-			<div class="d-flex mt-5 ml-2 align-items-center">
-				<h4 class="text-right">Timeline</h4>
-			</div>
-			<hr class="mb-5" />
-			<% allPost.forEach((post) => { %>
-			<div class="user-post">
-				<div class="user-details">
-					<div class="avatar-circle">
-						<span class="initials"><%= post.user.avatar %> </span>
-					</div>
-					<p class="post-heading">
-						<span class="names"
-							><%= post.user.firstName %>&nbsp;<%= post.user.lastName%></span
-						>&nbsp;
-						<span class="names"
-							><span class="tag">@</span><%= post.user.username %></span
-						>
-						<span class="post-time"
-							><span class="timestamp">
-								<%= momentMobile(post.createdAt).twitterShort() %></span
-							></span
-						>
-					</p>
+		<div class="d-flex mt-5 ml-2 align-items-center">
+			<h4 class="text-right">Timeline</h4>
+		</div>
+		<hr class="mb-5" />
+		<% allPost.forEach((post) => { %>
+		<div class="jumbotron p-md-5 rounded">
+			<div class="media user-post">
+				<div class="avatar-circle avatar mt-0 mr-3">
+					<span class="initials"><%= post.user.avatar %></span>
 				</div>
-				<div class="post-card">
-					<p class="post-article"><%= post.article %></p>
-					<form class="" action="/user/like-post/<%- post._id %>" method="POST">
-						<input type="text" name="like" value="like" style="display: none" />
-						<span class="">
-							<button class="like-btn" type="submit">
-								<a>
-									<i class="fa fa-heart stroke-transparent" aria-hidden="true"></i>
-								</a>
-							</button>
-							<% if(post.likes.length <= 1) { %> <%= post.likes.length %>&nbsp;like <%
-							} else { %> <%= post.likes.length %>&nbsp;likes <% } %>
+				<div class="media-body">
+					<h5 class="mt-0">
+						<span class="names">
+							<%= post.user.firstName %> <%= post.user.lastName%>
 						</span>
-						<span class="ml-4">
-							<a role="button"
-								><i class="fa fa-comment stroke-transparent" aria-hidden="true"></i
-							></a>
-							&nbsp;<% if(post.comments.length <= 1) { %>
-							<span> <%= post.comments.length %>&nbsp;comment</span>
-							<% } else { %>
-							<span> <%= post.comments.length %>&nbsp;comments</span>
-							<% } %>
+						<span class="names">
+							<span class="tag">@</span><%= post.user.username %>
 						</span>
-					</form>
-				</div>
-				<form
-					class="post-comment_form"
-					action="/user/comment-post/<%- post._id %>"
-					method="post"
-				>
-					<div class="form-group">
-						<textarea
-							class="form-control"
-							id="statement"
-							name="statement"
-							rows="1"
-							placeholder="Write a public comment"
-						></textarea>
-						<button class="btn btn-primary" type="submit">post</button>
-					</div>
-				</form>
-				<% post.comments.forEach(comment => { %>
-				<div class="user-comment">
-					<div class="user-details">
-						<div class="avatar-circle">
-							<span class="initials"><%= comment.user.avatar %> </span>
-						</div>
-						<p class="comment-heading">
-							<span class="names"
-								><%= comment.user.firstName %>&nbsp;<%= comment.user.lastName%></span
-							>&nbsp;
-							<span class="names"
-								><span class="tag">@</span><%= comment.user.username %></span
-							>
-							<span class="post-time"
-								><span class="timestamp">
-									<%= momentMobile(comment.createdAt).twitterShort() %></span
-								></span
-							>
-						</p>
-					</div>
-					<div class="comment-card">
-						<p class="post-article"><%= comment.statement %></p>
-						<form
-							class=""
-							action="/user/like-comment/<%- comment._id %>"
-							method="POST"
-						>
-							<input type="text" name="like" value="like" style="display: none" />
-							<span class="mr-4">
-								<button class="like-btn" type="submit">
-									<a>
-										<i class="fa fa-heart stroke-transparent" aria-hidden="true"></i>
-									</a>
-								</button>
-								<% if(comment.likes.length <= 1) { %> <%= comment.likes.length
-								%>&nbsp;like <% } else { %> <%= comment.likes.length %>&nbsp;likes <% }
-								%>
+						<span class="post-time">
+							<span class="timestamp">
+								<%= momentMobile(post.createdAt).twitterShort() %>
 							</span>
-							<a
-								role="button"
-								class="mx-4"
-								style="color: inherit; text-decoration: none"
-								>Reply</a
-							>
-						</form>
+						</span>
+					</h5>
+					<p><%= post.article %></p>
+					<form
+						class="post-comment_form"
+						action="/user/comment-post/<%- post._id %>"
+						method="post"
+					>
+						<div class="form-group">
+							<textarea
+								class="form-control"
+								id="statement"
+								name="statement"
+								rows="1"
+								placeholder="Write a comment"
+							></textarea>
+							<button class="btn btn-primary" type="submit">post</button>
+						</div>
+					</form>
+					<% post.comments.forEach(comment => { %>
+					<div class="collapse" id="see<%- post._id %>">
+						<div class="media mt-3 py-1 user-comment">
+							<div class="avatar-circle avatar mt-0 mr-3">
+								<span class="initials"> <%= comment.user.avatar %> </span>
+							</div>
+							<div class="media-body">
+								<h5 class="mt-0">
+									<span class="names">
+										<%= comment.user.firstName %> <%= comment.user.lastName%>
+									</span>
+									<span class="names">
+										<span class="tag">@</span><%= comment.user.username %>
+									</span>
+									<span class="post-time">
+										<span class="timestamp">
+											<%= momentMobile(comment.createdAt).twitterShort() %>
+										</span>
+									</span>
+								</h5>
+								<p><%= comment.statement %></p>
+								<form
+									class="comment__form"
+									action="/user/like-comment/<%- comment._id %>"
+									method="POST"
+								>
+									<input type="text" name="like" value="like" style="display: none" />
+									<div class="comment__btn">
+										<button class="like-btn" type="submit">
+											<a>
+												<i
+													class="fa fa-heart stroke-transparent comment-like__btn"
+													aria-hidden="true"
+												></i>
+											</a>
+										</button>
+										<span class="">
+											<% if(comment.likes.length <= 1) { %> <%= comment.likes.length
+											%>&nbsp;like <% } else { %> <%= comment.likes.length %>&nbsp;likes <%
+											} %>
+										</span>
+									</div>
+									<a
+										role="button"
+										class="mx-4"
+										style="color: inherit; text-decoration: none"
+										>Reply</a
+									>
+								</form>
+							</div>
+						</div>
 					</div>
+					<% }) %>
 				</div>
-				<% }) %>
 			</div>
-
-			<% }) %>
-		</main>
-	</div>
+			<div class="d-flex justify-content-between mt-4">
+				<form class="" action="/user/like-post/<%- post._id %>" method="POST">
+					<input type="text" name="like" value="like" style="display: none" />
+					<button class="like-btn" type="submit">
+						<a>
+							<i class="fa fa-heart stroke-transparent" aria-hidden="true"></i>
+						</a>
+					</button>
+				</form>
+				<span class="just-space"></span>
+				<a
+					class=""
+					data-toggle="collapse"
+					href="#see<%- post._id %>"
+					role="button"
+					aria-expanded="false"
+					aria-controls="see<%- post._id %>"
+				>
+					<i class="fas fa-comments stroke-transparent"></i>
+				</a>
+			</div>
+			<div class="d-flex justify-content-between mt-1">
+				<p>
+					<% if(post.likes.length <= 1) { %> <%= post.likes.length %>&nbsp;like <% }
+					else { %> <%= post.likes.length %>&nbsp;likes <% } %>
+				</p>
+				<p>
+					<% if(post.comments.length <= 1) { %>
+					<span> <%= post.comments.length %>&nbsp;comment</span>
+					<% } else { %>
+					<span> <%= post.comments.length %>&nbsp;comments</span>
+					<% } %>
+				</p>
+			</div>
+		</div>
+		<% }) %>
+	</main>
 </div>
 <!---end of user feeds-->
 

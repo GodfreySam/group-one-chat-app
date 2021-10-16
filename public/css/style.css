@@ -28,6 +28,11 @@ h6 {
 	font-family: "Poppins", sans-serif;
 }
 
+h5 {
+	font-size: 0.8rem;
+	font-weight: lighter;
+}
+
 .profile-feed {
 	position: fixed;
 	top: 0;
@@ -54,22 +59,7 @@ h6 {
 	.post-container {
 		padding: 0 16rem;
 	}
-
-		.user-post {
-		border-radius: 0 30px 0 30px;
-		background-color: #ced0d1;
-		margin: 1rem 0 1rem;
-		padding: 0 0 1rem 0;
-	}
-
-	.user-comment {
-		border-radius: 0 30px 0 30px;
-		background-color: #ffffff;
-		margin: 0.5rem 1rem 0.5rem;
-		font-size: smaller;
-	}
-
-		.avatar-circle {
+	.avatar-circle {
 		width: 30px !important;
 		height: 30px !important;
 		margin: 0.7rem !important;
@@ -86,7 +76,7 @@ h6 {
 ::placeholder {
 	color: #ced0d1;
 	opacity: 0.3;
-	font-size: 12.5px;
+	font-size: 12px;
 }
 
 .navbar-brand {
@@ -98,9 +88,24 @@ h6 {
 	-webkit-text-fill-color: transparent;
 }
 
+.comment__form {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+}
+
+.comment__btn {
+	display: flex;
+	flex-direction: row;
+}
+
 .like-btn {
 	background: none;
 	border: none;
+}
+
+i.comment-like__btn {
+	font-size: smaller !important;
 }
 
 .fa-comments,
@@ -219,46 +224,9 @@ h6 {
 	line-height: 0.5rem;
 }
 
-.user-post {
-	border-radius: 0 30px 0 30px;
-	background-color: #ced0d1;
-	margin: 1rem 0 2rem;
-	padding: 0 0 1rem 0;
-}
-
 .user-comment {
-	border-radius: 0 30px 0 30px;
 	background-color: #ffffff;
-	margin: 2rem 5rem 1rem;
 	font-size: smaller;
-}
-
-@media screen and (max-width: 748px) {
-
-		.user-post {
-		border-radius: 0 30px 0 30px;
-		background-color: #ced0d1;
-		margin: 1rem 0 1rem;
-		padding: 0 0 1rem 0;
-	}
-
-	.user-comment {
-		margin: 0.5rem 1rem 0.5rem;
-		font-size: smaller;
-	}
-
-		.avatar-circle {
-		width: 30px !important;
-		height: 30px !important;
-		margin: 0.7rem !important;
-	}
-
-	.avatar-circle .initials {
-		position: relative;
-		top: 0.2rem;
-		font-size: 0.7rem !important;
-		line-height: 0.3rem !important;
-	}
 }
 
 .user-details {
@@ -278,52 +246,23 @@ h6 {
 	font-weight: bold;
 }
 
-.post-time {
-	margin-left: 2rem;
-}
-
 .tag {
 	color: #007bff !important;
 }
 
 .timestamp {
-	margin-right: 10rem;
 	padding-bottom: 0;
-	margin-top: 3rem;
+	padding-left: 0.5rem;
 	font-size: 0.8rem;
 }
 
-.post-card,
-.comment-card {
-	display: flex;
-	flex-direction: column;
-	text-align: left;
-}
-
-.post-card .post-article {
-	max-width: 600px;
-}
-
-.comment-card .post-article,
-.comment-card form,
-.post-card .post-article,
-.post-card form {
-	padding-left: 4rem;
-}
-
-.post-article {
-	padding: 0;
-	margin-left: 0;
-	margin-right: 0;
-}
-
 .post-comment_form textarea {
-	border-radius: 0 5px 5px 30px;
+	height: 40px;
 }
 
 .post-comment_form button {
 	width: 60px;
-	height: 50px;
+	height: 40px;
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
 	border-radius: 5px 30px 30px 5px;
@@ -332,13 +271,25 @@ h6 {
 .post-comment_form .form-group {
 	display: flex;
 	flex-direction: row;
-	width: 80%;
-	border-radius: 30px;
+	width: 90%;
 }
 
 @media (min-width: 982px) {
 	.navbar {
 		display: none;
+	}
+
+	.avatar-circle {
+		width: 30px !important;
+		height: 30px !important;
+		margin: 0.7rem !important;
+	}
+
+	.avatar-circle .initials {
+		position: relative;
+		top: 0.2rem;
+		font-size: 0.7rem !important;
+		line-height: 0.3rem !important;
 	}
 }
 
@@ -353,7 +304,7 @@ h6 {
 		padding-right: 5rem;
 	}
 
-		.avatar-circle {
+	.avatar-circle {
 		width: 30px !important;
 		height: 30px !important;
 		margin: 0.7rem !important;
@@ -426,12 +377,7 @@ h6 {
 }
 
 @media (max-width: 780px) {
-	.page-item {
-		width: 100vw;
-		overflow-x: hidden;
-	}
-
-		.avatar-circle {
+	.avatar-circle {
 		width: 30px !important;
 		height: 30px !important;
 		margin: 0.7rem !important;
@@ -472,21 +418,7 @@ h6 {
 		width: 100vw;
 	}
 
-	.user-post {
-		border-radius: 0 30px 0 30px;
-		background-color: #ced0d1;
-		margin: 1rem 0 1rem;
-		padding: 0 0 1rem 0;
-	}
-
-	.user-comment {
-		border-radius: 0 30px 0 30px;
-		background-color: #ffffff;
-		margin: 0.5rem 1rem 0.5rem;
-		font-size: smaller;
-	}
-
-		.avatar-circle {
+	.avatar-circle {
 		width: 30px !important;
 		height: 30px !important;
 		margin: 0.7rem !important;
