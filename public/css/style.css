@@ -252,8 +252,8 @@ i.comment-like__btn {
 
 .timestamp {
 	padding-bottom: 0;
-	padding-left: 0.5rem;
-	font-size: 0.8rem;
+	padding-left: 1rem;
+	font-size: 0.7rem;
 }
 
 .post-comment_form textarea {
@@ -265,7 +265,7 @@ i.comment-like__btn {
 	height: 40px;
 	padding-top: 0 !important;
 	padding-bottom: 0 !important;
-	border-radius: 5px 30px 30px 5px;
+	/* border-radius: 5px 30px 30px 5px; */
 }
 
 .post-comment_form .form-group {

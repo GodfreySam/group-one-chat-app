@@ -19,6 +19,6 @@ fadeOut();
 const autoClose = () =>
 	setInterval(() => {
 		alert.forEach((el) => (el.style.display = "none"));
-	}, 3000);
+	}, 10000);
 
 autoClose();
