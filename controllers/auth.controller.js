@@ -156,6 +156,7 @@ module.exports = {
 		// console.log(user);
 		if (!user) {
 			req.flash("error-message", "User not found");
+			return res.redirect("back");
 		}
 		user.password = newHashedPassword;
 		// console.log(user.password);
